@@ -160,7 +160,7 @@ const translations = {
         'contact.intro': "Interested in collaborating or have an exciting project? Don't hesitate to reach out!",
         
         // Footer
-        'footer.note': 'Made with 💜 and lots of coffee',
+        'footer.note': 'Made with <svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg> and lots of coffee',
         
         // Artwork Page
         'artwork.title': 'ARTWORK GALLERY',
