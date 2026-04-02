@@ -1,322 +1,380 @@
 <!DOCTYPE html>
-<html lang="id" data-lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cleopatra Hapsari • Galeri Artwork</title>
+    <meta name="description" content="Artwork Gallery - Cleopatra Hapsari Admajindra | Digital Art, Illustrations, Character Design">
+    <meta name="author" content="Cleopatra Hapsari Admajindra">
+    <title>Artwork Gallery | Cleopatra Hapsari</title>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/ultra.css">
     <link rel="stylesheet" href="../css/pages.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5' fill='none' stroke='%2300ffcc' stroke-width='4'/%3E%3Ctext x='50' y='62' font-family='Arial Black' font-size='40' fill='%2300ffcc' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
 </head>
 <body>
     <!-- Custom Cursor -->
     <div class="cursor"></div>
-    <div class="cursor-trail"></div>
+    <div class="cursor-dot"></div>
+    <canvas id="cursor-trail"></canvas>
 
-    <!-- Scan Lines Overlay -->
+    <!-- Background Effects -->
+    <canvas id="particles-canvas"></canvas>
+    <div class="aurora-bg"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise-overlay"></div>
     <div class="scanlines"></div>
 
     <!-- Navigation -->
     <nav class="nav">
         <a href="../index.html" class="nav-logo">
-            <span class="logo-bracket">[</span>
-            <span class="logo-text">CHA</span>
-            <span class="logo-bracket">]</span>
+            <svg class="logo-hex" viewBox="0 0 100 100" width="45" height="45">
+                <defs>
+                    <linearGradient id="logoGradPage" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#00ffcc"/>
+                        <stop offset="50%" style="stop-color:#ff00aa"/>
+                        <stop offset="100%" style="stop-color:#7b2dff"/>
+                    </linearGradient>
+                    <filter id="glowPage">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <polygon class="hex-shape" points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" 
+                         fill="none" stroke="url(#logoGradPage)" stroke-width="3" filter="url(#glowPage)"/>
+                <text x="50" y="62" font-family="Orbitron, sans-serif" font-size="36" font-weight="900" 
+                      fill="url(#logoGradPage)" text-anchor="middle">C</text>
+            </svg>
         </a>
-        <ul class="nav-links">
-            <li><a href="../index.html#about"><span data-i18n="nav.about">TENTANG</span></a></li>
-            <li><a href="../index.html#skills"><span data-i18n="nav.skills">KEAHLIAN</span></a></li>
-            <li><a href="../index.html#experience"><span data-i18n="nav.experience">PENGALAMAN</span></a></li>
-            <li><a href="artwork.html" class="active"><span data-i18n="nav.artwork">ARTWORK</span></a></li>
-            <li><a href="projects.html"><span data-i18n="nav.projects">PROYEK</span></a></li>
-            <li><a href="../index.html#contact"><span data-i18n="nav.contact">KONTAK</span></a></li>
-        </ul>
-        <div class="nav-actions">
-            <button class="lang-toggle" id="langToggle">
-                <span class="lang-active">ID</span>
-                <span class="lang-divider">/</span>
-                <span class="lang-inactive">EN</span>
-            </button>
-            <button class="menu-toggle" id="menuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+        
+        <div class="nav-links">
+            <a href="../index.html#home" class="nav-link" data-i18n="nav.home">Home</a>
+            <a href="../index.html#about" class="nav-link" data-i18n="nav.about">About</a>
+            <a href="../index.html#skills" class="nav-link" data-i18n="nav.skills">Skills</a>
+            <a href="../index.html#projects" class="nav-link" data-i18n="nav.projects">Projects</a>
+            <a href="artwork.html" class="nav-link active" data-i18n="nav.artwork">Artwork</a>
+            <a href="projects.html" class="nav-link" data-i18n="nav.webprojects">Web Projects</a>
+            <a href="../index.html#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
         </div>
+
+        <div class="nav-actions">
+            <div class="lang-switch">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="id">ID</button>
+            </div>
+        </div>
+
+        <button class="menu-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <ul class="mobile-nav-links">
-            <li><a href="../index.html#about"><span data-i18n="nav.about">TENTANG</span></a></li>
-            <li><a href="../index.html#skills"><span data-i18n="nav.skills">KEAHLIAN</span></a></li>
-            <li><a href="../index.html#experience"><span data-i18n="nav.experience">PENGALAMAN</span></a></li>
-            <li><a href="artwork.html"><span data-i18n="nav.artwork">ARTWORK</span></a></li>
-            <li><a href="projects.html"><span data-i18n="nav.projects">PROYEK</span></a></li>
-            <li><a href="../index.html#contact"><span data-i18n="nav.contact">KONTAK</span></a></li>
-        </ul>
-    </div>
-
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="page-header-bg">
-            <div class="grid-overlay"></div>
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-            </div>
-        </div>
-        <div class="page-header-content">
-            <span class="page-label">PORTFOLIO</span>
-            <h1 class="page-title" data-i18n="artwork.title">GALERI ARTWORK</h1>
-            <p class="page-subtitle" data-i18n="artwork.subtitle">Koleksi ilustrasi dan karya seni digital saya</p>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="gallery-section">
-        <!-- Filter Tabs -->
-        <div class="filter-tabs">
-            <button class="filter-tab active" data-filter="all">
-                <span data-i18n="artwork.filter.all">Semua</span>
-            </button>
-            <button class="filter-tab" data-filter="character">
-                <span data-i18n="artwork.filter.character">Karakter</span>
-            </button>
-            <button class="filter-tab" data-filter="illustration">
-                <span data-i18n="artwork.filter.illustration">Ilustrasi</span>
-            </button>
-            <button class="filter-tab" data-filter="concept">
-                <span data-i18n="artwork.filter.concept">Concept Art</span>
-            </button>
-            <button class="filter-tab" data-filter="fanart">
-                <span data-i18n="artwork.filter.fanart">Fanart</span>
-            </button>
-        </div>
-
-        <!-- Artwork Grid -->
-        <div class="artwork-grid">
-            <!-- Artwork Item 1 -->
-            <div class="artwork-item" data-category="character">
-                <div class="artwork-image">
-                    <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&h=800&fit=crop" alt="Character Design">
-                    <div class="artwork-overlay">
-                        <div class="artwork-info">
-                            <h3>Amu - Character Design</h3>
-                            <p>Protagonist character untuk game Ophius Studio</p>
-                            <span class="artwork-tag">Character Design</span>
-                        </div>
-                        <button class="artwork-zoom">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="M21 21l-4.35-4.35"/>
-                                <path d="M11 8v6M8 11h6"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork Item 2 -->
-            <div class="artwork-item" data-category="illustration">
-                <div class="artwork-image">
-                    <img src="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?w=600&h=600&fit=crop" alt="Digital Illustration">
-                    <div class="artwork-overlay">
-                        <div class="artwork-info">
-                            <h3>Digital Dreams</h3>
-                            <p>Ilustrasi digital dengan tema cyberpunk</p>
-                            <span class="artwork-tag">Illustration</span>
-                        </div>
-                        <button class="artwork-zoom">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="M21 21l-4.35-4.35"/>
-                                <path d="M11 8v6M8 11h6"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork Item 3 -->
-            <div class="artwork-item" data-category="fanart">
-                <div class="artwork-image">
-                    <img src="https://images.unsplash.com/photo-1560807707-8cc77767d783?w=600&h=800&fit=crop" alt="Fanart">
-                    <div class="artwork-overlay">
-                        <div class="artwork-info">
-                            <h3>Hoyoverse Fanart</h3>
-                            <p>Fan illustration untuk karakter game favorit</p>
-                            <span class="artwork-tag">Fanart</span>
-                        </div>
-                        <button class="artwork-zoom">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="M21 21l-4.35-4.35"/>
-                                <path d="M11 8v6M8 11h6"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork Item 4 -->
-            <div class="artwork-item large" data-category="concept">
-                <div class="artwork-image">
-                    <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=1200&h=800&fit=crop" alt="Concept Art">
-                    <div class="artwork-overlay">
-                        <div class="artwork-info">
-                            <h3>Environment Concept</h3>
-                            <p>Level design concept art untuk game project</p>
-                            <span class="artwork-tag">Concept Art</span>
-                        </div>
-                        <button class="artwork-zoom">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="M21 21l-4.35-4.35"/>
-                                <path d="M11 8v6M8 11h6"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork Item 5 -->
-            <div class="artwork-item" data-category="character">
-                <div class="artwork-image">
-                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&h=600&fit=crop" alt="OC Design">
-                    <div class="artwork-overlay">
-                        <div class="artwork-info">
-                            <h3>Original Character</h3>
-                            <p>Commission work - OC design</p>
-                            <span class="artwork-tag">Character Design</span>
-                        </div>
-                        <button class="artwork-zoom">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="M21 21l-4.35-4.35"/>
-                                <path d="M11 8v6M8 11h6"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork Item 6 -->
-            <div class="artwork-item" data-category="illustration">
-                <div class="artwork-image">
-                    <img src="https://images.unsplash.com/photo-1549490349-8643362247b5?w=600&h=800&fit=crop" alt="Manga Style">
-                    <div class="artwork-overlay">
-                        <div class="artwork-info">
-                            <h3>Manga Illustration</h3>
-                            <p>1st Place DINUSFEST 2021</p>
-                            <span class="artwork-tag">Illustration</span>
-                        </div>
-                        <button class="artwork-zoom">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="M21 21l-4.35-4.35"/>
-                                <path d="M11 8v6M8 11h6"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork Item 7 -->
-            <div class="artwork-item" data-category="concept">
-                <div class="artwork-image">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&h=600&fit=crop" alt="Game UI">
-                    <div class="artwork-overlay">
-                        <div class="artwork-info">
-                            <h3>Game UI Design</h3>
-                            <p>User interface design untuk game project</p>
-                            <span class="artwork-tag">Concept Art</span>
-                        </div>
-                        <button class="artwork-zoom">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="M21 21l-4.35-4.35"/>
-                                <path d="M11 8v6M8 11h6"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork Item 8 -->
-            <div class="artwork-item" data-category="fanart">
-                <div class="artwork-image">
-                    <img src="https://images.unsplash.com/photo-1569701813229-33284b643e3c?w=600&h=800&fit=crop" alt="Anime Fanart">
-                    <div class="artwork-overlay">
-                        <div class="artwork-info">
-                            <h3>Anime Fanart</h3>
-                            <p>Ilustrasi karakter anime favorit</p>
-                            <span class="artwork-tag">Fanart</span>
-                        </div>
-                        <button class="artwork-zoom">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="M21 21l-4.35-4.35"/>
-                                <path d="M11 8v6M8 11h6"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Instagram CTA -->
-        <div class="gallery-cta">
-            <a href="https://www.instagram.com/cleo_cpha/" target="_blank" class="btn btn-primary">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Page Hero -->
+        <section class="page-hero">
+            <a href="../index.html" class="back-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>
-                <span class="btn-text" data-i18n="artwork.cta">Lihat lebih banyak di Instagram</span>
-                <span class="btn-icon">→</span>
-                <span class="btn-glitch"></span>
+                <span data-i18n="gallery.back">Back to Home</span>
             </a>
-        </div>
-    </section>
+            
+            <h1 class="page-title glitch-text" data-text="Artwork Gallery" data-i18n="gallery.title">Artwork Gallery</h1>
+            <p class="page-subtitle" data-i18n="gallery.subtitle">Digital Art & Illustrations</p>
+        </section>
 
-    <!-- Back Link -->
-    <div class="back-link">
-        <a href="../index.html" class="link-back">
-            <span class="link-arrow">←</span>
-            <span data-i18n="artwork.back">Kembali ke Beranda</span>
-        </a>
+        <!-- Filter Tabs -->
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all" data-i18n="gallery.filter.all">All</button>
+            <button class="filter-btn" data-filter="illustration" data-i18n="gallery.filter.illustration">Illustration</button>
+            <button class="filter-btn" data-filter="character" data-i18n="gallery.filter.character">Character Design</button>
+            <button class="filter-btn" data-filter="fanart" data-i18n="gallery.filter.fanart">Fan Art</button>
+            <button class="filter-btn" data-filter="concept" data-i18n="gallery.filter.concept">Concept Art</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-container">
+            <div class="gallery-grid">
+                <!-- Artwork 1 -->
+                <div class="gallery-item tilt-card" data-category="character">
+                    <img src="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?w=600&h=800&fit=crop" 
+                         alt="Character Design" class="gallery-image" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Character Design</span>
+                        <h3 class="gallery-title">Cyber Samurai</h3>
+                        <p class="gallery-description">Futuristic warrior character design with neon accents and cybernetic enhancements.</p>
+                        <div class="gallery-actions">
+                            <a href="#" class="gallery-action-btn">View Full</a>
+                            <a href="https://instagram.com/canvas.noe" class="gallery-action-btn" target="_blank">More on IG</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artwork 2 -->
+                <div class="gallery-item tilt-card" data-category="illustration">
+                    <img src="https://images.unsplash.com/photo-1633186710895-309db2eca9e4?w=600&h=600&fit=crop" 
+                         alt="Digital Illustration" class="gallery-image" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Illustration</span>
+                        <h3 class="gallery-title">Neon Dreams</h3>
+                        <p class="gallery-description">Vibrant digital illustration exploring themes of technology and nature.</p>
+                        <div class="gallery-actions">
+                            <a href="#" class="gallery-action-btn">View Full</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artwork 3 -->
+                <div class="gallery-item tilt-card" data-category="fanart">
+                    <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&h=750&fit=crop" 
+                         alt="Fan Art" class="gallery-image" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Fan Art</span>
+                        <h3 class="gallery-title">Anime Tribute</h3>
+                        <p class="gallery-description">Tribute artwork inspired by classic and modern anime aesthetics.</p>
+                        <div class="gallery-actions">
+                            <a href="#" class="gallery-action-btn">View Full</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artwork 4 -->
+                <div class="gallery-item tilt-card" data-category="concept">
+                    <img src="https://images.unsplash.com/photo-1614850715649-1d0106293bd1?w=600&h=800&fit=crop" 
+                         alt="Concept Art" class="gallery-image" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Concept Art</span>
+                        <h3 class="gallery-title">Floating City</h3>
+                        <p class="gallery-description">Environmental concept for a sci-fi game project featuring floating architecture.</p>
+                        <div class="gallery-actions">
+                            <a href="#" class="gallery-action-btn">View Full</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artwork 5 -->
+                <div class="gallery-item tilt-card" data-category="character">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&h=600&fit=crop" 
+                         alt="Character Design" class="gallery-image" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Character Design</span>
+                        <h3 class="gallery-title">Shadow Mage</h3>
+                        <p class="gallery-description">Dark fantasy character with magical abilities and mysterious aura.</p>
+                        <div class="gallery-actions">
+                            <a href="#" class="gallery-action-btn">View Full</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artwork 6 -->
+                <div class="gallery-item tilt-card" data-category="illustration">
+                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&h=750&fit=crop" 
+                         alt="Digital Art" class="gallery-image" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Illustration</span>
+                        <h3 class="gallery-title">Digital Storm</h3>
+                        <p class="gallery-description">Abstract digital painting exploring chaos and order in technology.</p>
+                        <div class="gallery-actions">
+                            <a href="#" class="gallery-action-btn">View Full</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artwork 7 -->
+                <div class="gallery-item tilt-card" data-category="fanart">
+                    <img src="https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=600&h=800&fit=crop" 
+                         alt="Fan Art" class="gallery-image" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Fan Art</span>
+                        <h3 class="gallery-title">Game Tribute</h3>
+                        <p class="gallery-description">Fan illustration celebrating beloved video game characters.</p>
+                        <div class="gallery-actions">
+                            <a href="#" class="gallery-action-btn">View Full</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artwork 8 -->
+                <div class="gallery-item tilt-card" data-category="concept">
+                    <img src="https://images.unsplash.com/photo-1604076913837-52ab5629fba9?w=600&h=600&fit=crop" 
+                         alt="Concept Art" class="gallery-image" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Concept Art</span>
+                        <h3 class="gallery-title">Mech Warrior</h3>
+                        <p class="gallery-description">Mechanical design concept for action RPG project.</p>
+                        <div class="gallery-actions">
+                            <a href="#" class="gallery-action-btn">View Full</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Artwork 9 -->
+                <div class="gallery-item tilt-card" data-category="illustration">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=750&fit=crop" 
+                         alt="Digital Art" class="gallery-image" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Illustration</span>
+                        <h3 class="gallery-title">Cosmic Journey</h3>
+                        <p class="gallery-description">Space-themed illustration with vibrant colors and ethereal elements.</p>
+                        <div class="gallery-actions">
+                            <a href="#" class="gallery-action-btn">View Full</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lightbox -->
+        <div class="lightbox" id="lightbox">
+            <button class="lightbox-close">&times;</button>
+            <button class="lightbox-nav lightbox-prev">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </button>
+            <div class="lightbox-content">
+                <img src="" alt="" class="lightbox-image">
+                <div class="lightbox-info">
+                    <h3 class="lightbox-title"></h3>
+                    <p class="lightbox-counter"></p>
+                </div>
+            </div>
+            <button class="lightbox-nav lightbox-next">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p class="page-footer-text">
+                <span data-i18n="footer.copyright">© 2025 Cleopatra Hapsari Admajindra. All rights reserved.</span>
+                <br>
+                <a href="https://instagram.com/canvas.noe" target="_blank" class="page-footer-link">@canvas.noe</a>
+            </p>
+        </footer>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-left">
-                <span class="footer-logo">[CHA]</span>
-                <p class="footer-text">© 2026 Cleopatra Hapsari Admajindra</p>
-            </div>
-            <div class="footer-right">
-                <span class="footer-note" data-i18n="footer.note">Dibuat dengan 💜 dan banyak kopi</span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 6L6 18M6 6l12 12"/>
-            </svg>
-        </button>
-        <img src="" alt="" class="lightbox-image">
-        <div class="lightbox-info">
-            <h3 class="lightbox-title"></h3>
-            <p class="lightbox-desc"></p>
-        </div>
-    </div>
-
+    <!-- VanillaTilt -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    
+    <!-- Scripts -->
+    <script src="../js/ultra.js"></script>
     <script src="../js/i18n.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/gallery.js"></script>
+    
+    <!-- Gallery Script -->
+    <script>
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                
+                galleryItems.forEach((item, index) => {
+                    const category = item.dataset.category;
+                    const shouldShow = filter === 'all' || category === filter;
+                    
+                    if (shouldShow) {
+                        item.style.display = 'block';
+                        item.style.animation = 'none';
+                        item.offsetHeight; // Trigger reflow
+                        item.style.animation = `fadeInUp 0.6s forwards ${index * 0.05}s`;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('.lightbox-image');
+        const lightboxTitle = lightbox.querySelector('.lightbox-title');
+        const lightboxCounter = lightbox.querySelector('.lightbox-counter');
+        const lightboxClose = lightbox.querySelector('.lightbox-close');
+        const lightboxPrev = lightbox.querySelector('.lightbox-prev');
+        const lightboxNext = lightbox.querySelector('.lightbox-next');
+        
+        let currentIndex = 0;
+        let visibleItems = [];
+        
+        function updateVisibleItems() {
+            visibleItems = Array.from(galleryItems).filter(item => item.style.display !== 'none');
+        }
+        
+        function openLightbox(index) {
+            updateVisibleItems();
+            currentIndex = index;
+            const item = visibleItems[index];
+            const img = item.querySelector('.gallery-image');
+            const title = item.querySelector('.gallery-title').textContent;
+            
+            lightboxImg.src = img.src;
+            lightboxTitle.textContent = title;
+            lightboxCounter.textContent = `${index + 1} / ${visibleItems.length}`;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        function navigate(direction) {
+            updateVisibleItems();
+            currentIndex = (currentIndex + direction + visibleItems.length) % visibleItems.length;
+            const item = visibleItems[currentIndex];
+            const img = item.querySelector('.gallery-image');
+            const title = item.querySelector('.gallery-title').textContent;
+            
+            lightboxImg.src = img.src;
+            lightboxTitle.textContent = title;
+            lightboxCounter.textContent = `${currentIndex + 1} / ${visibleItems.length}`;
+        }
+        
+        // Event listeners
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => openLightbox(index));
+        });
+        
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', () => navigate(-1));
+        lightboxNext.addEventListener('click', () => navigate(1));
+        
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
+        });
+        
+        // Initialize visible items
+        updateVisibleItems();
+    </script>
 </body>
 </html>
