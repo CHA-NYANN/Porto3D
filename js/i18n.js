@@ -1,276 +1,424 @@
-/* =====================================================
-   CLEOPATRA PORTFOLIO - INTERNATIONALIZATION (i18n)
-   Supports: Indonesian (ID) & English (EN)
-   ===================================================== */
+/**
+ * ULTRA PORTFOLIO - Internationalization System
+ * Supports: Indonesian (ID) & English (EN)
+ */
 
 const translations = {
-    id: {
-        // Navigation
-        'nav.about': 'TENTANG',
-        'nav.skills': 'KEAHLIAN',
-        'nav.experience': 'PENGALAMAN',
-        'nav.artwork': 'ARTWORK',
-        'nav.projects': 'PROYEK',
-        'nav.contact': 'KONTAK',
-        
-        // Hero
-        'hero.status': 'TERSEDIA UNTUK KERJA',
-        'hero.hello': 'Halo, Saya',
-        'hero.role1': 'Game Designer',
-        'hero.role2': 'AI Researcher',
-        'hero.role3': '2D Artist',
-        'hero.role4': 'Full-stack Developer',
-        'hero.desc': 'Menciptakan pengalaman digital yang immersive melalui game design, AI research, dan development. Berbasis di Indonesia.',
-        'hero.cta1': 'LIHAT PROYEK',
-        'hero.cta2': 'HUBUNGI SAYA',
-        'hero.stat1': 'Tahun Berkarya',
-        'hero.stat2': 'Proyek Selesai',
-        'hero.stat3': 'Penghargaan',
-        
-        // About
-        'about.title': 'TENTANG SAYA',
-        'about.p1': 'Saya Cleopatra Hapsari Admajindra, mahasiswa Computer Science di Universitas Dian Nuswantoro dengan passion besar di game design, AI research, dan digital art.',
-        'about.p2': 'Perjalanan saya dimulai dari 2D illustration sejak 2018, berkembang ke game development, dan kini merambah AI research. Saya percaya bahwa kreativitas dan teknologi bisa berjalan beriringan untuk menciptakan pengalaman yang memorable.',
-        'about.p3': '• Author & Presenter di ICIMCIS 2025 (IEEE)<br>• 1st Place Conventional Manga DINUSFEST 2021<br>• 2nd Place ACGN Writing Competition<br>• Published Research on AI in Games',
-        'about.edu': 'PENDIDIKAN',
-        'about.loc': 'LOKASI',
-        'about.focus': 'FOKUS RISET',
-        'about.current': 'SAAT INI',
-        
-        // Skills
-        'skills.title': 'KEAHLIAN',
-        'skills.game': 'Game Development',
-        'skills.web': 'Web Development',
-        'skills.art': 'Digital Art',
-        'skills.ai': 'AI & Research',
-        'skills.mobile': 'Mobile & Others',
-        'skills.creative': 'Creative Writing',
-        
-        // Experience
-        'exp.title': 'PENGALAMAN',
-        'exp.ophius': 'Mendesain level dan narasi untuk game debut studio, termasuk gameplay flow, pacing, dan player progression. Menulis dan memelihara Game Design Document (GDD).',
-        'exp.taiwan': 'Riset kolaborasi internasional tentang AI, LLM/SLM dalam game strategi. Co-author paper "Context-Aware Small Language Models for Real Time Strategy Prediction" di ICIMCIS 2025.',
-        'exp.gemastik': 'Memimpin tim 3 orang dalam mengembangkan educational simulation game. Mengelola timeline proyek, kontribusi visual design termasuk UI dan character assets.',
-        'exp.artist': 'Menyediakan jasa ilustrasi karakter anime-style termasuk OC, fanart, dan game concept art. Memenangkan beberapa kompetisi ilustrasi tingkat nasional.',
-        'exp.cta': 'LIHAT SEMUA PROYEK',
-        
-        // Featured
-        'featured.title': 'PROYEK UNGGULAN',
-        'featured.inkura': 'Platform full-stack untuk membaca dan upload komik, novel, dan film.',
-        'featured.ophius': 'Website studio game dengan 3D galaxy interactive experience.',
-        'featured.sumobot': 'Game riset AI dengan paper published di IEEE ICIMCIS 2025.',
-        'featured.view': 'KUNJUNGI SITE',
-        'featured.paper': 'BACA PAPER',
-        'featured.all_projects': 'Semua Proyek Web',
-        'featured.all_art': 'Galeri Artwork',
-        
-        // Contact
-        'contact.title': 'HUBUNGI SAYA',
-        'contact.intro': 'Tertarik berkolaborasi atau punya proyek menarik? Jangan ragu untuk menghubungi saya!',
-        
-        // Footer
-        'footer.note': 'Dibuat dengan <svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" style="display:inline-block;vertical-align:-0.15em;"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> dan banyak kopi',
-        
-        // Artwork Page
-        'artwork.title': 'GALERI ARTWORK',
-        'artwork.subtitle': 'Koleksi ilustrasi dan karya seni digital saya',
-        'artwork.filter.all': 'Semua',
-        'artwork.filter.character': 'Karakter',
-        'artwork.filter.illustration': 'Ilustrasi',
-        'artwork.filter.concept': 'Concept Art',
-        'artwork.filter.fanart': 'Fanart',
-        'artwork.cta': 'Lihat lebih banyak di Instagram',
-        'artwork.back': 'Kembali ke Beranda',
-        
-        // Projects Page
-        'projects.title': 'PROYEK WEB',
-        'projects.subtitle': 'Koleksi proyek web development yang telah saya kerjakan',
-        'projects.filter.all': 'Semua',
-        'projects.filter.fullstack': 'Full-stack',
-        'projects.filter.frontend': 'Frontend',
-        'projects.filter.research': 'Research',
-        'projects.view': 'KUNJUNGI SITE',
-        'projects.github': 'GITHUB',
-        'projects.paper': 'BACA PAPER',
-        'projects.back': 'Kembali ke Beranda'
-    },
-    
     en: {
         // Navigation
-        'nav.about': 'ABOUT',
-        'nav.skills': 'SKILLS',
-        'nav.experience': 'EXPERIENCE',
-        'nav.artwork': 'ARTWORK',
-        'nav.projects': 'PROJECTS',
-        'nav.contact': 'CONTACT',
+        'nav.home': 'Home',
+        'nav.about': 'About',
+        'nav.skills': 'Skills',
+        'nav.experience': 'Journey',
+        'nav.projects': 'Projects',
+        'nav.awards': 'Awards',
+        'nav.contact': 'Contact',
+        'nav.artwork': 'Artwork',
+        'nav.webprojects': 'Web Projects',
         
-        // Hero
-        'hero.status': 'AVAILABLE FOR WORK',
-        'hero.hello': "Hi, I'm",
-        'hero.role1': 'Game Designer',
-        'hero.role2': 'AI Researcher',
-        'hero.role3': '2D Artist',
-        'hero.role4': 'Full-stack Developer',
-        'hero.desc': 'Creating immersive digital experiences through game design, AI research, and development. Based in Indonesia.',
-        'hero.cta1': 'VIEW PROJECTS',
-        'hero.cta2': 'CONTACT ME',
-        'hero.stat1': 'Years Creating',
-        'hero.stat2': 'Projects Done',
-        'hero.stat3': 'Awards',
+        // Hero Section
+        'hero.greeting': 'Hello, World!',
+        'hero.intro': "I'm",
+        'hero.name': 'Cleopatra Hapsari',
+        'hero.tagline': 'Crafting Digital Experiences at the Intersection of Art & Technology',
+        'hero.cta.projects': 'View Projects',
+        'hero.cta.contact': 'Contact Me',
+        'hero.scroll': 'Scroll to Explore',
         
-        // About
-        'about.title': 'ABOUT ME',
-        'about.p1': "I'm Cleopatra Hapsari Admajindra, a Computer Science student at Universitas Dian Nuswantoro with a strong passion for game design, AI research, and digital art.",
-        'about.p2': 'My journey started with 2D illustration since 2018, evolved into game development, and now ventures into AI research. I believe creativity and technology can work together to create memorable experiences.',
-        'about.p3': '• Author & Presenter at ICIMCIS 2025 (IEEE)<br>• 1st Place Conventional Manga DINUSFEST 2021<br>• 2nd Place ACGN Writing Competition<br>• Published Research on AI in Games',
-        'about.edu': 'EDUCATION',
-        'about.loc': 'LOCATION',
-        'about.focus': 'RESEARCH FOCUS',
-        'about.current': 'CURRENT',
+        // Roles
+        'role.gamedesigner': 'Game Designer',
+        'role.fullstack': 'Full-Stack Developer',
+        'role.airesearcher': 'AI Researcher',
+        'role.artist': '2D Artist',
         
-        // Skills
-        'skills.title': 'SKILLS',
-        'skills.game': 'Game Development',
-        'skills.web': 'Web Development',
-        'skills.art': 'Digital Art',
-        'skills.ai': 'AI & Research',
-        'skills.mobile': 'Mobile & Others',
-        'skills.creative': 'Creative Writing',
+        // About Section
+        'about.title': 'About Me',
+        'about.subtitle': 'Who Am I?',
+        'about.description': 'A multidisciplinary creative technologist from Semarang, Indonesia. I blend artistic vision with technical expertise to create immersive digital experiences. Currently pursuing Computer Science at Universitas Dian Nuswantoro with a GPA of 3.73.',
+        'about.passion': 'My passion lies in game development, AI research, and creating beautiful user interfaces that tell stories.',
         
-        // Experience
-        'exp.title': 'EXPERIENCE',
-        'exp.ophius': "Designing levels and narratives for the studio's debut game, including gameplay flow, pacing, and player progression. Writing and maintaining Game Design Document (GDD).",
-        'exp.taiwan': 'International collaborative research on AI, LLM/SLM in strategy games. Co-authored paper "Context-Aware Small Language Models for Real Time Strategy Prediction" at ICIMCIS 2025.',
-        'exp.gemastik': 'Led a 3-member team in developing an educational simulation game. Managed project timeline, contributed to visual design including UI and character assets.',
-        'exp.artist': 'Providing anime-style character illustration services including OC, fanart, and game concept art. Won multiple national-level illustration competitions.',
-        'exp.cta': 'VIEW ALL PROJECTS',
+        // Stats
+        'stats.experience': 'Years Experience',
+        'stats.projects': 'Projects Completed',
+        'stats.awards': 'Awards Won',
+        'stats.clients': 'Happy Clients',
         
-        // Featured
-        'featured.title': 'FEATURED PROJECTS',
-        'featured.inkura': 'Full-stack platform for reading and uploading comics, novels, and films.',
-        'featured.ophius': 'Game studio website with 3D galaxy interactive experience.',
-        'featured.sumobot': 'AI research game with paper published at IEEE ICIMCIS 2025.',
-        'featured.view': 'VISIT SITE',
-        'featured.paper': 'READ PAPER',
-        'featured.all_projects': 'All Web Projects',
-        'featured.all_art': 'Artwork Gallery',
+        // Skills Section
+        'skills.title': 'Skills & Arsenal',
+        'skills.subtitle': 'Technologies I Command',
+        'skills.gamedev': 'Game Development',
+        'skills.webdev': 'Web Development',
+        'skills.aiml': 'AI & Machine Learning',
+        'skills.design': 'Design & Art',
         
-        // Contact
-        'contact.title': 'CONTACT ME',
-        'contact.intro': "Interested in collaborating or have an exciting project? Don't hesitate to reach out!",
+        // Experience Section
+        'experience.title': 'Journey & Experience',
+        'experience.subtitle': 'My Professional Path',
+        'experience.present': 'Present',
+        
+        // Experience Items
+        'exp.ophius.title': 'Game Designer',
+        'exp.ophius.company': 'Ophius Studio',
+        'exp.ophius.date': '2024 - Present',
+        'exp.ophius.desc': 'Leading game design initiatives, creating immersive gameplay experiences and narrative systems for indie game projects.',
+        
+        'exp.igs.title': 'AI Research Intern',
+        'exp.igs.company': 'IGS & NTUST Taiwan',
+        'exp.igs.date': '2024 - 2025',
+        'exp.igs.desc': 'Conducted research on AI-powered robotics, specifically Sumobot autonomous systems using computer vision and machine learning.',
+        
+        'exp.gemastik.title': 'Lead Developer',
+        'exp.gemastik.company': 'Feiren Team - GEMASTIK 2025',
+        'exp.gemastik.date': '2025',
+        'exp.gemastik.desc': 'Developing innovative solutions for national technology competition, focusing on cutting-edge software development.',
+        
+        'exp.freelance.title': 'Freelance 2D Artist',
+        'exp.freelance.company': 'Self-Employed',
+        'exp.freelance.date': '2018 - Present',
+        'exp.freelance.desc': 'Creating digital illustrations, character designs, and visual assets for various clients worldwide.',
+        
+        'exp.fullstack.title': 'Full-Stack Developer',
+        'exp.fullstack.company': 'Various Projects',
+        'exp.fullstack.date': '2023 - Present',
+        'exp.fullstack.desc': 'Building modern web applications using React, Next.js, and Node.js for startups and established businesses.',
+        
+        // Projects Section
+        'projects.title': 'Featured Projects',
+        'projects.subtitle': 'Recent Works',
+        'projects.viewall': 'View All Projects',
+        'projects.viewlive': 'View Live',
+        'projects.viewcode': 'View Code',
+        
+        // Project Items
+        'project.inkura.title': 'Inkura',
+        'project.inkura.desc': 'A comprehensive digital manga platform built with modern web technologies, featuring reading, publishing, and community features.',
+        'project.inkura.tags': 'Next.js, React, Prisma, TypeScript',
+        
+        'project.ophius.title': 'Ophius Studio',
+        'project.ophius.desc': 'Official website for indie game studio showcasing projects, team, and development blog with stunning visuals.',
+        'project.ophius.tags': 'React, Three.js, GSAP, Vercel',
+        
+        'project.sumobot.title': 'Sumobot AI',
+        'project.sumobot.desc': 'Autonomous sumobot system using computer vision and machine learning, published in IEEE ICIMCIS 2025.',
+        'project.sumobot.tags': 'Python, OpenCV, TensorFlow, Arduino',
+        
+        'project.siakad.title': 'SIAKAD UDINUS',
+        'project.siakad.desc': 'Academic information system for Universitas Dian Nuswantoro, handling student data, grades, and scheduling.',
+        'project.siakad.tags': 'PHP, Laravel, MySQL, Bootstrap',
+        
+        // Awards Section
+        'awards.title': 'Awards & Recognition',
+        'awards.subtitle': 'Achievements Unlocked',
+        
+        // Award Items
+        'award.manga.title': '1st Place - Manga Competition',
+        'award.manga.event': 'DINUSFEST 2021',
+        'award.manga.desc': 'Won first place in the manga drawing competition, showcasing artistic skills and storytelling ability.',
+        
+        'award.acgn.title': '2nd Place - ACGN Writing',
+        'award.acgn.event': 'ACGN Competition 2022',
+        'award.acgn.desc': 'Recognized for creative writing excellence in anime, comic, game, and novel category.',
+        
+        'award.ieee.title': 'Published Research Paper',
+        'award.ieee.event': 'IEEE ICIMCIS 2025',
+        'award.ieee.desc': 'Published research on AI-powered Sumobot in prestigious IEEE conference proceedings.',
+        
+        // Contact Section
+        'contact.title': 'Get In Touch',
+        'contact.subtitle': "Let's Connect",
+        'contact.description': "Have a project in mind or just want to say hello? I'm always open to discussing new opportunities and creative collaborations.",
+        'contact.email': 'Email Me',
+        'contact.phone': 'Call Me',
+        'contact.location': 'Location',
+        'contact.social': 'Social Media',
         
         // Footer
-        'footer.note': 'Made with <svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg> and lots of coffee',
+        'footer.copyright': '© 2025 Cleopatra Hapsari Admajindra. All rights reserved.',
+        'footer.madewidth': 'Made with',
+        'footer.and': 'and',
+        'footer.coffee': 'lots of coffee',
         
-        // Artwork Page
-        'artwork.title': 'ARTWORK GALLERY',
-        'artwork.subtitle': 'Collection of my illustrations and digital artworks',
-        'artwork.filter.all': 'All',
-        'artwork.filter.character': 'Character',
-        'artwork.filter.illustration': 'Illustration',
-        'artwork.filter.concept': 'Concept Art',
-        'artwork.filter.fanart': 'Fanart',
-        'artwork.cta': 'See more on Instagram',
-        'artwork.back': 'Back to Home',
+        // Gallery Page
+        'gallery.title': 'Artwork Gallery',
+        'gallery.subtitle': 'Digital Art & Illustrations',
+        'gallery.filter.all': 'All',
+        'gallery.filter.illustration': 'Illustration',
+        'gallery.filter.character': 'Character Design',
+        'gallery.filter.fanart': 'Fan Art',
+        'gallery.filter.concept': 'Concept Art',
+        'gallery.back': 'Back to Home',
         
         // Projects Page
-        'projects.title': 'WEB PROJECTS',
-        'projects.subtitle': 'Collection of web development projects I have worked on',
-        'projects.filter.all': 'All',
-        'projects.filter.fullstack': 'Full-stack',
-        'projects.filter.frontend': 'Frontend',
-        'projects.filter.research': 'Research',
-        'projects.view': 'VISIT SITE',
-        'projects.github': 'GITHUB',
-        'projects.paper': 'READ PAPER',
-        'projects.back': 'Back to Home'
-    }
-};
-
-// Current language
-let currentLang = localStorage.getItem('portfolio-lang') || 'id';
-
-// Initialize i18n
-document.addEventListener('DOMContentLoaded', () => {
-    initLanguage();
-    initLanguageToggle();
-});
-
-function initLanguage() {
-    document.documentElement.setAttribute('data-lang', currentLang);
-    updateAllTranslations();
-    updateToggleDisplay();
-}
-
-function initLanguageToggle() {
-    const toggleBtn = document.getElementById('langToggle');
-    if (!toggleBtn) return;
-    
-    toggleBtn.addEventListener('click', () => {
-        currentLang = currentLang === 'id' ? 'en' : 'id';
-        localStorage.setItem('portfolio-lang', currentLang);
-        document.documentElement.setAttribute('data-lang', currentLang);
-        updateAllTranslations();
-        updateToggleDisplay();
-    });
-}
-
-function updateToggleDisplay() {
-    const toggleBtn = document.getElementById('langToggle');
-    if (!toggleBtn) return;
-    
-    const activeSpan = toggleBtn.querySelector('.lang-active');
-    const inactiveSpan = toggleBtn.querySelector('.lang-inactive');
-    
-    if (currentLang === 'id') {
-        activeSpan.textContent = 'ID';
-        inactiveSpan.textContent = 'EN';
-    } else {
-        activeSpan.textContent = 'EN';
-        inactiveSpan.textContent = 'ID';
-    }
-}
-
-function updateAllTranslations() {
-    const elements = document.querySelectorAll('[data-i18n]');
-    
-    elements.forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        const translation = translations[currentLang][key];
+        'webprojects.title': 'Web Projects',
+        'webprojects.subtitle': 'Full-Stack Development Portfolio',
+        'webprojects.filter.all': 'All',
+        'webprojects.filter.frontend': 'Frontend',
+        'webprojects.filter.fullstack': 'Full-Stack',
+        'webprojects.filter.game': 'Game Dev',
+        'webprojects.back': 'Back to Home',
         
-        if (translation) {
-            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                el.placeholder = translation;
-            } else {
-                el.innerHTML = translation;
-            }
-        }
-    });
+        // Misc
+        'misc.loading': 'Loading...',
+        'misc.viewmore': 'View More',
+        'misc.close': 'Close',
+        'misc.next': 'Next',
+        'misc.prev': 'Previous'
+    },
     
-    // Update page title based on current page
-    updatePageTitle();
-}
-
-function updatePageTitle() {
-    const path = window.location.pathname;
-    let title = 'Cleopatra Hapsari • ';
-    
-    if (path.includes('artwork')) {
-        title += currentLang === 'id' ? 'Galeri Artwork' : 'Artwork Gallery';
-    } else if (path.includes('projects')) {
-        title += currentLang === 'id' ? 'Proyek Web' : 'Web Projects';
-    } else {
-        title += 'Game Designer & Developer';
+    id: {
+        // Navigation
+        'nav.home': 'Beranda',
+        'nav.about': 'Tentang',
+        'nav.skills': 'Keahlian',
+        'nav.experience': 'Perjalanan',
+        'nav.projects': 'Proyek',
+        'nav.awards': 'Penghargaan',
+        'nav.contact': 'Kontak',
+        'nav.artwork': 'Karya Seni',
+        'nav.webprojects': 'Proyek Web',
+        
+        // Hero Section
+        'hero.greeting': 'Halo, Dunia!',
+        'hero.intro': 'Saya',
+        'hero.name': 'Cleopatra Hapsari',
+        'hero.tagline': 'Menciptakan Pengalaman Digital di Persimpangan Seni & Teknologi',
+        'hero.cta.projects': 'Lihat Proyek',
+        'hero.cta.contact': 'Hubungi Saya',
+        'hero.scroll': 'Scroll untuk Eksplorasi',
+        
+        // Roles
+        'role.gamedesigner': 'Desainer Game',
+        'role.fullstack': 'Developer Full-Stack',
+        'role.airesearcher': 'Peneliti AI',
+        'role.artist': 'Seniman 2D',
+        
+        // About Section
+        'about.title': 'Tentang Saya',
+        'about.subtitle': 'Siapa Saya?',
+        'about.description': 'Seorang kreator teknologi multidisiplin dari Semarang, Indonesia. Saya memadukan visi artistik dengan keahlian teknis untuk menciptakan pengalaman digital yang imersif. Saat ini menempuh Ilmu Komputer di Universitas Dian Nuswantoro dengan IPK 3.73.',
+        'about.passion': 'Passion saya terletak pada pengembangan game, riset AI, dan menciptakan antarmuka pengguna yang indah yang bercerita.',
+        
+        // Stats
+        'stats.experience': 'Tahun Pengalaman',
+        'stats.projects': 'Proyek Selesai',
+        'stats.awards': 'Penghargaan',
+        'stats.clients': 'Klien Puas',
+        
+        // Skills Section
+        'skills.title': 'Keahlian & Arsenal',
+        'skills.subtitle': 'Teknologi yang Saya Kuasai',
+        'skills.gamedev': 'Pengembangan Game',
+        'skills.webdev': 'Pengembangan Web',
+        'skills.aiml': 'AI & Machine Learning',
+        'skills.design': 'Desain & Seni',
+        
+        // Experience Section
+        'experience.title': 'Perjalanan & Pengalaman',
+        'experience.subtitle': 'Jejak Profesional Saya',
+        'experience.present': 'Sekarang',
+        
+        // Experience Items
+        'exp.ophius.title': 'Desainer Game',
+        'exp.ophius.company': 'Ophius Studio',
+        'exp.ophius.date': '2024 - Sekarang',
+        'exp.ophius.desc': 'Memimpin inisiatif desain game, menciptakan pengalaman gameplay imersif dan sistem naratif untuk proyek game indie.',
+        
+        'exp.igs.title': 'Intern Riset AI',
+        'exp.igs.company': 'IGS & NTUST Taiwan',
+        'exp.igs.date': '2024 - 2025',
+        'exp.igs.desc': 'Melakukan riset tentang robotika bertenaga AI, khususnya sistem otonom Sumobot menggunakan computer vision dan machine learning.',
+        
+        'exp.gemastik.title': 'Lead Developer',
+        'exp.gemastik.company': 'Tim Feiren - GEMASTIK 2025',
+        'exp.gemastik.date': '2025',
+        'exp.gemastik.desc': 'Mengembangkan solusi inovatif untuk kompetisi teknologi nasional, fokus pada pengembangan software mutakhir.',
+        
+        'exp.freelance.title': 'Seniman 2D Freelance',
+        'exp.freelance.company': 'Wiraswasta',
+        'exp.freelance.date': '2018 - Sekarang',
+        'exp.freelance.desc': 'Membuat ilustrasi digital, desain karakter, dan aset visual untuk berbagai klien di seluruh dunia.',
+        
+        'exp.fullstack.title': 'Developer Full-Stack',
+        'exp.fullstack.company': 'Berbagai Proyek',
+        'exp.fullstack.date': '2023 - Sekarang',
+        'exp.fullstack.desc': 'Membangun aplikasi web modern menggunakan React, Next.js, dan Node.js untuk startup dan bisnis established.',
+        
+        // Projects Section
+        'projects.title': 'Proyek Unggulan',
+        'projects.subtitle': 'Karya Terbaru',
+        'projects.viewall': 'Lihat Semua Proyek',
+        'projects.viewlive': 'Lihat Live',
+        'projects.viewcode': 'Lihat Kode',
+        
+        // Project Items
+        'project.inkura.title': 'Inkura',
+        'project.inkura.desc': 'Platform manga digital komprehensif dibangun dengan teknologi web modern, menampilkan fitur membaca, menerbitkan, dan komunitas.',
+        'project.inkura.tags': 'Next.js, React, Prisma, TypeScript',
+        
+        'project.ophius.title': 'Ophius Studio',
+        'project.ophius.desc': 'Website resmi untuk studio game indie yang menampilkan proyek, tim, dan blog pengembangan dengan visual memukau.',
+        'project.ophius.tags': 'React, Three.js, GSAP, Vercel',
+        
+        'project.sumobot.title': 'Sumobot AI',
+        'project.sumobot.desc': 'Sistem sumobot otonom menggunakan computer vision dan machine learning, dipublikasikan di IEEE ICIMCIS 2025.',
+        'project.sumobot.tags': 'Python, OpenCV, TensorFlow, Arduino',
+        
+        'project.siakad.title': 'SIAKAD UDINUS',
+        'project.siakad.desc': 'Sistem informasi akademik untuk Universitas Dian Nuswantoro, menangani data mahasiswa, nilai, dan penjadwalan.',
+        'project.siakad.tags': 'PHP, Laravel, MySQL, Bootstrap',
+        
+        // Awards Section
+        'awards.title': 'Penghargaan & Pengakuan',
+        'awards.subtitle': 'Achievement Unlocked',
+        
+        // Award Items
+        'award.manga.title': 'Juara 1 - Kompetisi Manga',
+        'award.manga.event': 'DINUSFEST 2021',
+        'award.manga.desc': 'Meraih juara pertama dalam kompetisi menggambar manga, menunjukkan keterampilan artistik dan kemampuan bercerita.',
+        
+        'award.acgn.title': 'Juara 2 - Penulisan ACGN',
+        'award.acgn.event': 'Kompetisi ACGN 2022',
+        'award.acgn.desc': 'Diakui atas keunggulan penulisan kreatif dalam kategori anime, komik, game, dan novel.',
+        
+        'award.ieee.title': 'Paper Riset Terpublikasi',
+        'award.ieee.event': 'IEEE ICIMCIS 2025',
+        'award.ieee.desc': 'Mempublikasikan riset tentang Sumobot bertenaga AI di prosiding konferensi IEEE yang prestisius.',
+        
+        // Contact Section
+        'contact.title': 'Hubungi Saya',
+        'contact.subtitle': 'Mari Terhubung',
+        'contact.description': 'Punya proyek dalam pikiran atau hanya ingin menyapa? Saya selalu terbuka untuk mendiskusikan peluang baru dan kolaborasi kreatif.',
+        'contact.email': 'Email Saya',
+        'contact.phone': 'Telepon Saya',
+        'contact.location': 'Lokasi',
+        'contact.social': 'Media Sosial',
+        
+        // Footer
+        'footer.copyright': '© 2025 Cleopatra Hapsari Admajindra. Hak cipta dilindungi.',
+        'footer.madewidth': 'Dibuat dengan',
+        'footer.and': 'dan',
+        'footer.coffee': 'banyak kopi',
+        
+        // Gallery Page
+        'gallery.title': 'Galeri Karya Seni',
+        'gallery.subtitle': 'Seni Digital & Ilustrasi',
+        'gallery.filter.all': 'Semua',
+        'gallery.filter.illustration': 'Ilustrasi',
+        'gallery.filter.character': 'Desain Karakter',
+        'gallery.filter.fanart': 'Fan Art',
+        'gallery.filter.concept': 'Concept Art',
+        'gallery.back': 'Kembali ke Beranda',
+        
+        // Projects Page
+        'webprojects.title': 'Proyek Web',
+        'webprojects.subtitle': 'Portfolio Pengembangan Full-Stack',
+        'webprojects.filter.all': 'Semua',
+        'webprojects.filter.frontend': 'Frontend',
+        'webprojects.filter.fullstack': 'Full-Stack',
+        'webprojects.filter.game': 'Game Dev',
+        'webprojects.back': 'Kembali ke Beranda',
+        
+        // Misc
+        'misc.loading': 'Memuat...',
+        'misc.viewmore': 'Lihat Lebih',
+        'misc.close': 'Tutup',
+        'misc.next': 'Selanjutnya',
+        'misc.prev': 'Sebelumnya'
     }
-    
-    document.title = title;
+};
+
+class I18n {
+    constructor() {
+        this.currentLang = localStorage.getItem('language') || 'en';
+        this.init();
+    }
+
+    init() {
+        // Set initial language
+        this.setLanguage(this.currentLang);
+        
+        // Language switcher
+        const langButtons = document.querySelectorAll('.lang-btn');
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                this.setLanguage(lang);
+                
+                // Update active state
+                langButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+            
+            // Set initial active state
+            if (btn.dataset.lang === this.currentLang) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    setLanguage(lang) {
+        this.currentLang = lang;
+        localStorage.setItem('language', lang);
+        document.documentElement.setAttribute('lang', lang);
+        
+        // Translate all elements with data-i18n attribute
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            const translation = this.translate(key);
+            
+            if (translation) {
+                // Check if it's an input placeholder
+                if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
+                    element.placeholder = translation;
+                } else {
+                    element.textContent = translation;
+                }
+            }
+        });
+
+        // Translate data-i18n-title for tooltips
+        document.querySelectorAll('[data-i18n-title]').forEach(element => {
+            const key = element.getAttribute('data-i18n-title');
+            const translation = this.translate(key);
+            if (translation) {
+                element.title = translation;
+            }
+        });
+
+        // Translate data-i18n-aria for accessibility
+        document.querySelectorAll('[data-i18n-aria]').forEach(element => {
+            const key = element.getAttribute('data-i18n-aria');
+            const translation = this.translate(key);
+            if (translation) {
+                element.setAttribute('aria-label', translation);
+            }
+        });
+
+        // Dispatch custom event
+        window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+    }
+
+    translate(key) {
+        return translations[this.currentLang]?.[key] || translations['en'][key] || key;
+    }
+
+    getCurrentLanguage() {
+        return this.currentLang;
+    }
+
+    getTranslations(lang) {
+        return translations[lang] || translations['en'];
+    }
 }
 
-// Expose function globally for dynamic content
-window.t = function(key) {
-    return translations[currentLang][key] || key;
-};
+// Initialize I18n
+const i18n = new I18n();
 
-window.getCurrentLang = function() {
-    return currentLang;
-};
+// Export for global usage
+window.i18n = i18n;
+window.t = (key) => i18n.translate(key);
+
+// Export for module usage
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { I18n, translations };
+}

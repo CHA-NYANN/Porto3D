@@ -1,664 +1,354 @@
 <!DOCTYPE html>
-<html lang="id" data-lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cleopatra Hapsari • Game Designer & Developer</title>
+    <title>CLEOPATRA HAPSARI // PORTFOLIO SYSTEM</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pgr-style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5' fill='none' stroke='%23e63946' stroke-width='4'/%3E%3Ctext x='50' y='62' font-family='monospace' font-size='40' fill='%23e63946' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-trail"></div>
-
-    <!-- Loader -->
-    <div class="loader">
-        <div class="loader-content">
-            <div class="loader-glitch" data-text="LOADING">LOADING</div>
-            <div class="loader-bar">
-                <div class="loader-progress"></div>
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-logo">
+                <svg viewBox="0 0 200 200" width="140" height="140">
+                    <defs>
+                        <linearGradient id="preGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#e63946"/>
+                            <stop offset="100%" stop-color="#ff6b7a"/>
+                        </linearGradient>
+                    </defs>
+                    <polygon class="hex-spin" points="100,10 178,55 178,145 100,190 22,145 22,55" fill="none" stroke="url(#preGrad)" stroke-width="2"/>
+                    <polygon class="hex-spin-rev" points="100,30 158,62.5 158,137.5 100,170 42,137.5 42,62.5" fill="none" stroke="url(#preGrad)" stroke-width="1" opacity="0.4"/>
+                    <text x="100" y="110" text-anchor="middle" fill="url(#preGrad)" font-family="Orbitron" font-size="36" font-weight="800">CHA</text>
+                </svg>
             </div>
-            <div class="loader-percent">0%</div>
+            <div class="preloader-bar-wrap">
+                <div class="preloader-bar"><div class="preloader-fill" id="preloaderFill"></div></div>
+            </div>
+            <div class="preloader-info">
+                <span class="preloader-status" id="preloaderStatus">INITIALIZING SYSTEM</span>
+                <span class="preloader-pct" id="preloaderPct">0%</span>
+            </div>
+            <div class="preloader-decor">
+                <span>▶ ▶ ▶</span>
+                <span>PORTFOLIO SYSTEM v2.0</span>
+                <span class="preloader-caution">LOADING</span>
+            </div>
         </div>
     </div>
 
-    <!-- Scan Lines Overlay -->
-    <div class="scanlines"></div>
+    <!-- BACKGROUND LAYERS -->
+    <canvas id="particleCanvas"></canvas>
+    <div class="bg-noise"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-vignette"></div>
 
-    <!-- Navigation -->
-    <nav class="nav">
-        <a href="index.html" class="nav-logo">
-            <span class="logo-bracket">[</span>
-            <span class="logo-text">CHA</span>
-            <span class="logo-bracket">]</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#about" data-text="ABOUT"><span data-i18n="nav.about">TENTANG</span></a></li>
-            <li><a href="#skills" data-text="SKILLS"><span data-i18n="nav.skills">KEAHLIAN</span></a></li>
-            <li><a href="#experience" data-text="EXP"><span data-i18n="nav.experience">PENGALAMAN</span></a></li>
-            <li><a href="pages/artwork.html" data-text="ART"><span data-i18n="nav.artwork">ARTWORK</span></a></li>
-            <li><a href="pages/projects.html" data-text="PROJECTS"><span data-i18n="nav.projects">PROYEK</span></a></li>
-            <li><a href="#contact" data-text="CONTACT"><span data-i18n="nav.contact">KONTAK</span></a></li>
-        </ul>
-        <div class="nav-actions">
-            <button class="lang-toggle" id="langToggle">
-                <span class="lang-active">ID</span>
-                <span class="lang-divider">/</span>
-                <span class="lang-inactive">EN</span>
-            </button>
-            <button class="menu-toggle" id="menuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+    <!-- TOP HUD BAR -->
+    <div class="hud-top" id="hudTop">
+        <div class="hud-top-line"></div>
+        <div class="hud-top-content">
+            <div class="hud-top-left">
+                <span class="hud-dot">•</span>
+                <span class="hud-event" id="hudEventL">SECTION 01</span>
+            </div>
+            <div class="hud-top-center">
+                <h2 class="hud-title" id="hudTitle">HOME</h2>
+                <div class="hud-title-deco">
+                    <span class="hud-deco-line"></span>
+                    <span class="hud-sub">CLEOPATRA</span>
+                    <span class="hud-deco-line"></span>
+                </div>
+                <div class="hud-center-dots">
+                    <span>•</span><span>•</span>
+                </div>
+            </div>
+            <div class="hud-top-right">
+                <span class="hud-event" id="hudEventR">SECTION 01 /</span>
+                <span class="hud-page">PAGE <span class="hud-dash">—</span> <span id="hudPageCur">01</span> <span class="hud-slash">/</span> <span id="hudPageTotal">07</span></span>
+            </div>
         </div>
+    </div>
+
+    <!-- LEFT SIDEBAR NAV -->
+    <nav class="side-nav" id="sideNav">
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="side-nav-links">
+            <li><a href="#home" class="side-link active" data-section="0" data-title="HOME">HOME</a></li>
+            <li><a href="#about" class="side-link" data-section="1" data-title="ABOUT">ABOUT</a></li>
+            <li><a href="#skills" class="side-link" data-section="2" data-title="SKILLS">SKILLS</a></li>
+            <li><a href="#experience" class="side-link" data-section="3" data-title="EXPERIENCE">EXPERIENCE</a></li>
+            <li><a href="#projects" class="side-link" data-section="4" data-title="PROJECTS">PROJECTS</a></li>
+            <li><a href="#artwork" class="side-link" data-section="5" data-title="ARTWORK">ARTWORK</a></li>
+            <li><a href="#contact" class="side-link" data-section="6" data-title="CONTACT">CONTACT</a></li>
+        </ul>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <ul class="mobile-nav-links">
-            <li><a href="#about"><span data-i18n="nav.about">TENTANG</span></a></li>
-            <li><a href="#skills"><span data-i18n="nav.skills">KEAHLIAN</span></a></li>
-            <li><a href="#experience"><span data-i18n="nav.experience">PENGALAMAN</span></a></li>
-            <li><a href="pages/artwork.html"><span data-i18n="nav.artwork">ARTWORK</span></a></li>
-            <li><a href="pages/projects.html"><span data-i18n="nav.projects">PROYEK</span></a></li>
-            <li><a href="#contact"><span data-i18n="nav.contact">KONTAK</span></a></li>
-        </ul>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-bg">
-            <div class="grid-overlay"></div>
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-                <div class="shape shape-4"></div>
+    <!-- BOTTOM HUD BAR -->
+    <div class="hud-bottom" id="hudBottom">
+        <div class="hud-bottom-content">
+            <div class="hud-bottom-left">
+                <span class="hud-arrows">▶ ▶ ▶</span>
+                <span class="hud-brand">CLEOPATRA FORCE</span>
             </div>
-            <div class="particle-field" id="particleField"></div>
-        </div>
-
-        <div class="hero-content">
-            <div class="hero-status">
-                <span class="status-dot"></span>
-                <span class="status-text" data-i18n="hero.status">AVAILABLE FOR WORK</span>
+            <div class="hud-bottom-center">
+                <span class="hud-caution">PORTFOLIO</span>
             </div>
-
-            <div class="hero-intro">
-                <span class="intro-label" data-i18n="hero.hello">Halo, Saya</span>
-            </div>
-
-            <h1 class="hero-title">
-                <span class="title-line">
-                    <span class="title-word glitch-text" data-text="CLEOPATRA">CLEOPATRA</span>
-                </span>
-                <span class="title-line">
-                    <span class="title-word outline">HAPSARI</span>
-                </span>
-            </h1>
-
-            <div class="hero-roles">
-                <div class="role-carousel">
-                    <span class="role active" data-i18n="hero.role1">Game Designer</span>
-                    <span class="role" data-i18n="hero.role2">AI Researcher</span>
-                    <span class="role" data-i18n="hero.role3">2D Artist</span>
-                    <span class="role" data-i18n="hero.role4">Full-stack Developer</span>
-                </div>
-            </div>
-
-            <p class="hero-desc" data-i18n="hero.desc">
-                Menciptakan pengalaman digital yang immersive melalui game design, AI research, dan development. Berbasis di Indonesia.
-            </p>
-
-            <div class="hero-cta">
-                <a href="pages/projects.html" class="btn btn-primary">
-                    <span class="btn-text" data-i18n="hero.cta1">LIHAT PROYEK</span>
-                    <span class="btn-icon">→</span>
-                    <span class="btn-glitch"></span>
-                </a>
-                <a href="#contact" class="btn btn-secondary">
-                    <span class="btn-text" data-i18n="hero.cta2">HUBUNGI SAYA</span>
-                    <span class="btn-corner btn-corner-tl"></span>
-                    <span class="btn-corner btn-corner-tr"></span>
-                    <span class="btn-corner btn-corner-bl"></span>
-                    <span class="btn-corner btn-corner-br"></span>
-                </a>
-            </div>
-
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number" data-count="7">0</span>
-                    <span class="stat-label" data-i18n="hero.stat1">Tahun Berkarya</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number" data-count="10">0</span><span class="stat-plus">+</span>
-                    <span class="stat-label" data-i18n="hero.stat2">Proyek Selesai</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number" data-count="3">0</span>
-                    <span class="stat-label" data-i18n="hero.stat3">Penghargaan</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="hero-image">
-            <div class="image-frame">
-                <div class="frame-corner frame-tl"></div>
-                <div class="frame-corner frame-tr"></div>
-                <div class="frame-corner frame-bl"></div>
-                <div class="frame-corner frame-br"></div>
-                <div class="image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=800&fit=crop&crop=face" alt="Cleopatra Hapsari" class="profile-img">
-                    <div class="image-overlay"></div>
-                    <div class="image-glitch"></div>
-                </div>
-                <div class="image-data">
-                    <span class="data-line">ID: CHA-2026</span>
-                    <span class="data-line">LOC: SEMARANG, ID</span>
-                </div>
-            </div>
-            <div class="image-decoration">
-                <svg viewBox="0 0 200 200" class="deco-circle">
-                    <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" stroke-width="0.5" stroke-dasharray="5 5"/>
+            <div class="hud-bottom-right">
+                <span class="hud-dots-sm">•</span>
+                <span class="hud-dots-sm">•</span>
+                <span class="hud-hash">//////////////////////</span>
+                <svg class="hud-tri" viewBox="0 0 30 30" width="20" height="20">
+                    <path d="M5,25 L15,5 L25,25 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
                 </svg>
             </div>
         </div>
+        <div class="hud-bottom-line"></div>
+    </div>
 
-        <div class="scroll-indicator">
-            <div class="scroll-line"></div>
-            <span class="scroll-text">SCROLL</span>
-        </div>
+    <!-- SCROLL INDICATOR (right side) -->
+    <div class="scroll-hint" id="scrollHint">
+        <div class="scroll-line"></div>
+        <span>SCROLL</span>
+    </div>
 
-        <div class="hero-socials">
-            <a href="https://www.linkedin.com/in/cleopatraha" target="_blank" class="social-link" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </a>
-            <a href="https://github.com/CHA-NYANN" target="_blank" class="social-link" aria-label="GitHub">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/cleo_cpha/" target="_blank" class="social-link" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-            </a>
-        </div>
-    </section>
+    <!-- MAIN SECTIONS CONTAINER (vertical scroll-snap) -->
+    <main class="sections-wrapper" id="sectionsWrapper">
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="section-header">
-            <span class="section-number">01</span>
-            <h2 class="section-title" data-i18n="about.title">TENTANG SAYA</h2>
-            <div class="section-line"></div>
-        </div>
-
-        <div class="about-content">
-            <div class="about-text">
-                <div class="terminal-window">
-                    <div class="terminal-header">
-                        <span class="terminal-dot"></span>
-                        <span class="terminal-dot"></span>
-                        <span class="terminal-dot"></span>
-                        <span class="terminal-title">about_cleopatra.exe</span>
+        <!-- SECTION 0: HOME -->
+        <section class="section" id="home" data-index="0">
+            <div class="section-bg-text">CLEOPATRA</div>
+            <div class="section-content home-content">
+                <div class="home-left">
+                    <div class="home-status anim-in">
+                        <span class="status-dot"></span>
+                        <span>AVAILABLE FOR WORK</span>
                     </div>
-                    <div class="terminal-body">
-                        <p class="terminal-line">
-                            <span class="terminal-prompt">$</span>
-                            <span class="terminal-command">whoami</span>
-                        </p>
-                        <p class="terminal-output" data-i18n="about.p1">
-                            Saya Cleopatra Hapsari Admajindra, mahasiswa Computer Science di Universitas Dian Nuswantoro dengan passion besar di game design, AI research, dan digital art.
-                        </p>
-                        <p class="terminal-line">
-                            <span class="terminal-prompt">$</span>
-                            <span class="terminal-command">cat journey.txt</span>
-                        </p>
-                        <p class="terminal-output" data-i18n="about.p2">
-                            Perjalanan saya dimulai dari 2D illustration sejak 2018, berkembang ke game development, dan kini merambah AI research. Saya percaya bahwa kreativitas dan teknologi bisa berjalan beriringan untuk menciptakan pengalaman yang memorable.
-                        </p>
-                        <p class="terminal-line">
-                            <span class="terminal-prompt">$</span>
-                            <span class="terminal-command">./achievements --latest</span>
-                        </p>
-                        <p class="terminal-output" data-i18n="about.p3">
-                            • Author & Presenter di ICIMCIS 2025 (IEEE)<br>
-                            • 1st Place Conventional Manga DINUSFEST 2021<br>
-                            • 2nd Place ACGN Writing Competition<br>
-                            • Published Research on AI in Games
-                        </p>
-                        <p class="terminal-line typing">
-                            <span class="terminal-prompt">$</span>
-                            <span class="terminal-cursor">_</span>
-                        </p>
+                    <div class="home-intro anim-in">
+                        <div class="red-bar"></div>
+                        <div>
+                            <h2 class="home-name-sub">CLEOPATRA HAPSARI</h2>
+                            <p class="home-role-label">— CREATIVE TECHNOLOGIST —</p>
+                        </div>
+                    </div>
+                    <p class="home-desc anim-in">Crafting immersive digital experiences through <span class="hl">game design</span>, <span class="hl">AI research</span>, and <span class="hl">creative development</span>. Based in Indonesia.</p>
+                    <div class="home-tags anim-in">
+                        <span><span class="tag-arrow">▶</span> FIELD: Game Design</span>
+                        <span><span class="tag-arrow">▶</span> TYPE: Full-Stack</span>
+                    </div>
+                    <div class="home-stats anim-in">
+                        <div class="home-stat"><span class="stat-num" data-count="7">0</span><span class="stat-label">YEARS</span></div>
+                        <div class="stat-sep"></div>
+                        <div class="home-stat"><span class="stat-num" data-count="25">0</span><span class="stat-label">PROJECTS</span></div>
+                        <div class="stat-sep"></div>
+                        <div class="home-stat"><span class="stat-num" data-count="5">0</span><span class="stat-label">AWARDS</span></div>
+                    </div>
+                    <div class="home-cta anim-in">
+                        <a href="#projects" class="btn-pgr primary" data-goto="4"><span class="btn-fill"></span><span class="btn-label">VIEW PROJECTS</span><span class="btn-arrow">→</span></a>
+                        <a href="#contact" class="btn-pgr outline" data-goto="6"><span class="btn-label">CONTACT ME</span></a>
+                    </div>
+                </div>
+                <div class="home-right">
+                    <div class="cv-intro anim-in"><span class="cv-label">CV. INTRO.</span><div class="cv-sub-line"><span>GAME DESIGNER / WEB DEV / AI RESEARCHER</span></div></div>
+                    <h1 class="giant-name anim-in">CLEO<br>PATRA</h1>
+                    <div class="giant-footer anim-in">
+                        <span class="gf-arrows">▶▶▶</span>
+                        <span class="gf-file">FILES\\CHA-01</span>
+                        <svg class="gf-icon" viewBox="0 0 30 30" width="18" height="18"><polygon points="15,3 27,15 15,27 3,15" fill="none" stroke="#e63946" stroke-width="1.5"/></svg>
+                        <span class="gf-brand">CREATIVE FORCE</span>
+                    </div>
+                    <div class="corner-label"><span>PORTFOLIO</span><div class="corner-line"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: ABOUT -->
+        <section class="section" id="about" data-index="1">
+            <div class="section-bg-text">ABOUT</div>
+            <div class="section-content about-content">
+                <div class="about-left">
+                    <div class="red-bar"></div>
+                    <h2 class="about-title anim-in">CLEOPATRA HAPSARI<br>ADMAJINDRA</h2>
+                    <p class="about-subtitle anim-in">— CREATIVE TECHNOLOGIST —</p>
+                    <p class="about-desc anim-in">A fresh Computer Science graduate from Universitas Dian Nuswantoro with deep passion for game design, AI research, and digital art. Journey began with 2D illustration in 2018, evolved into game development, and now extends to AI research.</p>
+                    <div class="about-meta anim-in">
+                        <span><span class="meta-arrow">▶</span> EDUCATION: Universitas Dian Nuswantoro</span>
+                        <span><span class="meta-arrow">▶</span> DEGREE: Computer Science • GPA 3.73</span>
+                        <span><span class="meta-arrow">▶</span> LOCATION: Semarang, Indonesia (UTC+7)</span>
+                        <span><span class="meta-arrow">▶</span> CURRENT: Game Designer @ Ophius Studio</span>
+                    </div>
+                    <div class="about-counter anim-in"><span class="cb">■</span> 0 2 / 0 7 <span class="cb">■</span></div>
+                </div>
+                <div class="about-right">
+                    <div class="about-achievements anim-in">
+                        <h3 class="ach-title">ACHIEVEMENTS</h3>
+                        <div class="ach-list">
+                            <div class="ach-item"><span class="ach-icon">◆</span><div><span class="ach-name">Author & Presenter @ ICIMCIS 2025</span><span class="ach-sub">IEEE International Conference</span></div></div>
+                            <div class="ach-item"><span class="ach-icon">◆</span><div><span class="ach-name">1st Place — Manga DINUSFEST 2021</span><span class="ach-sub">National-level illustration competition</span></div></div>
+                            <div class="ach-item"><span class="ach-icon">◆</span><div><span class="ach-name">2nd Place — ACGN Writing Competition</span><span class="ach-sub">Creative narrative & worldbuilding</span></div></div>
+                            <div class="ach-item"><span class="ach-icon">◆</span><div><span class="ach-name">GEMASTIK XVII Finalist</span><span class="ach-sub">Game Development Category</span></div></div>
+                        </div>
+                    </div>
+                    <div class="about-terminal anim-in">
+                        <div class="term-header"><span class="term-dots"><i></i><i></i><i></i></span><span>cleo@system:~</span></div>
+                        <div class="term-body">
+                            <span class="term-line"><span class="tp">$</span> cat motto.txt</span>
+                            <span class="term-output">"Creativity and technology, hand in hand."</span>
+                            <span class="term-line"><span class="tp">$</span> <span class="cursor-blink">█</span></span>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="about-info">
-                <div class="info-card">
-                    <div class="info-icon"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></div>
-                    <div class="info-content">
-                        <h4 data-i18n="about.edu">PENDIDIKAN</h4>
-                        <p>Universitas Dian Nuswantoro</p>
-                        <span class="info-detail">Computer Science • GPA 3.73</span>
-                    </div>
+        <!-- SECTION 2: SKILLS -->
+        <section class="section" id="skills" data-index="2">
+            <div class="section-bg-text">SKILLS</div>
+            <div class="section-content skills-content">
+                <div class="skills-header anim-in">
+                    <div class="red-bar"></div>
+                    <h2>SKILL DATABASE</h2>
+                    <p>— TECHNICAL PROFICIENCY —</p>
                 </div>
-                <div class="info-card">
-                    <div class="info-icon"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></div>
-                    <div class="info-content">
-                        <h4 data-i18n="about.loc">LOKASI</h4>
-                        <p>Semarang, Central Java</p>
-                        <span class="info-detail">Indonesia</span>
-                    </div>
+                <div class="skills-grid">
+                    <div class="skill-card anim-in"><div class="skill-top"><span class="skill-num">01</span><div class="skill-bar-mini"><div class="skill-fill" data-w="90"></div></div></div><h3>GAME DEVELOPMENT</h3><div class="skill-tags"><span>Unity</span><span>C#</span><span>GDD</span><span>Level Design</span></div></div>
+                    <div class="skill-card anim-in"><div class="skill-top"><span class="skill-num">02</span><div class="skill-bar-mini"><div class="skill-fill" data-w="95"></div></div></div><h3>WEB DEVELOPMENT</h3><div class="skill-tags"><span>React</span><span>Next.js</span><span>TypeScript</span><span>Node.js</span></div></div>
+                    <div class="skill-card anim-in"><div class="skill-top"><span class="skill-num">03</span><div class="skill-bar-mini"><div class="skill-fill" data-w="92"></div></div></div><h3>DIGITAL ART</h3><div class="skill-tags"><span>Illustration</span><span>Character</span><span>Concept Art</span></div></div>
+                    <div class="skill-card anim-in"><div class="skill-top"><span class="skill-num">04</span><div class="skill-bar-mini"><div class="skill-fill" data-w="85"></div></div></div><h3>AI & RESEARCH</h3><div class="skill-tags"><span>ML</span><span>LLM/SLM</span><span>Game AI</span><span>IEEE</span></div></div>
+                    <div class="skill-card anim-in"><div class="skill-top"><span class="skill-num">05</span><div class="skill-bar-mini"><div class="skill-fill" data-w="80"></div></div></div><h3>MOBILE & 3D</h3><div class="skill-tags"><span>Flutter</span><span>Three.js</span><span>WebGL</span></div></div>
+                    <div class="skill-card anim-in"><div class="skill-top"><span class="skill-num">06</span><div class="skill-bar-mini"><div class="skill-fill" data-w="88"></div></div></div><h3>CREATIVE WRITING</h3><div class="skill-tags"><span>Narrative</span><span>Light Novel</span><span>Worldbuilding</span></div></div>
                 </div>
-                <div class="info-card">
-                    <div class="info-icon"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></div>
-                    <div class="info-content">
-                        <h4 data-i18n="about.focus">FOKUS RISET</h4>
-                        <p>AI in Games, LLM/SLM</p>
-                        <span class="info-detail">Adaptive Storytelling</span>
-                    </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: EXPERIENCE -->
+        <section class="section" id="experience" data-index="3">
+            <div class="section-bg-text">LOG</div>
+            <div class="section-content exp-content">
+                <div class="exp-header anim-in">
+                    <div class="red-bar"></div>
+                    <h2>OPERATION LOG</h2>
+                    <p>— CAREER TIMELINE —</p>
                 </div>
-                <div class="info-card">
-                    <div class="info-icon"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></div>
-                    <div class="info-content">
-                        <h4 data-i18n="about.current">SAAT INI</h4>
-                        <p>Ophius Studio</p>
-                        <span class="info-detail">Game Level & Narrative Designer</span>
+                <div class="exp-timeline">
+                    <div class="exp-item anim-in">
+                        <div class="exp-marker"></div>
+                        <div class="exp-date-badge"><span class="exp-date">DEC 2025 — PRESENT</span><span class="exp-badge current">CURRENT</span></div>
+                        <h3>Game Level & Narrative Designer</h3>
+                        <h4>Ophius Studio</h4>
+                        <p>Designing levels and narratives for the studio's debut game, including gameplay flow, pacing, and player progression.</p>
+                        <div class="exp-tags"><span>Unity</span><span>GDD</span><span>Level Design</span></div>
+                    </div>
+                    <div class="exp-item anim-in">
+                        <div class="exp-marker"></div>
+                        <div class="exp-date-badge"><span class="exp-date">MAR 2025 — JAN 2026</span><span class="exp-badge research">RESEARCH</span></div>
+                        <h3>Game AI Researcher</h3>
+                        <h4>IGS Lab & NTUST Taiwan</h4>
+                        <p>International collaborative research on AI in strategy games. Co-authored paper at IEEE ICIMCIS 2025.</p>
+                        <div class="exp-tags"><span>AI/ML</span><span>LLM</span><span>IEEE</span></div>
+                    </div>
+                    <div class="exp-item anim-in">
+                        <div class="exp-marker"></div>
+                        <div class="exp-date-badge"><span class="exp-date">2025</span><span class="exp-badge project">PROJECT</span></div>
+                        <h3>Project Manager & Artist</h3>
+                        <h4>Feiren Team — GEMASTIK XVII</h4>
+                        <p>Led a team of 3 developing educational simulation game. Managed timeline and visual design.</p>
+                        <div class="exp-tags"><span>PM</span><span>UI</span><span>2D Art</span></div>
+                    </div>
+                    <div class="exp-item anim-in">
+                        <div class="exp-marker"></div>
+                        <div class="exp-date-badge"><span class="exp-date">2018 — PRESENT</span><span class="exp-badge freelance">FREELANCE</span></div>
+                        <h3>2D Artist & Illustrator</h3>
+                        <h4>Freelance</h4>
+                        <p>Anime-style character illustration. Won multiple national-level illustration competitions.</p>
+                        <div class="exp-tags"><span>Illustration</span><span>Character</span><span>Concept</span></div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Skills Section -->
-    <section class="skills" id="skills">
-        <div class="section-header">
-            <span class="section-number">02</span>
-            <h2 class="section-title" data-i18n="skills.title">KEAHLIAN</h2>
-            <div class="section-line"></div>
-        </div>
-
-        <div class="skills-grid">
-            <div class="skill-category">
-                <div class="category-header">
-                    <span class="category-icon"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></span>
-                    <h3 data-i18n="skills.game">Game Development</h3>
+        <!-- SECTION 4: PROJECTS -->
+        <section class="section" id="projects" data-index="4">
+            <div class="section-bg-text">WORKS</div>
+            <div class="section-content projects-content">
+                <div class="projects-header anim-in">
+                    <div class="red-bar"></div>
+                    <h2>FEATURED WORK</h2>
+                    <p>— MISSION RECORDS —</p>
                 </div>
-                <div class="skill-tags">
-                    <span class="skill-tag">Unity</span>
-                    <span class="skill-tag">Game Design</span>
-                    <span class="skill-tag">Level Design</span>
-                    <span class="skill-tag">Narrative Design</span>
-                    <span class="skill-tag">GDD Writing</span>
-                </div>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="--progress: 90%;"></div>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <div class="category-header">
-                    <span class="category-icon"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></span>
-                    <h3 data-i18n="skills.web">Web Development</h3>
-                </div>
-                <div class="skill-tags">
-                    <span class="skill-tag">React</span>
-                    <span class="skill-tag">Next.js</span>
-                    <span class="skill-tag">TypeScript</span>
-                    <span class="skill-tag">Node.js</span>
-                    <span class="skill-tag">Prisma</span>
-                    <span class="skill-tag">PostgreSQL</span>
-                </div>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="--progress: 85%;"></div>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <div class="category-header">
-                    <span class="category-icon">
-<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3C7 3 3 7 3 12s4 9 9 9c1.5 0 2.5-1 2.5-2 0-1.5-1-2-1-3s1-2 3-2c2 0 3.5-1.5 3.5-3.5C20 6 16 3 12 3z"/>
-</svg>
-</span>
-                    <h3 data-i18n="skills.art">Digital Art</h3>
-                </div>
-                <div class="skill-tags">
-                    <span class="skill-tag">MediBang Paint</span>
-                    <span class="skill-tag">Photoshop</span>
-                    <span class="skill-tag">Illustrator</span>
-                    <span class="skill-tag">Character Design</span>
-                    <span class="skill-tag">Illustration</span>
-                </div>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="--progress: 95%;"></div>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <div class="category-header">
-                    <span class="category-icon"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></span>
-                    <h3 data-i18n="skills.ai">AI & Research</h3>
-                </div>
-                <div class="skill-tags">
-                    <span class="skill-tag">LLM/SLM</span>
-                    <span class="skill-tag">Data Science</span>
-                    <span class="skill-tag">Machine Learning</span>
-                    <span class="skill-tag">Research Writing</span>
-                </div>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="--progress: 80%;"></div>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <div class="category-header">
-                    <span class="category-icon"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></span>
-                    <h3 data-i18n="skills.mobile">Mobile & Others</h3>
-                </div>
-                <div class="skill-tags">
-                    <span class="skill-tag">Flutter</span>
-                    <span class="skill-tag">Three.js</span>
-                    <span class="skill-tag">Canva</span>
-                    <span class="skill-tag">Notion</span>
-                </div>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="--progress: 70%;"></div>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <div class="category-header">
-                    <span class="category-icon">
-<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3l5 5L8 21H3v-5L16 3z"/>
-</svg>
-</span>
-                    <h3 data-i18n="skills.creative">Creative Writing</h3>
-                </div>
-                <div class="skill-tags">
-                    <span class="skill-tag">Story Writing</span>
-                    <span class="skill-tag">Translation</span>
-                    <span class="skill-tag">Typesetting</span>
-                    <span class="skill-tag">Content Writing</span>
-                </div>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="--progress: 88%;"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section class="experience" id="experience">
-        <div class="section-header">
-            <span class="section-number">03</span>
-            <h2 class="section-title" data-i18n="exp.title">PENGALAMAN</h2>
-            <div class="section-line"></div>
-        </div>
-
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-marker">
-                    <span class="marker-dot"></span>
-                    <span class="marker-line"></span>
-                </div>
-                <div class="timeline-content">
-                    <div class="timeline-header">
-                        <span class="timeline-date">Dec 2025 - Present</span>
-                        <span class="timeline-badge">Current</span>
+                <div class="projects-grid">
+                    <div class="project-card anim-in">
+                        <div class="project-img-wrap"><img src="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?w=600&h=400&fit=crop" alt="Inkura"><div class="project-overlay"></div><span class="project-num">01</span></div>
+                        <div class="project-info"><div class="project-tags"><span>Next.js</span><span>TypeScript</span><span>Prisma</span></div><h3>INKURA</h3><p>Full-stack platform for reading and uploading comics, novels, and films.</p><a href="https://www.inkura.id/" target="_blank" class="project-link">VISIT SITE →</a></div>
                     </div>
-                    <h3 class="timeline-title">Game Level & Narrative Designer</h3>
-                    <h4 class="timeline-company">Ophius Studio</h4>
-                    <p class="timeline-desc" data-i18n="exp.ophius">
-                        Mendesain level dan narasi untuk game debut studio, termasuk gameplay flow, pacing, dan player progression. Menulis dan memelihara Game Design Document (GDD).
-                    </p>
+                    <div class="project-card anim-in">
+                        <div class="project-img-wrap"><img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=600&h=400&fit=crop" alt="Ophius"><div class="project-overlay"></div><span class="project-num">02</span></div>
+                        <div class="project-info"><div class="project-tags"><span>Three.js</span><span>React</span><span>WebGL</span></div><h3>OPHIUS STUDIO</h3><p>Game studio website with 3D galaxy interactive experience.</p><a href="https://ophius-studio.vercel.app/" target="_blank" class="project-link">VISIT SITE →</a></div>
+                    </div>
+                    <div class="project-card anim-in">
+                        <div class="project-img-wrap"><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop" alt="Sumobot"><div class="project-overlay"></div><span class="project-num">03</span></div>
+                        <div class="project-info"><div class="project-tags"><span>AI/ML</span><span>Python</span><span>IEEE</span></div><h3>SUMOBOT AI</h3><p>AI research game with paper published at IEEE ICIMCIS 2025.</p><a href="https://ieeexplore.ieee.org/document/11327013" target="_blank" class="project-link">READ PAPER →</a></div>
+                    </div>
+                </div>
+                <div class="projects-more anim-in">
+                    <a href="pages/projects.html" class="btn-pgr outline small">ALL PROJECTS →</a>
+                    <a href="pages/artwork.html" class="btn-pgr outline small">ARTWORK GALLERY →</a>
                 </div>
             </div>
+        </section>
 
-            <div class="timeline-item">
-                <div class="timeline-marker">
-                    <span class="marker-dot"></span>
-                    <span class="marker-line"></span>
+        <!-- SECTION 5: ARTWORK -->
+        <section class="section" id="artwork" data-index="5">
+            <div class="section-bg-text">ART</div>
+            <div class="section-content artwork-content">
+                <div class="artwork-left anim-in">
+                    <div class="artwork-label"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#e63946" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="#e63946"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>CLEOPATRA</span></div>
+                    <h2 class="artwork-title">GALLERY</h2>
+                    <p class="artwork-desc">Anime-style character illustrations, concept art, and digital paintings. Explore the full collection of creative works.</p>
+                    <a href="pages/artwork.html" class="btn-pgr primary"><span class="btn-fill"></span><span class="btn-label">VIEW GALLERY</span><span class="btn-arrow">→</span></a>
+                    <div class="artwork-more">MORE ▶</div>
                 </div>
-                <div class="timeline-content">
-                    <div class="timeline-header">
-                        <span class="timeline-date">Mar 2025 - Jan 2026</span>
-                        <span class="timeline-badge highlight">Research</span>
+                <div class="artwork-right">
+                    <div class="artwork-mosaic">
+                        <div class="mosaic-item large anim-in"><img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&h=800&fit=crop" alt="Art"><div class="mosaic-ov"></div></div>
+                        <div class="mosaic-item anim-in"><img src="https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=400&h=300&fit=crop" alt="Art"><div class="mosaic-ov"></div></div>
+                        <div class="mosaic-item anim-in"><img src="https://images.unsplash.com/photo-1560807707-8cc77767d783?w=400&h=300&fit=crop" alt="Art"><div class="mosaic-ov"></div></div>
+                        <div class="mosaic-item tall anim-in"><img src="https://images.unsplash.com/photo-1611457194403-d3f8c5354ddc?w=400&h=600&fit=crop" alt="Art"><div class="mosaic-ov"></div></div>
                     </div>
-                    <h3 class="timeline-title">Game AI Researcher</h3>
-                    <h4 class="timeline-company">IGS & NTUST Game Research Center (Taiwan)</h4>
-                    <p class="timeline-desc" data-i18n="exp.taiwan">
-                        Riset kolaborasi internasional tentang AI, LLM/SLM dalam game strategi. Co-author paper "Context-Aware Small Language Models for Real Time Strategy Prediction" di ICIMCIS 2025.
-                    </p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-marker">
-                    <span class="marker-dot"></span>
-                    <span class="marker-line"></span>
-                </div>
-                <div class="timeline-content">
-                    <div class="timeline-header">
-                        <span class="timeline-date">Jul 2025 - Aug 2025</span>
-                        <span class="timeline-badge">Competition</span>
-                    </div>
-                    <h3 class="timeline-title">Project Manager & Secondary Artist</h3>
-                    <h4 class="timeline-company">Feiren Team - GEMASTIK 2025</h4>
-                    <p class="timeline-desc" data-i18n="exp.gemastik">
-                        Memimpin tim 3 orang dalam mengembangkan educational simulation game. Mengelola timeline proyek, kontribusi visual design termasuk UI dan character assets.
-                    </p>
                 </div>
             </div>
+        </section>
 
-            <div class="timeline-item">
-                <div class="timeline-marker">
-                    <span class="marker-dot"></span>
-                    <span class="marker-line"></span>
+        <!-- SECTION 6: CONTACT -->
+        <section class="section" id="contact" data-index="6">
+            <div class="section-bg-text">LINK</div>
+            <div class="section-content contact-content">
+                <div class="contact-left anim-in">
+                    <div class="red-bar"></div>
+                    <h2 class="contact-title">GET IN<br>TOUCH</h2>
+                    <p class="contact-desc">Interested in collaborating? Let's connect and build something extraordinary together.</p>
+                    <div class="contact-decor"><span class="cd-a">▶▶▶</span><span>FILES\\CONTACT-01</span><span class="cd-b">CLEOPATRA SYSTEM</span></div>
                 </div>
-                <div class="timeline-content">
-                    <div class="timeline-header">
-                        <span class="timeline-date">Jan 2018 - Present</span>
-                        <span class="timeline-badge">Freelance</span>
+                <div class="contact-right">
+                    <div class="contact-grid">
+                        <a href="mailto:patrahapsari@gmail.com" class="contact-card anim-in"><div class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><span class="cc-label">EMAIL</span><span class="cc-value">patrahapsari@gmail.com</span></a>
+                        <a href="https://linkedin.com/in/cleopatraha" target="_blank" class="contact-card anim-in"><div class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><span class="cc-label">LINKEDIN</span><span class="cc-value">cleopatraha</span></a>
+                        <a href="https://github.com/CHA-NYANN" target="_blank" class="contact-card anim-in"><div class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div><span class="cc-label">GITHUB</span><span class="cc-value">CHA-NYANN</span></a>
+                        <a href="https://www.instagram.com/cleo_cpha" target="_blank" class="contact-card anim-in"><div class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div><span class="cc-label">INSTAGRAM</span><span class="cc-value">@cleo_cpha</span></a>
                     </div>
-                    <h3 class="timeline-title">2D Artist & Illustrator</h3>
-                    <h4 class="timeline-company">Freelance (@canvas.noe)</h4>
-                    <p class="timeline-desc" data-i18n="exp.artist">
-                        Menyediakan jasa ilustrasi karakter anime-style termasuk OC, fanart, dan game concept art. Memenangkan beberapa kompetisi ilustrasi tingkat nasional.
-                    </p>
                 </div>
             </div>
-        </div>
+        </section>
+    </main>
 
-        <div class="experience-cta">
-            <a href="pages/projects.html" class="btn btn-primary">
-                <span class="btn-text" data-i18n="exp.cta">LIHAT SEMUA PROYEK</span>
-                <span class="btn-icon">→</span>
-                <span class="btn-glitch"></span>
-            </a>
-        </div>
-    </section>
+    <footer class="pgr-footer"><div class="footer-inner"><p>&copy; 2025 Cleopatra Hapsari Admajindra. All Rights Reserved.</p></div></footer>
 
-    <!-- Featured Section -->
-    <section class="featured" id="featured">
-        <div class="section-header">
-            <span class="section-number">04</span>
-            <h2 class="section-title" data-i18n="featured.title">PROYEK UNGGULAN</h2>
-            <div class="section-line"></div>
-        </div>
-
-        <div class="featured-grid">
-            <a href="https://www.inkura.id/" target="_blank" class="featured-card large">
-                <div class="card-image">
-                    <div class="card-overlay"></div>
-                    <div class="card-gradient"></div>
-                </div>
-                <div class="card-content">
-                    <span class="card-category">WEB PLATFORM</span>
-                    <h3 class="card-title">Inkura</h3>
-                    <p class="card-desc" data-i18n="featured.inkura">Platform full-stack untuk membaca dan upload komik, novel, dan film.</p>
-                    <div class="card-tags">
-                        <span>Next.js</span>
-                        <span>Prisma</span>
-                        <span>PostgreSQL</span>
-                    </div>
-                    <span class="card-link">
-                        <span data-i18n="featured.view">KUNJUNGI SITE</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-                    </span>
-                </div>
-            </a>
-
-            <a href="https://ophius-studio.vercel.app/" target="_blank" class="featured-card">
-                <div class="card-image">
-                    <div class="card-overlay"></div>
-                    <div class="card-gradient grad-2"></div>
-                </div>
-                <div class="card-content">
-                    <span class="card-category">3D INTERACTIVE</span>
-                    <h3 class="card-title">Ophius Studio</h3>
-                    <p class="card-desc" data-i18n="featured.ophius">Website studio game dengan 3D galaxy interactive experience.</p>
-                    <div class="card-tags">
-                        <span>Three.js</span>
-                        <span>React</span>
-                    </div>
-                    <span class="card-link">
-                        <span data-i18n="featured.view">KUNJUNGI SITE</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-                    </span>
-                </div>
-            </a>
-
-            <a href="https://ieeexplore.ieee.org/document/11327013" target="_blank" class="featured-card">
-                <div class="card-image">
-                    <div class="card-overlay"></div>
-                    <div class="card-gradient grad-3"></div>
-                </div>
-                <div class="card-content">
-                    <span class="card-category">RESEARCH</span>
-                    <h3 class="card-title">Sumobot AI</h3>
-                    <p class="card-desc" data-i18n="featured.sumobot">Game riset AI dengan paper published di IEEE ICIMCIS 2025.</p>
-                    <div class="card-tags">
-                        <span>AI/ML</span>
-                        <span>SLM</span>
-                    </div>
-                    <span class="card-link">
-                        <span data-i18n="featured.paper">BACA PAPER</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-                    </span>
-                </div>
-            </a>
-        </div>
-
-        <div class="featured-links">
-            <a href="pages/projects.html" class="link-item">
-                <span class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></span>
-                <span class="link-text" data-i18n="featured.all_projects">Semua Proyek Web</span>
-                <span class="link-arrow">→</span>
-            </a>
-            <a href="pages/artwork.html" class="link-item">
-                <span class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></span>
-                <span class="link-text" data-i18n="featured.all_art">Galeri Artwork</span>
-                <span class="link-arrow">→</span>
-            </a>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="contact-bg">
-            <div class="grid-overlay"></div>
-        </div>
-
-        <div class="contact-content">
-            <div class="section-header center">
-                <span class="section-number">05</span>
-                <h2 class="section-title" data-i18n="contact.title">HUBUNGI SAYA</h2>
-                <div class="section-line"></div>
-            </div>
-
-            <p class="contact-intro" data-i18n="contact.intro">
-                Tertarik berkolaborasi atau punya proyek menarik? Jangan ragu untuk menghubungi saya!
-            </p>
-
-            <div class="contact-methods">
-                <a href="mailto:patrahapsari@gmail.com" class="contact-card">
-                    <div class="contact-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
-                        </svg>
-                    </div>
-                    <div class="contact-info">
-                        <span class="contact-label">EMAIL</span>
-                        <span class="contact-value">patrahapsari@gmail.com</span>
-                    </div>
-                    <span class="contact-arrow">→</span>
-                </a>
-
-                <a href="https://www.linkedin.com/in/cleopatraha" target="_blank" class="contact-card">
-                    <div class="contact-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                    </div>
-                    <div class="contact-info">
-                        <span class="contact-label">LINKEDIN</span>
-                        <span class="contact-value">cleopatraha</span>
-                    </div>
-                    <span class="contact-arrow">→</span>
-                </a>
-
-                <a href="tel:+6288233869471" class="contact-card">
-                    <div class="contact-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                        </svg>
-                    </div>
-                    <div class="contact-info">
-                        <span class="contact-label">PHONE</span>
-                        <span class="contact-value">+62 882-3386-9471</span>
-                    </div>
-                    <span class="contact-arrow">→</span>
-                </a>
-            </div>
-
-            <div class="contact-social">
-                <a href="https://github.com/CHA-NYANN" target="_blank" class="social-btn">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
-                </a>
-                <a href="https://www.instagram.com/cleo_cpha/" target="_blank" class="social-btn">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                    Instagram
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-left">
-                <span class="footer-logo">[CHA]</span>
-                <p class="footer-text">© 2026 Cleopatra Hapsari Admajindra</p>
-            </div>
-            <div class="footer-right">
-                <span class="footer-note" data-i18n="footer.note">Dibuat dengan <svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 h-6 align-middle" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg> dan banyak kopi</span>
-            </div>
-        </div>
-        <a href="#hero" class="back-to-top">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 19V5M5 12l7-7 7 7"/>
-            </svg>
-        </a>
-    </footer>
-
-    <script src="js/i18n.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/pgr-engine.js"></script>
 </body>
 </html>
