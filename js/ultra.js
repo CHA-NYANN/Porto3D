@@ -784,52 +784,55 @@ class AudioVisualizer {
 // INITIALIZE EVERYTHING
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
+    const safe = (fn) => { try { fn(); } catch(e) { console.warn('Init error:', e); } };
+
     // Core systems
-    new Preloader();
-    new CustomCursor();
-    new ParticleBackground();
-    new Navigation();
-    
+    safe(() => new Preloader());
+    safe(() => new CustomCursor());
+    safe(() => new ParticleBackground());
+    safe(() => new Navigation());
+
     // Animations
-    new RoleCarousel();
-    new CountUp();
-    new ScrollAnimations();
-    new SkillBars();
-    new TimelineProgress();
-    
+    safe(() => new RoleCarousel());
+    safe(() => new CountUp());
+    safe(() => new ScrollAnimations());
+    safe(() => new SkillBars());
+    safe(() => new TimelineProgress());
+
     // Effects
-    new MagneticButtons();
-    new TiltEffect();
-    new CardGlow();
-    new DataStream();
-    new ParallaxFloat();
-    new SmoothReveal();
-    
+    safe(() => new MagneticButtons());
+    safe(() => new TiltEffect());
+    safe(() => new CardGlow());
+    safe(() => new DataStream());
+    safe(() => new ParallaxFloat());
+    safe(() => new SmoothReveal());
+
     // Initialize typing effect if element exists
-    const typingElement = document.querySelector('.role-text');
-    if (typingElement) {
-        new TypingEffect(typingElement, [
-            'Game Designer',
-            'Full-Stack Developer',
-            'AI Researcher',
-            '2D Artist'
-        ]);
-    }
+    safe(() => {
+        const typingElement = document.querySelector('.role-text');
+        if (typingElement) {
+            new TypingEffect(typingElement, [
+                'Game Designer',
+                'Full-Stack Developer',
+                'AI Researcher',
+                '2D Artist'
+            ]);
+        }
+    });
 
     // Initialize text scramble on hover
-    document.querySelectorAll('.scramble-hover').forEach(el => {
-        const scramble = new TextScramble(el);
-        const originalText = el.textContent;
-        
-        el.addEventListener('mouseenter', () => {
-            scramble.setText(originalText);
+    safe(() => {
+        document.querySelectorAll('.scramble-hover').forEach(el => {
+            const scramble = new TextScramble(el);
+            const originalText = el.textContent;
+            el.addEventListener('mouseenter', () => scramble.setText(originalText));
         });
     });
 
     // Audio visualizer
-    new AudioVisualizer();
+    safe(() => new AudioVisualizer());
 
-    // Reveal animations for .anim-reveal elements
+    // Reveal animations for .anim-reveal elements — threshold 0 agar langsung trigger
     const animRevealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -837,7 +840,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 animRevealObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0 });
     document.querySelectorAll('.anim-reveal').forEach(el => animRevealObserver.observe(el));
 
     console.log('%c⬡ ULTRA PORTFOLIO LOADED ⬡', 'color: #00ffcc; font-size: 20px; font-weight: bold;');
