@@ -828,6 +828,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Audio visualizer
     new AudioVisualizer();
 
+    // Reveal animations for .anim-reveal elements
+    const animRevealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                animRevealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.anim-reveal').forEach(el => animRevealObserver.observe(el));
+
     console.log('%c⬡ ULTRA PORTFOLIO LOADED ⬡', 'color: #00ffcc; font-size: 20px; font-weight: bold;');
     console.log('%cDesigned by Cleopatra Hapsari Admajindra', 'color: #ff00aa; font-size: 12px;');
 });
