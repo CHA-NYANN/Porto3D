@@ -42,6 +42,41 @@
         </div>
     </div>
 
+    <!-- PRELOADER SCRIPT — inline for guaranteed execution -->
+    <script>
+    (function(){
+        var el=document.getElementById('preloader');
+        var fill=document.getElementById('preloaderFill');
+        var pct=document.getElementById('preloaderPct');
+        var st=document.getElementById('preloaderStatus');
+        if(!el||!fill||!pct||!st)return;
+        var msgs=['INITIALIZING SYSTEM...','LOADING ASSETS...','ESTABLISHING CONNECTION...','RENDERING INTERFACE...','CALIBRATING MATRIX...','SYSTEM READY.'];
+        var p=0,mi=0;
+        window._preloaderDone=false;
+        var iv=setInterval(function(){
+            p+=Math.random()*15+5;
+            if(p>100)p=100;
+            fill.style.width=Math.floor(p)+'%';
+            pct.textContent=Math.floor(p)+'%';
+            if(p>mi*20&&mi<msgs.length){st.textContent=msgs[mi];mi++;}
+            if(p>=100){
+                clearInterval(iv);
+                window._preloaderDone=true;
+                setTimeout(function(){
+                    el.style.opacity='0';
+                    el.style.visibility='hidden';
+                    el.style.pointerEvents='none';
+                    el.style.transition='opacity 0.6s ease, visibility 0.6s ease';
+                    setTimeout(function(){
+                        el.style.display='none';
+                        document.body.classList.add('loaded');
+                    },700);
+                },500);
+            }
+        },120);
+    })();
+    </script>
+
     <!-- BACKGROUND LAYERS -->
     <canvas id="particleCanvas"></canvas>
     <div class="bg-noise"></div>
@@ -350,27 +385,5 @@
     <footer class="pgr-footer"><div class="footer-inner"><p>&copy; 2025 Cleopatra Hapsari Admajindra. All Rights Reserved.</p></div></footer>
 
     <script src="js/pgr-engine.js"></script>
-    <script>
-    // Failsafe: if external JS didn't load, run preloader anyway
-    setTimeout(function(){
-        var el=document.getElementById('preloader');
-        if(el&&el.style.display!=='none'&&!el.classList.contains('hidden')){
-            var fill=document.getElementById('preloaderFill');
-            var pct=document.getElementById('preloaderPct');
-            var st=document.getElementById('preloaderStatus');
-            var p=0;
-            var iv=setInterval(function(){
-                p+=Math.random()*18+6;if(p>100)p=100;
-                if(fill)fill.style.width=Math.floor(p)+'%';
-                if(pct)pct.textContent=Math.floor(p)+'%';
-                if(st)st.textContent=p<100?'LOADING...':'SYSTEM READY.';
-                if(p>=100){clearInterval(iv);setTimeout(function(){
-                    el.classList.add('hidden');document.body.classList.add('loaded');
-                    setTimeout(function(){el.style.display='none';},800);
-                },400);}
-            },100);
-        }
-    },2000);
-    </script>
 </body>
 </html>
