@@ -1,18 +1,28 @@
 /**
- * PGR-STYLE PORTFOLIO ENGINE
- * Fullscreen section scroll, HUD updates, particle canvas, reveal animations
+ * PGR-STYLE PORTFOLIO ENGINE v2.1
+ * Fixed: preloader stuck, IntersectionObserver errors
  */
 
-// ============================================
-// PRELOADER
-// ============================================
-class Preloader {
-    constructor() {
-        this.el = document.getElementById('preloader');
-        this.fill = document.getElementById('preloaderFill');
-        this.pct = document.getElementById('preloaderPct');
-        this.status = document.getElementById('preloaderStatus');
-        this.msgs = [
+(function() {
+    'use strict';
+
+    // ============================================
+    // PRELOADER — runs first, self-contained
+    // ============================================
+    function runPreloader() {
+        var el = document.getElementById('preloader');
+        var fill = document.getElementById('preloaderFill');
+        var pct = document.getElementById('preloaderPct');
+        var status = document.getElementById('preloaderStatus');
+
+        if (!el || !fill || !pct || !status) {
+            if (el) el.style.display = 'none';
+            document.body.classList.add('loaded');
+            initApp();
+            return;
+        }
+
+        var msgs = [
             'INITIALIZING SYSTEM...',
             'LOADING ASSETS...',
             'ESTABLISHING CONNECTION...',
@@ -20,294 +30,283 @@ class Preloader {
             'CALIBRATING MATRIX...',
             'SYSTEM READY.'
         ];
-        this.run();
-    }
-    run() {
-        let p = 0, mi = 0;
-        const iv = setInterval(() => {
-            p += Math.random() * 15 + 5;
-            if (p > 100) p = 100;
-            this.fill.style.width = p + '%';
-            this.pct.textContent = Math.floor(p) + '%';
-            if (p > mi * 20 && mi < this.msgs.length) {
-                this.status.textContent = this.msgs[mi];
-                mi++;
-            }
-            if (p >= 100) {
+
+        var p = 0;
+        var mi = 0;
+
+        var iv = setInterval(function() {
+            try {
+                p += Math.random() * 15 + 5;
+                if (p > 100) p = 100;
+
+                fill.style.width = Math.floor(p) + '%';
+                pct.textContent = Math.floor(p) + '%';
+
+                if (p > mi * 20 && mi < msgs.length) {
+                    status.textContent = msgs[mi];
+                    mi++;
+                }
+
+                if (p >= 100) {
+                    clearInterval(iv);
+                    setTimeout(function() {
+                        el.classList.add('hidden');
+                        document.body.classList.add('loaded');
+                        setTimeout(function() {
+                            el.style.display = 'none';
+                            initApp();
+                        }, 800);
+                    }, 500);
+                }
+            } catch(e) {
                 clearInterval(iv);
-                setTimeout(() => this.hide(), 600);
+                el.style.display = 'none';
+                document.body.classList.add('loaded');
+                initApp();
             }
         }, 120);
     }
-    hide() {
-        this.el.classList.add('hidden');
-        document.body.style.overflow = '';
-        setTimeout(() => {
-            this.el.style.display = 'none';
-            // Trigger initial section animations
-            window.portfolio?.activateSection(0);
-        }, 800);
-    }
-}
 
-// ============================================
-// PARTICLE CANVAS (floating dots like PGR)
-// ============================================
-class ParticleField {
-    constructor() {
-        this.canvas = document.getElementById('particleCanvas');
-        if (!this.canvas) return;
-        this.ctx = this.canvas.getContext('2d');
-        this.particles = [];
-        this.resize();
-        this.init();
-        window.addEventListener('resize', () => this.resize());
-        this.animate();
-    }
-    resize() {
-        this.w = this.canvas.width = window.innerWidth;
-        this.h = this.canvas.height = window.innerHeight;
-    }
-    init() {
-        const count = Math.floor((this.w * this.h) / 12000);
-        this.particles = [];
-        for (let i = 0; i < count; i++) {
-            this.particles.push({
-                x: Math.random() * this.w,
-                y: Math.random() * this.h,
-                r: Math.random() * 1.5 + 0.3,
-                dx: (Math.random() - 0.5) * 0.3,
-                dy: (Math.random() - 0.5) * 0.3,
-                a: Math.random() * 0.4 + 0.1
-            });
+    // ============================================
+    // PARTICLE CANVAS
+    // ============================================
+    function initParticles() {
+        var canvas = document.getElementById('particleCanvas');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        var particles = [];
+        var w, h;
+
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            createParticles();
         }
-    }
-    animate() {
-        this.ctx.clearRect(0, 0, this.w, this.h);
-        for (const p of this.particles) {
-            p.x += p.dx;
-            p.y += p.dy;
-            if (p.x < 0) p.x = this.w;
-            if (p.x > this.w) p.x = 0;
-            if (p.y < 0) p.y = this.h;
-            if (p.y > this.h) p.y = 0;
-            this.ctx.beginPath();
-            this.ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            this.ctx.fillStyle = `rgba(255, 255, 255, ${p.a})`;
-            this.ctx.fill();
-        }
-        requestAnimationFrame(() => this.animate());
-    }
-}
 
-// ============================================
-// PORTFOLIO NAVIGATION ENGINE
-// ============================================
-class Portfolio {
-    constructor() {
-        this.wrapper = document.getElementById('sectionsWrapper');
-        this.sections = document.querySelectorAll('.section');
-        this.sideLinks = document.querySelectorAll('.side-link');
-        this.hudTitle = document.getElementById('hudTitle');
-        this.hudEventL = document.getElementById('hudEventL');
-        this.hudEventR = document.getElementById('hudEventR');
-        this.hudPageCur = document.getElementById('hudPageCur');
-        this.scrollHint = document.getElementById('scrollHint');
-        this.totalSections = this.sections.length;
-        this.currentIndex = 0;
-        this.isScrolling = false;
-
-        this.sectionTitles = [];
-        this.sideLinks.forEach(link => {
-            this.sectionTitles.push(link.dataset.title);
-        });
-
-        this.setupScrollObserver();
-        this.setupNavClicks();
-        this.setupButtonClicks();
-        this.setupKeyboard();
-        this.setupCounters();
-    }
-
-    setupScrollObserver() {
-        // Use IntersectionObserver to detect which section is visible
-        const options = {
-            root: this.wrapper,
-            threshold: 0.55
-        };
-        this.observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const idx = parseInt(entry.target.dataset.index);
-                    if (idx !== this.currentIndex) {
-                        this.currentIndex = idx;
-                        this.updateUI(idx);
-                    }
-                    this.activateSection(idx);
-                }
-            });
-        }, options);
-
-        this.sections.forEach(s => this.observer.observe(s));
-    }
-
-    activateSection(idx) {
-        // Mark section as active and trigger animations
-        this.sections.forEach((s, i) => {
-            if (i === idx) {
-                s.classList.add('active');
-                // Reveal .anim-in elements
-                const anims = s.querySelectorAll('.anim-in');
-                anims.forEach((el, j) => {
-                    setTimeout(() => el.classList.add('visible'), j * 100);
+        function createParticles() {
+            var count = Math.floor((w * h) / 14000);
+            particles = [];
+            for (var i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    r: Math.random() * 1.3 + 0.3,
+                    dx: (Math.random() - 0.5) * 0.25,
+                    dy: (Math.random() - 0.5) * 0.25,
+                    a: Math.random() * 0.35 + 0.08
                 });
-                // Trigger skill bar fills
-                if (s.id === 'skills') {
-                    s.querySelectorAll('.skill-fill').forEach(bar => {
-                        bar.style.width = bar.dataset.w + '%';
-                    });
-                }
             }
-        });
-        // Counter animation for home
-        if (idx === 0) this.animateCounters();
-        this.updateUI(idx);
-    }
-
-    updateUI(idx) {
-        // Side nav
-        this.sideLinks.forEach((l, i) => {
-            l.classList.toggle('active', i === idx);
-        });
-
-        // HUD title
-        const title = this.sectionTitles[idx] || 'HOME';
-        if (this.hudTitle) this.hudTitle.textContent = title;
-
-        // HUD events
-        const secNum = String(idx + 1).padStart(2, '0');
-        if (this.hudEventL) this.hudEventL.textContent = `SECTION ${secNum}`;
-        if (this.hudEventR) this.hudEventR.textContent = `SECTION ${secNum} /`;
-        if (this.hudPageCur) this.hudPageCur.textContent = secNum;
-
-        // Scroll hint
-        if (this.scrollHint) {
-            this.scrollHint.style.opacity = idx === 0 ? '1' : '0';
         }
-    }
 
-    goToSection(idx) {
-        if (idx < 0 || idx >= this.totalSections) return;
-        const target = this.sections[idx];
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    setupNavClicks() {
-        this.sideLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const idx = parseInt(link.dataset.section);
-                this.goToSection(idx);
-            });
-        });
-    }
-
-    setupButtonClicks() {
-        document.querySelectorAll('[data-goto]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const idx = parseInt(btn.dataset.goto);
-                this.goToSection(idx);
-            });
-        });
-    }
-
-    setupKeyboard() {
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-                e.preventDefault();
-                this.goToSection(this.currentIndex + 1);
-            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-                e.preventDefault();
-                this.goToSection(this.currentIndex - 1);
-            } else if (e.key === 'Home') {
-                e.preventDefault();
-                this.goToSection(0);
-            } else if (e.key === 'End') {
-                e.preventDefault();
-                this.goToSection(this.totalSections - 1);
+        function draw() {
+            ctx.clearRect(0, 0, w, h);
+            for (var i = 0; i < particles.length; i++) {
+                var p = particles[i];
+                p.x += p.dx;
+                p.y += p.dy;
+                if (p.x < 0) p.x = w;
+                if (p.x > w) p.x = 0;
+                if (p.y < 0) p.y = h;
+                if (p.y > h) p.y = 0;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255,255,255,' + p.a + ')';
+                ctx.fill();
             }
+            requestAnimationFrame(draw);
+        }
+
+        resize();
+        draw();
+        window.addEventListener('resize', resize);
+    }
+
+    // ============================================
+    // PORTFOLIO NAVIGATION ENGINE
+    // ============================================
+    function initPortfolio() {
+        var wrapper = document.getElementById('sectionsWrapper');
+        var sections = document.querySelectorAll('.section');
+        var sideLinks = document.querySelectorAll('.side-link');
+        var hudTitle = document.getElementById('hudTitle');
+        var hudEventL = document.getElementById('hudEventL');
+        var hudEventR = document.getElementById('hudEventR');
+        var hudPageCur = document.getElementById('hudPageCur');
+        var scrollHint = document.getElementById('scrollHint');
+
+        if (!wrapper || sections.length === 0) return;
+
+        var totalSections = sections.length;
+        var currentIndex = 0;
+        var countersAnimated = false;
+
+        var sectionTitles = [];
+        sideLinks.forEach(function(link) {
+            sectionTitles.push(link.getAttribute('data-title') || '');
         });
-    }
 
-    setupCounters() {
-        this.countersAnimated = false;
-    }
+        // Scroll-based section detection (replaces IntersectionObserver — more reliable)
+        function onScroll() {
+            var scrollTop = wrapper.scrollTop;
+            var winH = wrapper.clientHeight;
 
-    animateCounters() {
-        if (this.countersAnimated) return;
-        this.countersAnimated = true;
-        document.querySelectorAll('.stat-num[data-count]').forEach(el => {
-            const target = parseInt(el.dataset.count);
-            let current = 0;
-            const step = Math.max(1, Math.floor(target / 30));
-            const iv = setInterval(() => {
-                current += step;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(iv);
+            for (var i = 0; i < sections.length; i++) {
+                var top = sections[i].offsetTop;
+                var h = sections[i].offsetHeight;
+                if (scrollTop >= top - winH * 0.45 && scrollTop < top + h - winH * 0.45) {
+                    if (i !== currentIndex) {
+                        currentIndex = i;
+                        updateUI(i);
+                    }
+                    activateSection(i);
+                    break;
                 }
-                el.textContent = current;
-            }, 40);
+            }
+        }
+
+        wrapper.addEventListener('scroll', onScroll, { passive: true });
+
+        function activateSection(idx) {
+            var s = sections[idx];
+            if (!s || s.classList.contains('active')) return;
+            s.classList.add('active');
+
+            var anims = s.querySelectorAll('.anim-in');
+            for (var j = 0; j < anims.length; j++) {
+                (function(el, delay) {
+                    setTimeout(function() { el.classList.add('visible'); }, delay);
+                })(anims[j], j * 100);
+            }
+
+            if (s.id === 'skills') {
+                s.querySelectorAll('.skill-fill').forEach(function(bar) {
+                    var w = bar.getAttribute('data-w');
+                    if (w) bar.style.width = w + '%';
+                });
+            }
+
+            if (idx === 0) animateCounters();
+        }
+
+        function updateUI(idx) {
+            sideLinks.forEach(function(l, i) {
+                if (i === idx) l.classList.add('active');
+                else l.classList.remove('active');
+            });
+
+            var title = sectionTitles[idx] || 'HOME';
+            if (hudTitle) hudTitle.textContent = title;
+
+            var secNum = String(idx + 1).padStart(2, '0');
+            if (hudEventL) hudEventL.textContent = 'SECTION ' + secNum;
+            if (hudEventR) hudEventR.textContent = 'SECTION ' + secNum + ' /';
+            if (hudPageCur) hudPageCur.textContent = secNum;
+
+            if (scrollHint) scrollHint.style.opacity = idx === 0 ? '1' : '0';
+        }
+
+        function goToSection(idx) {
+            if (idx < 0 || idx >= totalSections) return;
+            var target = sections[idx];
+            if (!target) return;
+            wrapper.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+        }
+
+        function animateCounters() {
+            if (countersAnimated) return;
+            countersAnimated = true;
+            document.querySelectorAll('.stat-num[data-count]').forEach(function(el) {
+                var target = parseInt(el.getAttribute('data-count')) || 0;
+                var current = 0;
+                var step = Math.max(1, Math.floor(target / 30));
+                var iv = setInterval(function() {
+                    current += step;
+                    if (current >= target) { current = target; clearInterval(iv); }
+                    el.textContent = current;
+                }, 40);
+            });
+        }
+
+        // Nav clicks
+        sideLinks.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                goToSection(parseInt(link.getAttribute('data-section')));
+            });
+        });
+
+        // [data-goto] buttons
+        document.querySelectorAll('[data-goto]').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                goToSection(parseInt(btn.getAttribute('data-goto')));
+            });
+        });
+
+        // Keyboard
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goToSection(currentIndex + 1); }
+            else if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); goToSection(currentIndex - 1); }
+            else if (e.key === 'Home') { e.preventDefault(); goToSection(0); }
+            else if (e.key === 'End') { e.preventDefault(); goToSection(totalSections - 1); }
+        });
+
+        // Activate first section
+        activateSection(0);
+        updateUI(0);
+    }
+
+    // ============================================
+    // HAMBURGER
+    // ============================================
+    function initHamburger() {
+        var btn = document.getElementById('hamburger');
+        var nav = document.querySelector('.side-nav-links');
+        if (!btn || !nav) return;
+        btn.addEventListener('click', function() {
+            nav.classList.toggle('open');
+            btn.classList.toggle('active');
         });
     }
-}
 
-// ============================================
-// HAMBURGER (mobile placeholder)
-// ============================================
-function setupHamburger() {
-    const btn = document.getElementById('hamburger');
-    const nav = document.querySelector('.side-nav-links');
-    if (!btn || !nav) return;
-    btn.addEventListener('click', () => {
-        nav.classList.toggle('open');
-        btn.classList.toggle('active');
-    });
-}
+    // ============================================
+    // GLITCH EFFECT
+    // ============================================
+    function initGlitch() {
+        var title = document.querySelector('.giant-name');
+        if (!title) return;
+        var style = document.createElement('style');
+        style.textContent = '@keyframes glitchText{0%{text-shadow:2px 0 #e63946,-2px 0 #60a5fa;transform:translate(0)}20%{text-shadow:-3px 0 #e63946,3px 0 #60a5fa;transform:translate(-2px,1px)}40%{text-shadow:3px 0 #e63946,-3px 0 #60a5fa;transform:translate(2px,-1px)}60%{text-shadow:-1px 0 #e63946,1px 0 #60a5fa;transform:translate(1px,0)}80%{text-shadow:2px 0 #e63946,-2px 0 #60a5fa;transform:translate(-1px,1px)}100%{text-shadow:none;transform:translate(0)}}';
+        document.head.appendChild(style);
+        title.addEventListener('mouseenter', function() {
+            title.style.animation = 'glitchText 0.3s ease';
+            setTimeout(function() { title.style.animation = ''; }, 300);
+        });
+    }
 
-// ============================================
-// GLITCH EFFECT on title hover (subtle)
-// ============================================
-function setupGlitch() {
-    const title = document.querySelector('.giant-name');
-    if (!title) return;
-    title.addEventListener('mouseenter', () => {
-        title.style.animation = 'glitchText 0.3s ease';
-        setTimeout(() => title.style.animation = '', 300);
-    });
-}
+    // ============================================
+    // INIT APP (after preloader finishes)
+    // ============================================
+    function initApp() {
+        try { initPortfolio(); } catch(e) { console.warn('Portfolio init error:', e); }
+        try { initHamburger(); } catch(e) {}
+        try { initGlitch(); } catch(e) {}
+    }
 
-// ============================================
-// INIT
-// ============================================
-document.addEventListener('DOMContentLoaded', () => {
-    new Preloader();
-    new ParticleField();
-    window.portfolio = new Portfolio();
-    setupHamburger();
-    setupGlitch();
-});
+    // ============================================
+    // BOOT
+    // ============================================
+    function boot() {
+        try { initParticles(); } catch(e) { console.warn('Particles error:', e); }
+        runPreloader();
+    }
 
-// Glitch keyframes (added via JS for cleanliness)
-const glitchStyle = document.createElement('style');
-glitchStyle.textContent = `
-@keyframes glitchText {
-    0% { text-shadow: 2px 0 #e63946, -2px 0 #60a5fa; transform: translate(0); }
-    20% { text-shadow: -3px 0 #e63946, 3px 0 #60a5fa; transform: translate(-2px, 1px); }
-    40% { text-shadow: 3px 0 #e63946, -3px 0 #60a5fa; transform: translate(2px, -1px); }
-    60% { text-shadow: -1px 0 #e63946, 1px 0 #60a5fa; transform: translate(1px, 0); }
-    80% { text-shadow: 2px 0 #e63946, -2px 0 #60a5fa; transform: translate(-1px, 1px); }
-    100% { text-shadow: none; transform: translate(0); }
-}`;
-document.head.appendChild(glitchStyle);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+    } else {
+        boot();
+    }
+
+})();
