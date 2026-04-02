@@ -11,7 +11,7 @@ class Preloader {
     constructor() {
         this.preloader = document.getElementById('preloader');
         this.progress = document.querySelector('.preloader-progress');
-        this.percentage = document.querySelector('.preloader-percentage');
+        this.percentage = document.querySelector('.preloader-percent');
         this.status = document.querySelector('.preloader-status');
         this.messages = [
             'Initializing neural interface...',
