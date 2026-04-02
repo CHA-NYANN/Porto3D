@@ -100,6 +100,7 @@ class CustomCursor {
     }
 
     resize() {
+        if (!this.trailCanvas) return;
         this.trailCanvas.width = window.innerWidth;
         this.trailCanvas.height = window.innerHeight;
     }
@@ -157,7 +158,7 @@ class CustomCursor {
 // ============================================
 class ParticleBackground {
     constructor() {
-        this.canvas = document.getElementById('matrixRain');
+        this.canvas = document.getElementById('particles-canvas');
         if (!this.canvas) return;
         
         this.ctx = this.canvas.getContext('2d');
