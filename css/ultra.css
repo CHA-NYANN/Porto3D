@@ -1855,3 +1855,22 @@ body.cursor-hover .cursor, body.cursor-hover .cursor-outline {
 .magnetic {
     transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
 }
+
+/* FIXES */
+.preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.lang-toggle { z-index: 9999; position: relative; }
+canvas { pointer-events: none; }
+
+.filter-btn.active {
+    color: #fff !important;
+    opacity: 1 !important;
+}
+
+.back-button { margin-top: 16px; }
+
+body { margin: 0; padding: 0; }

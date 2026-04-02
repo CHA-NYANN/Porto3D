@@ -48,7 +48,7 @@ class Preloader {
     }
 
     hide() {
-        this.preloader.classList.add('fade-out');
+        this.preloader.classList.add('hidden');
         document.body.classList.add('loaded');
         setTimeout(() => {
             this.preloader.style.display = 'none';
@@ -923,3 +923,5 @@ if (typeof module !== 'undefined' && module.exports) {
         Utils
     };
 }
+
+// added touch support
