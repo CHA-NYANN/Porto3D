@@ -165,7 +165,7 @@ button { font-family: inherit; cursor: none; }
     transition: transform 0.1s, background 0.2s;
 }
 
-.cursor-outline {
+.cursor, .cursor-outline {
     position: fixed;
     width: 40px;
     height: 40px;
@@ -193,7 +193,7 @@ body.cursor-hover .cursor-dot {
     background: var(--secondary);
 }
 
-body.cursor-hover .cursor-outline {
+body.cursor-hover .cursor, body.cursor-hover .cursor-outline {
     width: 60px;
     height: 60px;
     border-color: var(--secondary);
@@ -201,7 +201,7 @@ body.cursor-hover .cursor-outline {
 
 /* Hide cursor on mobile */
 @media (max-width: 768px) {
-    .cursor-dot, .cursor-outline, .cursor-glow { display: none; }
+    .cursor, .cursor-dot, .cursor-outline, .cursor-glow { display: none; }
     body { cursor: auto; }
 }
 
@@ -676,9 +676,15 @@ body.cursor-hover .cursor-outline {
     box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
 }
 
-.btn-icon svg {
+.btn-icon {
     width: 18px;
     height: 18px;
+    flex-shrink: 0;
+}
+
+.btn-icon svg {
+    width: 100%;
+    height: 100%;
     transition: transform 0.3s;
 }
 
@@ -953,9 +959,10 @@ body.cursor-hover .cursor-outline {
 
 @media (max-width: 480px) {
     .hero-name { font-size: 40px; }
-    .hero-cta { flex-direction: column; }
+    .hero-cta { flex-direction: column; align-items: stretch; }
     .hero-stats { flex-wrap: wrap; gap: 20px; }
     .stat-divider { display: none; }
+    .scroll-indicator { display: none; }
 }
 
 /* =====================================================
@@ -1786,6 +1793,19 @@ body.cursor-hover .cursor-outline {
 @media (max-width: 480px) {
     .contact-grid {
         grid-template-columns: 1fr;
+    }
+    .contact-card {
+        padding: 20px 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        text-align: left;
+    }
+    .contact-icon {
+        width: 36px;
+        height: 36px;
+        margin: 0;
+        flex-shrink: 0;
     }
 }
 

@@ -61,10 +61,11 @@ class Preloader {
 // ============================================
 class CustomCursor {
     constructor() {
-        this.cursor = document.querySelector('.cursor-outline');
+        this.cursor = document.querySelector('.cursor') || document.querySelector('.cursor-outline');
         this.cursorDot = document.querySelector('.cursor-dot');
         this.trailCanvas = document.getElementById('cursor-trail');
         this.ctx = this.trailCanvas?.getContext('2d');
+        this.cursorGlow = document.querySelector('.cursor-glow');
         this.particles = [];
         this.mouse = { x: 0, y: 0 };
         this.cursorPos = { x: 0, y: 0 };
@@ -87,12 +88,10 @@ class CustomCursor {
         const interactiveElements = document.querySelectorAll('a, button, .card, .nav-link, .cta-button, .magnetic-btn');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
-                this.cursor.classList.add('cursor-hover');
-                this.cursorDot.classList.add('cursor-hover');
+                document.body.classList.add('cursor-hover');
             });
             el.addEventListener('mouseleave', () => {
-                this.cursor.classList.remove('cursor-hover');
-                this.cursorDot.classList.remove('cursor-hover');
+                document.body.classList.remove('cursor-hover');
             });
         });
 
@@ -126,8 +125,14 @@ class CustomCursor {
         this.cursorPos.x += (this.mouse.x - this.cursorPos.x) * 0.15;
         this.cursorPos.y += (this.mouse.y - this.cursorPos.y) * 0.15;
         
-        this.cursor.style.transform = `translate(${this.cursorPos.x}px, ${this.cursorPos.y}px)`;
-        this.cursorDot.style.transform = `translate(${this.mouse.x}px, ${this.mouse.y}px)`;
+        this.cursor.style.left = `${this.cursorPos.x}px`;
+        this.cursor.style.top = `${this.cursorPos.y}px`;
+        this.cursorDot.style.left = `${this.mouse.x}px`;
+        this.cursorDot.style.top = `${this.mouse.y}px`;
+        if (this.cursorGlow) {
+            this.cursorGlow.style.left = `${this.cursorPos.x}px`;
+            this.cursorGlow.style.top = `${this.cursorPos.y}px`;
+        }
 
         // Particle trail
         if (this.ctx) {
@@ -265,7 +270,7 @@ class ParticleBackground {
 class Navigation {
     constructor() {
         this.nav = document.querySelector('.nav');
-        this.menuToggle = document.querySelector('.menu-btn');
+        this.menuToggle = document.querySelector('.menu-btn') || document.querySelector('.menu-toggle');
         this.navLinks = document.querySelector('.nav-links');
         this.navLinksItems = document.querySelectorAll('.nav-link');
         this.lastScroll = 0;
@@ -287,16 +292,30 @@ class Navigation {
         });
 
         // Mobile menu
+        const mobileMenu = document.getElementById('mobileMenu');
         this.menuToggle?.addEventListener('click', () => {
-            this.navLinks.classList.toggle('active');
+            if (mobileMenu) {
+                mobileMenu.classList.toggle('active');
+            } else {
+                this.navLinks?.classList.toggle('active');
+            }
             this.menuToggle.classList.toggle('active');
         });
 
         // Close menu on link click
         this.navLinksItems.forEach(link => {
             link.addEventListener('click', () => {
-                this.navLinks.classList.remove('active');
-                this.menuToggle.classList.remove('active');
+                mobileMenu?.classList.remove('active');
+                this.navLinks?.classList.remove('active');
+                this.menuToggle?.classList.remove('active');
+            });
+        });
+
+        // Close mobile menu links too
+        document.querySelectorAll('.mobile-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu?.classList.remove('active');
+                this.menuToggle?.classList.remove('active');
             });
         });
 
