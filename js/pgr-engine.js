@@ -225,7 +225,7 @@
         var title = document.querySelector('.giant-name');
         if (!title) return;
         var s = document.createElement('style');
-        s.textContent = '@keyframes glitchText{0%{text-shadow:2px 0 #e63946,-2px 0 #60a5fa;transform:translate(0)}20%{text-shadow:-3px 0 #e63946,3px 0 #60a5fa;transform:translate(-2px,1px)}40%{text-shadow:3px 0 #e63946,-3px 0 #60a5fa;transform:translate(2px,-1px)}60%{text-shadow:-1px 0 #e63946,1px 0 #60a5fa;transform:translate(1px,0)}80%{text-shadow:2px 0 #e63946,-2px 0 #60a5fa;transform:translate(-1px,1px)}100%{text-shadow:none;transform:translate(0)}}';
+        s.textContent = '@keyframes glitchText{0%{text-shadow:2px 0 #5b8cff,-2px 0 #a78bfa;transform:translate(0)}20%{text-shadow:-3px 0 #5b8cff,3px 0 #a78bfa;transform:translate(-2px,1px)}40%{text-shadow:3px 0 #5b8cff,-3px 0 #a78bfa;transform:translate(2px,-1px)}60%{text-shadow:-1px 0 #5b8cff,1px 0 #a78bfa;transform:translate(1px,0)}80%{text-shadow:2px 0 #5b8cff,-2px 0 #a78bfa;transform:translate(-1px,1px)}100%{text-shadow:none;transform:translate(0)}}';
         document.head.appendChild(s);
         title.addEventListener('mouseenter', function() {
             title.style.animation = 'glitchText 0.3s ease';
