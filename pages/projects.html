@@ -1,461 +1,297 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" data-lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Web Projects - Cleopatra Hapsari Admajindra | Full-Stack Development, React, Next.js, Game Development">
-    <meta name="author" content="Cleopatra Hapsari Admajindra">
-    <title>Web Projects | Cleopatra Hapsari</title>
-    
-    <!-- Fonts -->
+    <title>Cleopatra Hapsari • Proyek Web</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="../css/ultra.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/pages.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5' fill='none' stroke='%2300ffcc' stroke-width='4'/%3E%3Ctext x='50' y='62' font-family='Arial Black' font-size='40' fill='%2300ffcc' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
 </head>
 <body>
     <!-- Custom Cursor -->
     <div class="cursor"></div>
-    <div class="cursor-dot"></div>
-    <canvas id="cursor-trail"></canvas>
+    <div class="cursor-trail"></div>
 
-    <!-- Background Effects -->
-    <canvas id="particles-canvas"></canvas>
-    <div class="aurora-bg"></div>
-    <div class="grid-overlay"></div>
-    <div class="noise-overlay"></div>
+    <!-- Scan Lines Overlay -->
     <div class="scanlines"></div>
 
     <!-- Navigation -->
     <nav class="nav">
         <a href="../index.html" class="nav-logo">
-            <svg class="logo-hex" viewBox="0 0 100 100" width="45" height="45">
-                <defs>
-                    <linearGradient id="logoGradPage2" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#00ffcc"/>
-                        <stop offset="50%" style="stop-color:#ff00aa"/>
-                        <stop offset="100%" style="stop-color:#7b2dff"/>
-                    </linearGradient>
-                    <filter id="glowPage2">
-                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                        <feMerge>
-                            <feMergeNode in="coloredBlur"/>
-                            <feMergeNode in="SourceGraphic"/>
-                        </feMerge>
-                    </filter>
-                </defs>
-                <polygon class="hex-shape" points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" 
-                         fill="none" stroke="url(#logoGradPage2)" stroke-width="3" filter="url(#glowPage2)"/>
-                <text x="50" y="62" font-family="Orbitron, sans-serif" font-size="36" font-weight="900" 
-                      fill="url(#logoGradPage2)" text-anchor="middle">C</text>
-            </svg>
+            <span class="logo-bracket">[</span>
+            <span class="logo-text">CHA</span>
+            <span class="logo-bracket">]</span>
         </a>
-        
-        <div class="nav-links">
-            <a href="../index.html#home" class="nav-link" data-i18n="nav.home">Home</a>
-            <a href="../index.html#about" class="nav-link" data-i18n="nav.about">About</a>
-            <a href="../index.html#skills" class="nav-link" data-i18n="nav.skills">Skills</a>
-            <a href="../index.html#projects" class="nav-link" data-i18n="nav.projects">Projects</a>
-            <a href="artwork.html" class="nav-link" data-i18n="nav.artwork">Artwork</a>
-            <a href="projects.html" class="nav-link active" data-i18n="nav.webprojects">Web Projects</a>
-            <a href="../index.html#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
-        </div>
-
+        <ul class="nav-links">
+            <li><a href="../index.html#about"><span data-i18n="nav.about">TENTANG</span></a></li>
+            <li><a href="../index.html#skills"><span data-i18n="nav.skills">KEAHLIAN</span></a></li>
+            <li><a href="../index.html#experience"><span data-i18n="nav.experience">PENGALAMAN</span></a></li>
+            <li><a href="artwork.html"><span data-i18n="nav.artwork">ARTWORK</span></a></li>
+            <li><a href="projects.html" class="active"><span data-i18n="nav.projects">PROYEK</span></a></li>
+            <li><a href="../index.html#contact"><span data-i18n="nav.contact">KONTAK</span></a></li>
+        </ul>
         <div class="nav-actions">
-            <div class="lang-switch">
-                <button class="lang-btn active" data-lang="en">EN</button>
-                <button class="lang-btn" data-lang="id">ID</button>
-            </div>
+            <button class="lang-toggle" id="langToggle">
+                <span class="lang-active">ID</span>
+                <span class="lang-divider">/</span>
+                <span class="lang-inactive">EN</span>
+            </button>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-
-        <button class="menu-toggle" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
     </nav>
 
-    <!-- Page Container -->
-    <div class="page-container">
-        <!-- Page Hero -->
-        <section class="page-hero">
-            <a href="../index.html" class="back-button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M19 12H5M12 19l-7-7 7-7"/>
-                </svg>
-                <span data-i18n="webprojects.back">Back to Home</span>
-            </a>
-            
-            <h1 class="page-title glitch-text" data-text="Web Projects" data-i18n="webprojects.title">Web Projects</h1>
-            <p class="page-subtitle" data-i18n="webprojects.subtitle">Full-Stack Development Portfolio</p>
-        </section>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-nav-links">
+            <li><a href="../index.html#about"><span data-i18n="nav.about">TENTANG</span></a></li>
+            <li><a href="../index.html#skills"><span data-i18n="nav.skills">KEAHLIAN</span></a></li>
+            <li><a href="../index.html#experience"><span data-i18n="nav.experience">PENGALAMAN</span></a></li>
+            <li><a href="artwork.html"><span data-i18n="nav.artwork">ARTWORK</span></a></li>
+            <li><a href="projects.html"><span data-i18n="nav.projects">PROYEK</span></a></li>
+            <li><a href="../index.html#contact"><span data-i18n="nav.contact">KONTAK</span></a></li>
+        </ul>
+    </div>
 
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg">
+            <div class="grid-overlay"></div>
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+            </div>
+        </div>
+        <div class="page-header-content">
+            <span class="page-label">PORTFOLIO</span>
+            <h1 class="page-title" data-i18n="projects.title">PROYEK WEB</h1>
+            <p class="page-subtitle" data-i18n="projects.subtitle">Koleksi proyek web development yang telah saya kerjakan</p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
         <!-- Filter Tabs -->
-        <div class="filter-container">
-            <button class="filter-btn active" data-filter="all" data-i18n="webprojects.filter.all">All</button>
-            <button class="filter-btn" data-filter="fullstack" data-i18n="webprojects.filter.fullstack">Full-Stack</button>
-            <button class="filter-btn" data-filter="frontend" data-i18n="webprojects.filter.frontend">Frontend</button>
-            <button class="filter-btn" data-filter="game" data-i18n="webprojects.filter.game">Game Dev</button>
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">
+                <span data-i18n="projects.filter.all">Semua</span>
+            </button>
+            <button class="filter-tab" data-filter="fullstack">
+                <span data-i18n="projects.filter.fullstack">Full-stack</span>
+            </button>
+            <button class="filter-tab" data-filter="frontend">
+                <span data-i18n="projects.filter.frontend">Frontend</span>
+            </button>
+            <button class="filter-tab" data-filter="research">
+                <span data-i18n="projects.filter.research">Research</span>
+            </button>
         </div>
 
         <!-- Projects Grid -->
-        <div class="projects-container">
-            <div class="projects-grid">
-                
-                <!-- Featured Project: Inkura -->
-                <div class="project-card-full featured-project tilt-card" data-category="fullstack" style="animation-delay: 0.1s;">
-                    <div class="project-preview">
-                        <img src="https://images.unsplash.com/photo-1614680376739-414d95ff43df?w=800&h=500&fit=crop" 
-                             alt="Inkura Platform" class="project-preview-image">
-                        <div class="project-preview-overlay">
-                            <a href="https://www.inkura.id/" target="_blank" class="preview-btn" title="View Live">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                    <polyline points="15 3 21 3 21 9"/>
-                                    <line x1="10" y1="14" x2="21" y2="3"/>
-                                </svg>
-                            </a>
-                            <a href="https://github.com/CHA-NYANN" target="_blank" class="preview-btn" title="View Code">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                                </svg>
-                            </a>
-                        </div>
+        <div class="projects-grid">
+            <!-- Project 1: Inkura -->
+            <div class="project-card" data-category="fullstack">
+                <div class="project-image">
+                    <div class="project-gradient"></div>
+                    <div class="project-number">01</div>
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <span class="project-category">FULL-STACK PLATFORM</span>
+                        <span class="project-year">2025</span>
                     </div>
-                    <div class="project-content">
-                        <div class="featured-badge">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                            </svg>
-                            Featured Project
-                        </div>
-                        <span class="project-status completed">Live</span>
-                        <h2 class="project-card-title">Inkura</h2>
-                        <p class="project-card-desc">
-                            A comprehensive digital manga platform revolutionizing how creators publish and readers discover manga content. 
-                            Features include reading mode with smooth navigation, creator tools for publishing, community features, and monetization options.
-                        </p>
-                        <div class="project-tech-stack">
-                            <span class="tech-badge">Next.js 14</span>
-                            <span class="tech-badge">React</span>
-                            <span class="tech-badge">TypeScript</span>
-                            <span class="tech-badge">Prisma</span>
-                            <span class="tech-badge">PostgreSQL</span>
-                            <span class="tech-badge">Tailwind CSS</span>
-                        </div>
-                        <div class="project-features">
-                            <h4 class="project-features-title">Key Features</h4>
-                            <div class="project-features-list">
-                                <span class="feature-tag">Manga Reader</span>
-                                <span class="feature-tag">Creator Dashboard</span>
-                                <span class="feature-tag">User Authentication</span>
-                                <span class="feature-tag">Responsive Design</span>
-                                <span class="feature-tag">Image Optimization</span>
-                            </div>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://www.inkura.id/" target="_blank" class="project-link primary">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                    <polyline points="15 3 21 3 21 9"/>
-                                    <line x1="10" y1="14" x2="21" y2="3"/>
-                                </svg>
-                                Visit Live Site
-                            </a>
-                            <a href="https://github.com/CHA-NYANN" target="_blank" class="project-link secondary">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                                </svg>
-                                View Code
-                            </a>
-                        </div>
+                    <h3 class="project-title">Inkura</h3>
+                    <p class="project-desc">Platform full-stack untuk membaca dan upload komik, novel, dan film. Menggunakan Next.js App Router, Prisma ORM, dan Neon PostgreSQL dengan file upload ke Cloudflare R2.</p>
+                    <div class="project-tech">
+                        <span>Next.js</span>
+                        <span>TypeScript</span>
+                        <span>Prisma</span>
+                        <span>PostgreSQL</span>
+                        <span>Cloudflare R2</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.inkura.id/" target="_blank" class="project-link primary">
+                            <span data-i18n="projects.view">KUNJUNGI SITE</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                        </a>
                     </div>
                 </div>
+            </div>
 
-                <!-- Project 2: Ophius Studio -->
-                <div class="project-card-full tilt-card" data-category="frontend" style="animation-delay: 0.2s;">
-                    <div class="project-preview">
-                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&h=350&fit=crop" 
-                             alt="Ophius Studio" class="project-preview-image">
-                        <div class="project-preview-overlay">
-                            <a href="https://ophius-studio.vercel.app/" target="_blank" class="preview-btn" title="View Live">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                    <polyline points="15 3 21 3 21 9"/>
-                                    <line x1="10" y1="14" x2="21" y2="3"/>
-                                </svg>
-                            </a>
-                            <a href="https://github.com/EternalArbiters" target="_blank" class="preview-btn" title="View Code">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                                </svg>
-                            </a>
-                        </div>
+            <!-- Project 2: Ophius Studio -->
+            <div class="project-card" data-category="fullstack">
+                <div class="project-image">
+                    <div class="project-gradient grad-2"></div>
+                    <div class="project-number">02</div>
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <span class="project-category">3D INTERACTIVE WEB</span>
+                        <span class="project-year">2025</span>
                     </div>
-                    <div class="project-content">
-                        <span class="project-status completed">Live</span>
-                        <h2 class="project-card-title">Ophius Studio</h2>
-                        <p class="project-card-desc">
-                            Official website for indie game studio featuring stunning 3D visuals, smooth animations, and immersive storytelling about our game projects and team.
-                        </p>
-                        <div class="project-tech-stack">
-                            <span class="tech-badge">React</span>
-                            <span class="tech-badge">Three.js</span>
-                            <span class="tech-badge">GSAP</span>
-                            <span class="tech-badge">Vercel</span>
-                        </div>
-                        <div class="project-features">
-                            <h4 class="project-features-title">Key Features</h4>
-                            <div class="project-features-list">
-                                <span class="feature-tag">3D Graphics</span>
-                                <span class="feature-tag">Smooth Animations</span>
-                                <span class="feature-tag">Portfolio Showcase</span>
-                            </div>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://ophius-studio.vercel.app/" target="_blank" class="project-link primary">
-                                Visit Live Site
-                            </a>
-                        </div>
+                    <h3 class="project-title">Ophius Studio Website</h3>
+                    <p class="project-desc">Website studio game dengan 3D galaxy interactive experience menggunakan React Three Fiber dan Three.js. Backend REST API dengan Fastify dan PostgreSQL.</p>
+                    <div class="project-tech">
+                        <span>React</span>
+                        <span>Three.js</span>
+                        <span>Fastify</span>
+                        <span>Prisma</span>
+                        <span>Turborepo</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://ophius-studio.vercel.app/" target="_blank" class="project-link primary">
+                            <span data-i18n="projects.view">KUNJUNGI SITE</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                        </a>
                     </div>
                 </div>
+            </div>
 
-                <!-- Project 3: Sumobot AI -->
-                <div class="project-card-full tilt-card" data-category="game" style="animation-delay: 0.3s;">
-                    <div class="project-preview">
-                        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=350&fit=crop" 
-                             alt="Sumobot AI" class="project-preview-image">
-                        <div class="project-preview-overlay">
-                            <a href="https://ieeexplore.ieee.org/document/11327013" target="_blank" class="preview-btn" title="View Paper">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                    <polyline points="14 2 14 8 20 8"/>
-                                    <line x1="16" y1="13" x2="8" y2="13"/>
-                                    <line x1="16" y1="17" x2="8" y2="17"/>
-                                    <polyline points="10 9 9 9 8 9"/>
-                                </svg>
-                            </a>
-                        </div>
+            <!-- Project 3: Sumobot -->
+            <div class="project-card featured" data-category="research">
+                <div class="project-image">
+                    <div class="project-gradient grad-3"></div>
+                    <div class="project-number">03</div>
+                    <div class="project-badge">IEEE Published</div>
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <span class="project-category">AI RESEARCH PROJECT</span>
+                        <span class="project-year">2025-2026</span>
                     </div>
-                    <div class="project-content">
-                        <span class="project-status completed">Published</span>
-                        <h2 class="project-card-title">Sumobot AI</h2>
-                        <p class="project-card-desc">
-                            Research project on autonomous sumobot system using computer vision and machine learning. Published in IEEE ICIMCIS 2025 conference proceedings.
-                        </p>
-                        <div class="project-tech-stack">
-                            <span class="tech-badge">Python</span>
-                            <span class="tech-badge">OpenCV</span>
-                            <span class="tech-badge">TensorFlow</span>
-                            <span class="tech-badge">Arduino</span>
-                            <span class="tech-badge">Raspberry Pi</span>
-                        </div>
-                        <div class="project-features">
-                            <h4 class="project-features-title">Research Focus</h4>
-                            <div class="project-features-list">
-                                <span class="feature-tag">Computer Vision</span>
-                                <span class="feature-tag">Object Detection</span>
-                                <span class="feature-tag">Autonomous Control</span>
-                                <span class="feature-tag">Real-time Processing</span>
-                            </div>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://ieeexplore.ieee.org/document/11327013" target="_blank" class="project-link primary">
-                                Read IEEE Paper
-                            </a>
-                        </div>
+                    <h3 class="project-title">Sumobot - Competitive 2D Robot Game</h3>
+                    <p class="project-desc">Game riset AI kolaborasi dengan IGS & NTUST Taiwan. Meneliti Small Language Models (SLM) untuk real-time strategy prediction. Paper published di IEEE ICIMCIS 2025.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>AI/ML</span>
+                        <span>SLM</span>
+                        <span>LSTM</span>
+                        <span>Transformer</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/CHA-NYANN/Sumobot-Env" target="_blank" class="project-link secondary">
+                            <span data-i18n="projects.github">GITHUB</span>
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://ieeexplore.ieee.org/document/11327013" target="_blank" class="project-link primary">
+                            <span data-i18n="projects.paper">BACA PAPER</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                        </a>
                     </div>
                 </div>
+            </div>
 
-                <!-- Project 4: SIAKAD UDINUS -->
-                <div class="project-card-full tilt-card" data-category="fullstack" style="animation-delay: 0.4s;">
-                    <div class="project-preview">
-                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=350&fit=crop" 
-                             alt="SIAKAD UDINUS" class="project-preview-image">
-                        <div class="project-preview-overlay">
-                            <span class="preview-btn" title="Private Project">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                                </svg>
-                            </span>
-                        </div>
+            <!-- Project 4: SIAKAD UDINUS -->
+            <div class="project-card" data-category="fullstack">
+                <div class="project-image">
+                    <div class="project-gradient grad-4"></div>
+                    <div class="project-number">04</div>
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <span class="project-category">ACADEMIC SYSTEM</span>
+                        <span class="project-year">2025</span>
                     </div>
-                    <div class="project-content">
-                        <span class="project-status completed">Completed</span>
-                        <h2 class="project-card-title">SIAKAD UDINUS</h2>
-                        <p class="project-card-desc">
-                            Academic information system for Universitas Dian Nuswantoro handling student data management, grade tracking, course scheduling, and administrative functions.
-                        </p>
-                        <div class="project-tech-stack">
-                            <span class="tech-badge">PHP</span>
-                            <span class="tech-badge">Laravel</span>
-                            <span class="tech-badge">MySQL</span>
-                            <span class="tech-badge">Bootstrap</span>
-                            <span class="tech-badge">jQuery</span>
-                        </div>
-                        <div class="project-features">
-                            <h4 class="project-features-title">Key Features</h4>
-                            <div class="project-features-list">
-                                <span class="feature-tag">Student Portal</span>
-                                <span class="feature-tag">Grade Management</span>
-                                <span class="feature-tag">Course Scheduling</span>
-                                <span class="feature-tag">Admin Dashboard</span>
-                            </div>
-                        </div>
-                        <div class="project-links">
-                            <span class="project-link secondary" style="cursor: default; opacity: 0.7;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                                </svg>
-                                Private Project
-                            </span>
-                        </div>
+                    <h3 class="project-title">SIAKAD UDINUS</h3>
+                    <p class="project-desc">Sistem informasi akademik full-stack dengan 3 user role: admin, lecturer, dan student. Menggunakan monorepo dengan shared packages untuk types, UI components, dan API SDK.</p>
+                    <div class="project-tech">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>Express</span>
+                        <span>Prisma</span>
+                        <span>Docker</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://siakad-udinus.vercel.app/" target="_blank" class="project-link primary">
+                            <span data-i18n="projects.view">KUNJUNGI SITE</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                        </a>
                     </div>
                 </div>
+            </div>
 
-                <!-- Project 5: Game Project -->
-                <div class="project-card-full tilt-card" data-category="game" style="animation-delay: 0.5s;">
-                    <div class="project-preview">
-                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&h=350&fit=crop" 
-                             alt="Indie Game Project" class="project-preview-image">
-                        <div class="project-preview-overlay">
-                            <a href="https://github.com/EternalArbiters" target="_blank" class="preview-btn" title="View Code">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                                </svg>
-                            </a>
-                        </div>
+            <!-- Project 5: Amu Game -->
+            <div class="project-card" data-category="frontend">
+                <div class="project-image">
+                    <div class="project-gradient grad-5"></div>
+                    <div class="project-number">05</div>
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <span class="project-category">GAME PROJECT</span>
+                        <span class="project-year">2025 - Present</span>
                     </div>
-                    <div class="project-content">
-                        <span class="project-status in-progress">In Development</span>
-                        <h2 class="project-card-title">Ophius Game Project</h2>
-                        <p class="project-card-desc">
-                            Currently developing an indie game at Ophius Studio featuring unique gameplay mechanics, beautiful pixel art, and an engaging narrative experience.
-                        </p>
-                        <div class="project-tech-stack">
-                            <span class="tech-badge">Unity</span>
-                            <span class="tech-badge">C#</span>
-                            <span class="tech-badge">Aseprite</span>
-                            <span class="tech-badge">FMOD</span>
-                        </div>
-                        <div class="project-features">
-                            <h4 class="project-features-title">Features</h4>
-                            <div class="project-features-list">
-                                <span class="feature-tag">2D Gameplay</span>
-                                <span class="feature-tag">Pixel Art</span>
-                                <span class="feature-tag">Story-driven</span>
-                                <span class="feature-tag">Original Soundtrack</span>
-                            </div>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/EternalArbiters" target="_blank" class="project-link primary">
-                                Follow Development
-                            </a>
-                        </div>
+                    <h3 class="project-title">Amu - 2D Adventure Game</h3>
+                    <p class="project-desc">Game 2D adventure dengan protagonist hamster bernama Amu. Bertanggung jawab untuk narrative, character design, dan level layout design.</p>
+                    <div class="project-tech">
+                        <span>Unity</span>
+                        <span>C#</span>
+                        <span>2D Art</span>
+                        <span>Narrative Design</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/lulasstudio13/ophius2dproject-one" target="_blank" class="project-link secondary">
+                            <span data-i18n="projects.github">GITHUB</span>
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
                     </div>
                 </div>
-
-                <!-- Project 6: GEMASTIK Project -->
-                <div class="project-card-full tilt-card" data-category="fullstack" style="animation-delay: 0.6s;">
-                    <div class="project-preview">
-                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=350&fit=crop" 
-                             alt="GEMASTIK Project" class="project-preview-image">
-                        <div class="project-preview-overlay">
-                            <span class="preview-btn" title="Competition Project">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="8" r="7"/>
-                                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
-                                </svg>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-status in-progress">Competition</span>
-                        <h2 class="project-card-title">Feiren - GEMASTIK 2025</h2>
-                        <p class="project-card-desc">
-                            Lead developer for Team Feiren competing in GEMASTIK 2025, Indonesia's national technology competition. Building innovative software solutions.
-                        </p>
-                        <div class="project-tech-stack">
-                            <span class="tech-badge">Next.js</span>
-                            <span class="tech-badge">TypeScript</span>
-                            <span class="tech-badge">Node.js</span>
-                            <span class="tech-badge">AI/ML</span>
-                        </div>
-                        <div class="project-features">
-                            <h4 class="project-features-title">Competition Focus</h4>
-                            <div class="project-features-list">
-                                <span class="feature-tag">Innovation</span>
-                                <span class="feature-tag">Problem Solving</span>
-                                <span class="feature-tag">Team Leadership</span>
-                            </div>
-                        </div>
-                        <div class="project-links">
-                            <span class="project-link secondary" style="cursor: default; opacity: 0.7;">
-                                Coming Soon
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
+    </section>
 
-        <!-- Footer -->
-        <footer class="page-footer">
-            <p class="page-footer-text">
-                <span data-i18n="footer.copyright">© 2025 Cleopatra Hapsari Admajindra. All rights reserved.</span>
-                <br>
-                <a href="https://github.com/CHA-NYANN" target="_blank" class="page-footer-link">github.com/CHA-NYANN</a>
-                 · 
-                <a href="https://github.com/EternalArbiters" target="_blank" class="page-footer-link">github.com/EternalArbiters</a>
-            </p>
-        </footer>
+    <!-- GitHub Stats -->
+    <section class="github-stats">
+        <div class="stats-content">
+            <h2 class="stats-title">More Projects on GitHub</h2>
+            <div class="github-links">
+                <a href="https://github.com/CHA-NYANN" target="_blank" class="github-card">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <div class="github-info">
+                        <span class="github-username">@CHA-NYANN</span>
+                        <span class="github-label">Personal Projects</span>
+                    </div>
+                </a>
+                <a href="https://github.com/EternalArbiters" target="_blank" class="github-card">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <div class="github-info">
+                        <span class="github-username">@EternalArbiters</span>
+                        <span class="github-label">Team & Organization</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back Link -->
+    <div class="back-link">
+        <a href="../index.html" class="link-back">
+            <span class="link-arrow">←</span>
+            <span data-i18n="projects.back">Kembali ke Beranda</span>
+        </a>
     </div>
 
-    <!-- VanillaTilt -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-    
-    <!-- Scripts -->
-    <script src="../js/ultra.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <span class="footer-logo">[CHA]</span>
+                <p class="footer-text">© 2026 Cleopatra Hapsari Admajindra</p>
+            </div>
+            <div class="footer-right">
+                <span class="footer-note" data-i18n="footer.note">Dibuat dengan 💜 dan banyak kopi</span>
+            </div>
+        </div>
+    </footer>
+
     <script src="../js/i18n.js"></script>
-    
-    <!-- Projects Filter Script -->
-    <script>
-        // Filter functionality
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('.project-card-full');
-        
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Update active button
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const filter = btn.dataset.filter;
-                
-                projectCards.forEach((card, index) => {
-                    const category = card.dataset.category;
-                    const shouldShow = filter === 'all' || category === filter;
-                    
-                    if (shouldShow) {
-                        card.style.display = 'grid';
-                        card.style.animation = 'none';
-                        card.offsetHeight; // Trigger reflow
-                        card.style.animation = `fadeInUp 0.7s forwards ${index * 0.1}s`;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="../js/main.js"></script>
+    <script src="../js/projects.js"></script>
 </body>
 </html>
