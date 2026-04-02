@@ -119,8 +119,8 @@
                 })(anims[j], j * 100);
             }
 
-            if (s.id === 'skills') {
-                var fills = s.querySelectorAll('.skill-fill');
+            if (s.id === 'skills' || s.id === 'data') {
+                var fills = s.querySelectorAll('.skill-fill, .data-stat-fill');
                 for (var k = 0; k < fills.length; k++) {
                     var w = fills[k].getAttribute('data-w');
                     if (w) fills[k].style.width = w + '%';
