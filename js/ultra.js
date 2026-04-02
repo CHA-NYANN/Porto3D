@@ -61,7 +61,7 @@ class Preloader {
 // ============================================
 class CustomCursor {
     constructor() {
-        this.cursor = document.querySelector('.cursor');
+        this.cursor = document.querySelector('.cursor-outline');
         this.cursorDot = document.querySelector('.cursor-dot');
         this.trailCanvas = document.getElementById('cursor-trail');
         this.ctx = this.trailCanvas?.getContext('2d');
@@ -72,7 +72,7 @@ class CustomCursor {
     }
 
     init() {
-        if (!this.cursor || !this.trailCanvas) return;
+        if (!this.cursor) return;
         
         this.resize();
         window.addEventListener('resize', () => this.resize());
@@ -157,7 +157,7 @@ class CustomCursor {
 // ============================================
 class ParticleBackground {
     constructor() {
-        this.canvas = document.getElementById('particles-canvas');
+        this.canvas = document.getElementById('matrixRain');
         if (!this.canvas) return;
         
         this.ctx = this.canvas.getContext('2d');
@@ -264,7 +264,7 @@ class ParticleBackground {
 class Navigation {
     constructor() {
         this.nav = document.querySelector('.nav');
-        this.menuToggle = document.querySelector('.menu-toggle');
+        this.menuToggle = document.querySelector('.menu-btn');
         this.navLinks = document.querySelector('.nav-links');
         this.navLinksItems = document.querySelectorAll('.nav-link');
         this.lastScroll = 0;
@@ -341,7 +341,7 @@ class RoleCarousel {
 // ============================================
 class CountUp {
     constructor() {
-        this.counters = document.querySelectorAll('.stat-number');
+        this.counters = document.querySelectorAll('.stat-num');
         this.observed = new Set();
         this.init();
     }
@@ -414,7 +414,7 @@ class ScrollAnimations {
 // ============================================
 class SkillBars {
     constructor() {
-        this.skillBars = document.querySelectorAll('.skill-fill');
+        this.skillBars = document.querySelectorAll('.skill-progress');
         this.init();
     }
 
@@ -422,7 +422,7 @@ class SkillBars {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const width = entry.target.dataset.width;
+                    const width = entry.target.dataset.progress;
                     entry.target.style.width = width + '%';
                 }
             });
@@ -465,7 +465,7 @@ class TimelineProgress {
 // ============================================
 class MagneticButtons {
     constructor() {
-        this.buttons = document.querySelectorAll('.magnetic-btn, .cta-button');
+        this.buttons = document.querySelectorAll('.btn-primary, .btn-outline');
         this.init();
     }
 
@@ -491,7 +491,7 @@ class MagneticButtons {
 // ============================================
 class TiltEffect {
     constructor() {
-        this.cards = document.querySelectorAll('.tilt-card, .project-card, .award-card');
+        this.cards = document.querySelectorAll('.card-tilt, .project-card');
         this.init();
     }
 
@@ -805,7 +805,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new SmoothReveal();
     
     // Initialize typing effect if element exists
-    const typingElement = document.querySelector('.typing-text');
+    const typingElement = document.querySelector('.role-text');
     if (typingElement) {
         new TypingEffect(typingElement, [
             'Game Designer',
