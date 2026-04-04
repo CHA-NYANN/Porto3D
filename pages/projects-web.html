@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB PROJECTS // CLEOPATRA SYSTEM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" crossorigin>
+    <link rel="stylesheet" href="../css/pgr-pages.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5' fill='none' stroke='%235b8cff' stroke-width='4'/%3E%3Ctext x='50' y='62' font-family='monospace' font-size='40' fill='%235b8cff' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <div class="bg-noise"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-vignette"></div>
+
+    <!-- TOP NAV -->
+    <nav class="top-nav">
+        <a href="../index.html#projects" class="nav-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            BACK
+        </a>
+        <a href="../index.html" class="nav-logo-hex">
+            <svg viewBox="0 0 50 50"><polygon points="25,2 48,15 48,35 25,48 2,35 2,15" fill="none" stroke="#5b8cff" stroke-width="1.5"/><text x="25" y="30" text-anchor="middle" fill="#5b8cff" font-family="Orbitron" font-size="10" font-weight="700">CHA</text></svg>
+        </a>
+        <div class="nav-links-row">
+            <a href="../index.html#home" class="nav-link-item">HOME</a>
+            <a href="projects-web.html" class="nav-link-item active">WEB</a>
+            <a href="projects-game.html" class="nav-link-item">GAME</a>
+            <a href="projects-novel.html" class="nav-link-item">NOVEL</a>
+            <a href="artwork.html" class="nav-link-item">ARTWORK</a>
+            <a href="../index.html#contact" class="nav-link-item">CONTACT</a>
+        </div>
+    </nav>
+
+    <!-- HUD STRIPE -->
+    <div class="hud-stripe">
+        <div><span style="color:#5b8cff;font-size:6px">●</span> SECTION 06</div>
+        <div class="hud-stripe-center">
+            <span class="hud-stripe-line"></span>
+            <span class="hud-stripe-sub">CLEOPATRA</span>
+            <span class="hud-stripe-line"></span>
+        </div>
+        <div>WEB / <span style="color:var(--text-mid)">DEVELOPMENT</span></div>
+    </div>
+
+    <!-- HUD BOTTOM -->
+    <div class="hud-bot">
+        <div><span class="hb-arrows">▶ ▶ ▶</span> CLEOPATRA FORCE</div>
+        <div>WEB PROJECTS</div>
+        <div>● ● <span class="hb-hash">//////////////////////</span></div>
+    </div>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="page-hero-bg-text">WEB</div>
+        <div class="page-title-bar">
+            <div class="red-bar-h"></div>
+            <div>
+                <h1 class="page-title anim-in">WEB DEVELOPMENT</h1>
+                <p class="page-subtitle anim-in" style="animation-delay:0.1s">— FULL-STACK & FRONTEND PROJECTS —</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORY TABS -->
+    <div class="filter-wrap">
+        <a href="projects-web.html" class="filter-btn active">WEB</a>
+        <a href="projects-game.html" class="filter-btn">GAME</a>
+        <a href="projects-novel.html" class="filter-btn">NOVEL</a>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="projects-wrap">
+        <div class="pgr-projects-grid">
+
+            <!-- 1: Inkura (Featured) -->
+            <div class="pgr-project-card anim-in" style="animation-delay:0.15s">
+                <div class="pgr-project-img">
+                    <img src="https://images.unsplash.com/photo-1614680376739-414d95ff43df?w=800&h=500&fit=crop" alt="Inkura">
+                    <div class="pgr-project-img-overlay"></div>
+                    <span class="pgr-project-num">01</span>
+                    <div class="pgr-project-img-actions">
+                        <a href="https://www.inkura.id/" target="_blank" class="pgr-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                        <a href="https://github.com/CHA-NYANN" target="_blank" class="pgr-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+                    </div>
+                </div>
+                <div class="pgr-project-info">
+                    <div class="featured-tag"><svg viewBox="0 0 24 24" width="12" height="12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> FEATURED PROJECT</div>
+                    <div class="pgr-project-status live">● LIVE</div>
+                    <h2>INKURA</h2>
+                    <p class="desc">A comprehensive digital manga platform revolutionizing how creators publish and readers discover manga content. Features reading mode, creator tools, community features, and monetization.</p>
+                    <div class="pgr-tech-stack"><span class="pgr-tech-badge">Next.js 14</span><span class="pgr-tech-badge">React</span><span class="pgr-tech-badge">TypeScript</span><span class="pgr-tech-badge">Prisma</span><span class="pgr-tech-badge">PostgreSQL</span><span class="pgr-tech-badge">Tailwind</span></div>
+                    <div class="pgr-features-title">KEY FEATURES</div>
+                    <div class="pgr-features-list"><span class="pgr-feature-tag">Manga Reader</span><span class="pgr-feature-tag">Creator Dashboard</span><span class="pgr-feature-tag">Authentication</span><span class="pgr-feature-tag">Image Optimization</span></div>
+                    <div class="pgr-project-links">
+                        <a href="https://www.inkura.id/" target="_blank" class="pgr-proj-link primary">VISIT LIVE SITE →</a>
+                        <a href="https://github.com/CHA-NYANN" target="_blank" class="pgr-proj-link secondary">VIEW CODE</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2: Ophius Studio -->
+            <div class="pgr-project-card anim-in" style="animation-delay:0.25s">
+                <div class="pgr-project-img">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&h=350&fit=crop" alt="Ophius Studio">
+                    <div class="pgr-project-img-overlay"></div>
+                    <span class="pgr-project-num">02</span>
+                    <div class="pgr-project-img-actions">
+                        <a href="https://ophius-studio.vercel.app/" target="_blank" class="pgr-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                    </div>
+                </div>
+                <div class="pgr-project-info">
+                    <div class="pgr-project-status live">● LIVE</div>
+                    <h2>OPHIUS STUDIO</h2>
+                    <p class="desc">Official website for indie game studio featuring stunning 3D visuals, smooth animations, and immersive storytelling about game projects and team.</p>
+                    <div class="pgr-tech-stack"><span class="pgr-tech-badge">React</span><span class="pgr-tech-badge">Three.js</span><span class="pgr-tech-badge">GSAP</span><span class="pgr-tech-badge">Vercel</span></div>
+                    <div class="pgr-features-title">KEY FEATURES</div>
+                    <div class="pgr-features-list"><span class="pgr-feature-tag">3D Graphics</span><span class="pgr-feature-tag">Smooth Animations</span><span class="pgr-feature-tag">Portfolio Showcase</span></div>
+                    <div class="pgr-project-links"><a href="https://ophius-studio.vercel.app/" target="_blank" class="pgr-proj-link primary">VISIT LIVE SITE →</a></div>
+                </div>
+            </div>
+
+            <!-- 3: SIAKAD -->
+            <div class="pgr-project-card anim-in" style="animation-delay:0.35s">
+                <div class="pgr-project-img">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=350&fit=crop" alt="SIAKAD">
+                    <div class="pgr-project-img-overlay"></div>
+                    <span class="pgr-project-num">03</span>
+                </div>
+                <div class="pgr-project-info">
+                    <div class="pgr-project-status completed">● COMPLETED</div>
+                    <h2>SIAKAD UDINUS</h2>
+                    <p class="desc">Academic information system for Universitas Dian Nuswantoro handling student data management, grade tracking, course scheduling, and admin functions.</p>
+                    <div class="pgr-tech-stack"><span class="pgr-tech-badge">PHP</span><span class="pgr-tech-badge">Laravel</span><span class="pgr-tech-badge">MySQL</span><span class="pgr-tech-badge">Bootstrap</span><span class="pgr-tech-badge">jQuery</span></div>
+                    <div class="pgr-features-title">KEY FEATURES</div>
+                    <div class="pgr-features-list"><span class="pgr-feature-tag">Student Portal</span><span class="pgr-feature-tag">Grade Management</span><span class="pgr-feature-tag">Course Scheduling</span><span class="pgr-feature-tag">Admin Dashboard</span></div>
+                    <div class="pgr-project-links"><span class="pgr-proj-link secondary" style="opacity:0.5;cursor:default">PRIVATE PROJECT</span></div>
+                </div>
+            </div>
+
+            <!-- 4: GEMASTIK -->
+            <div class="pgr-project-card anim-in" style="animation-delay:0.45s">
+                <div class="pgr-project-img">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=350&fit=crop" alt="GEMASTIK">
+                    <div class="pgr-project-img-overlay"></div>
+                    <span class="pgr-project-num">04</span>
+                </div>
+                <div class="pgr-project-info">
+                    <div class="pgr-project-status competition">● COMPETITION</div>
+                    <h2>FEIREN — GEMASTIK 2025</h2>
+                    <p class="desc">Lead developer for Team Feiren competing in GEMASTIK 2025, Indonesia's national technology competition. Building innovative software solutions.</p>
+                    <div class="pgr-tech-stack"><span class="pgr-tech-badge">Next.js</span><span class="pgr-tech-badge">TypeScript</span><span class="pgr-tech-badge">Node.js</span><span class="pgr-tech-badge">AI/ML</span></div>
+                    <div class="pgr-features-title">COMPETITION FOCUS</div>
+                    <div class="pgr-features-list"><span class="pgr-feature-tag">Innovation</span><span class="pgr-feature-tag">Problem Solving</span><span class="pgr-feature-tag">Team Leadership</span></div>
+                    <div class="pgr-project-links"><span class="pgr-proj-link secondary" style="opacity:0.5;cursor:default">COMING SOON</span></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    const c=document.getElementById('particleCanvas'),ctx=c?.getContext('2d');
+    let ps=[];
+    function rz(){if(!c)return;c.width=innerWidth;c.height=innerHeight;ps=[];const n=Math.floor(innerWidth*innerHeight/15000);for(let i=0;i<n;i++)ps.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.2+0.3,dx:(Math.random()-0.5)*0.3,dy:(Math.random()-0.5)*0.3,a:Math.random()*0.35+0.1});}
+    function draw(){if(!ctx)return;ctx.clearRect(0,0,c.width,c.height);for(const p of ps){p.x+=p.dx;p.y+=p.dy;if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${p.a})`;ctx.fill();}requestAnimationFrame(draw);}
+    rz();draw();addEventListener('resize',rz);
+    document.querySelectorAll('.anim-in').forEach((el,i)=>{setTimeout(()=>el.classList.add('visible'),100+i*80);});
+    </script>
+</body>
+</html>

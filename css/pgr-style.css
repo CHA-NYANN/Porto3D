@@ -176,6 +176,15 @@ ul { list-style: none; }
 .side-nav {
     position: fixed; left: 0; top: 0; bottom: 0; width: var(--nav-width); z-index: 200;
     display: flex; flex-direction: column; padding-top: 20px;
+    background: transparent;
+}
+/* Subtle dark left gradient so nav text stays readable over images */
+.side-nav::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(10,10,20,0.55) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: -1;
 }
 .hamburger {
     width: 30px; height: 22px; margin: 0 0 30px 24px; position: relative;
@@ -613,11 +622,17 @@ ul { list-style: none; }
     display: flex; width: 100%; height: 100%;
 }
 
+/* ── Full-bleed override for projects section ── */
+#projects {
+    padding: 0 !important;
+}
+#projects .section-content {
+    max-width: none; height: 100vh;
+}
+
 /* ── 3-panel PGR category layout ── */
 .cat-panels {
-    display: flex; width: 100%;
-    height: 78vh; max-height: 600px;
-    gap: 6px;
+    display: flex; width: 100%; height: 100%;
 }
 
 .cat-panel {
@@ -627,7 +642,9 @@ ul { list-style: none; }
     transition: flex 0.65s cubic-bezier(0.4, 0, 0.2, 1),
                 filter 0.4s ease;
     cursor: pointer;
-    filter: brightness(0.75) saturate(0.7);
+    filter: brightness(0.7) saturate(0.6);
+    text-decoration: none;
+    display: block;
 }
 .cat-panel:hover {
     flex: 1.7;

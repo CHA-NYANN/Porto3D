@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAME PROJECTS // CLEOPATRA SYSTEM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" crossorigin>
+    <link rel="stylesheet" href="../css/pgr-pages.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5' fill='none' stroke='%235b8cff' stroke-width='4'/%3E%3Ctext x='50' y='62' font-family='monospace' font-size='40' fill='%235b8cff' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <div class="bg-noise"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-vignette"></div>
+
+    <nav class="top-nav">
+        <a href="../index.html#projects" class="nav-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            BACK
+        </a>
+        <a href="../index.html" class="nav-logo-hex">
+            <svg viewBox="0 0 50 50"><polygon points="25,2 48,15 48,35 25,48 2,35 2,15" fill="none" stroke="#5b8cff" stroke-width="1.5"/><text x="25" y="30" text-anchor="middle" fill="#5b8cff" font-family="Orbitron" font-size="10" font-weight="700">CHA</text></svg>
+        </a>
+        <div class="nav-links-row">
+            <a href="../index.html#home" class="nav-link-item">HOME</a>
+            <a href="projects-web.html" class="nav-link-item">WEB</a>
+            <a href="projects-game.html" class="nav-link-item active">GAME</a>
+            <a href="projects-novel.html" class="nav-link-item">NOVEL</a>
+            <a href="artwork.html" class="nav-link-item">ARTWORK</a>
+            <a href="../index.html#contact" class="nav-link-item">CONTACT</a>
+        </div>
+    </nav>
+
+    <div class="hud-stripe">
+        <div><span style="color:#5b8cff;font-size:6px">●</span> SECTION 06</div>
+        <div class="hud-stripe-center">
+            <span class="hud-stripe-line"></span>
+            <span class="hud-stripe-sub">CLEOPATRA</span>
+            <span class="hud-stripe-line"></span>
+        </div>
+        <div>GAME / <span style="color:var(--text-mid)">DESIGN & AI</span></div>
+    </div>
+
+    <div class="hud-bot">
+        <div><span class="hb-arrows">▶ ▶ ▶</span> CLEOPATRA FORCE</div>
+        <div>GAME PROJECTS</div>
+        <div>● ● <span class="hb-hash">//////////////////////</span></div>
+    </div>
+
+    <section class="page-hero">
+        <div class="page-hero-bg-text">GAME</div>
+        <div class="page-title-bar">
+            <div class="red-bar-h"></div>
+            <div>
+                <h1 class="page-title anim-in">GAME DESIGN & AI</h1>
+                <p class="page-subtitle anim-in" style="animation-delay:0.1s">— GAME DEVELOPMENT & RESEARCH —</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="filter-wrap">
+        <a href="projects-web.html" class="filter-btn">WEB</a>
+        <a href="projects-game.html" class="filter-btn active">GAME</a>
+        <a href="projects-novel.html" class="filter-btn">NOVEL</a>
+    </div>
+
+    <div class="projects-wrap">
+        <div class="pgr-projects-grid">
+
+            <!-- 1: Sumobot AI -->
+            <div class="pgr-project-card anim-in" style="animation-delay:0.15s">
+                <div class="pgr-project-img">
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=500&fit=crop" alt="Sumobot AI">
+                    <div class="pgr-project-img-overlay"></div>
+                    <span class="pgr-project-num">01</span>
+                    <div class="pgr-project-img-actions">
+                        <a href="https://ieeexplore.ieee.org/document/11327013" target="_blank" class="pgr-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></a>
+                    </div>
+                </div>
+                <div class="pgr-project-info">
+                    <div class="featured-tag"><svg viewBox="0 0 24 24" width="12" height="12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> IEEE PUBLISHED</div>
+                    <div class="pgr-project-status published">● PUBLISHED</div>
+                    <h2>SUMOBOT AI</h2>
+                    <p class="desc">Research project on autonomous sumobot system using computer vision and machine learning. Published in IEEE ICIMCIS 2025 conference proceedings.</p>
+                    <div class="pgr-tech-stack"><span class="pgr-tech-badge">Python</span><span class="pgr-tech-badge">OpenCV</span><span class="pgr-tech-badge">TensorFlow</span><span class="pgr-tech-badge">Arduino</span><span class="pgr-tech-badge">Raspberry Pi</span></div>
+                    <div class="pgr-features-title">RESEARCH FOCUS</div>
+                    <div class="pgr-features-list"><span class="pgr-feature-tag">Computer Vision</span><span class="pgr-feature-tag">Object Detection</span><span class="pgr-feature-tag">Autonomous Control</span><span class="pgr-feature-tag">Real-time Processing</span></div>
+                    <div class="pgr-project-links"><a href="https://ieeexplore.ieee.org/document/11327013" target="_blank" class="pgr-proj-link primary">READ IEEE PAPER →</a></div>
+                </div>
+            </div>
+
+            <!-- 2: Ophius Game -->
+            <div class="pgr-project-card anim-in" style="animation-delay:0.25s">
+                <div class="pgr-project-img">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&h=350&fit=crop" alt="Ophius Game">
+                    <div class="pgr-project-img-overlay"></div>
+                    <span class="pgr-project-num">02</span>
+                    <div class="pgr-project-img-actions">
+                        <a href="https://github.com/EternalArbiters" target="_blank" class="pgr-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+                    </div>
+                </div>
+                <div class="pgr-project-info">
+                    <div class="pgr-project-status progress">● IN DEVELOPMENT</div>
+                    <h2>OPHIUS GAME PROJECT</h2>
+                    <p class="desc">Currently developing an indie game at Ophius Studio featuring unique gameplay mechanics, beautiful pixel art, and an engaging narrative experience.</p>
+                    <div class="pgr-tech-stack"><span class="pgr-tech-badge">Unity</span><span class="pgr-tech-badge">C#</span><span class="pgr-tech-badge">Aseprite</span><span class="pgr-tech-badge">FMOD</span></div>
+                    <div class="pgr-features-title">FEATURES</div>
+                    <div class="pgr-features-list"><span class="pgr-feature-tag">2D Gameplay</span><span class="pgr-feature-tag">Pixel Art</span><span class="pgr-feature-tag">Story-driven</span><span class="pgr-feature-tag">Original Soundtrack</span></div>
+                    <div class="pgr-project-links"><a href="https://github.com/EternalArbiters" target="_blank" class="pgr-proj-link primary">FOLLOW DEVELOPMENT →</a></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    const c=document.getElementById('particleCanvas'),ctx=c?.getContext('2d');
+    let ps=[];
+    function rz(){if(!c)return;c.width=innerWidth;c.height=innerHeight;ps=[];const n=Math.floor(innerWidth*innerHeight/15000);for(let i=0;i<n;i++)ps.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.2+0.3,dx:(Math.random()-0.5)*0.3,dy:(Math.random()-0.5)*0.3,a:Math.random()*0.35+0.1});}
+    function draw(){if(!ctx)return;ctx.clearRect(0,0,c.width,c.height);for(const p of ps){p.x+=p.dx;p.y+=p.dy;if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${p.a})`;ctx.fill();}requestAnimationFrame(draw);}
+    rz();draw();addEventListener('resize',rz);
+    document.querySelectorAll('.anim-in').forEach((el,i)=>{setTimeout(()=>el.classList.add('visible'),100+i*80);});
+    </script>
+</body>
+</html>
