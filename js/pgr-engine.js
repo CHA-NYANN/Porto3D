@@ -213,10 +213,27 @@
         var nav = document.querySelector('.side-nav-links');
         var sideNav = document.querySelector('.side-nav');
         if (!btn || !nav) return;
+
+        function closeNav() {
+            nav.classList.remove('open');
+            btn.classList.remove('active');
+            if (sideNav) sideNav.classList.remove('nav-open');
+        }
+
         btn.addEventListener('click', function() {
-            nav.classList.toggle('open');
+            var isOpen = nav.classList.toggle('open');
             btn.classList.toggle('active');
             if (sideNav) sideNav.classList.toggle('nav-open');
+        });
+
+        // Close nav when clicking the scrim (outside panel)
+        document.addEventListener('click', function(e) {
+            if (nav.classList.contains('open') &&
+                !nav.contains(e.target) &&
+                e.target !== btn &&
+                !btn.contains(e.target)) {
+                closeNav();
+            }
         });
     }
 

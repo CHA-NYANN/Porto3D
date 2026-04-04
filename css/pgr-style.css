@@ -23,7 +23,7 @@
     --font-display: 'Orbitron', 'Segoe UI', sans-serif;
     --font-body: 'Rajdhani', 'Segoe UI', sans-serif;
     --font-mono: 'Share Tech Mono', 'Courier New', monospace;
-    --nav-width: 160px;
+    --nav-width: 0px;
     --hud-h: 65px;
     --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -120,7 +120,7 @@ ul { list-style: none; }
 }
 .hud-top-content {
     display: flex; align-items: center; justify-content: space-between;
-    height: 100%; padding: 8px 30px 0 calc(var(--nav-width) + 30px);
+    height: 100%; padding: 8px 30px 0 70px;
     font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
     text-transform: uppercase; letter-spacing: 0.12em;
 }
@@ -157,7 +157,7 @@ ul { list-style: none; }
 }
 .hud-bottom-content {
     display: flex; align-items: center; justify-content: space-between;
-    height: 100%; padding: 0 30px 0 calc(var(--nav-width) + 10px);
+    height: 100%; padding: 0 30px 0 70px;
     font-family: var(--font-mono); font-size: 10px; color: var(--text-dim);
     text-transform: uppercase; letter-spacing: 0.12em;
 }
@@ -173,56 +173,59 @@ ul { list-style: none; }
 /* =====================================================
    LEFT SIDEBAR NAVIGATION
    ===================================================== */
-.side-nav {
-    position: fixed; left: 0; top: 0; bottom: 0; width: var(--nav-width); z-index: 200;
-    display: flex; flex-direction: column; padding-top: 20px;
-    background: transparent;
-    pointer-events: none; /* nav container itself doesn't block clicks */
-}
-/* Very subtle left gradient — always visible, keeps hamburger readable */
-.side-nav::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(to right, rgba(10,10,20,0.3) 0%, transparent 100%);
-    pointer-events: none;
-    z-index: -1;
-    transition: opacity 0.4s ease;
-}
-
-/* Hamburger — always clickable */
+/* ── Hamburger: floating fixed, always visible, zero background ── */
 .hamburger {
-    width: 30px; height: 22px; margin: 0 0 30px 24px; position: relative;
+    position: fixed; top: 20px; left: 20px; z-index: 301;
+    width: 28px; height: 20px;
     display: flex; flex-direction: column; justify-content: space-between;
-    pointer-events: auto; cursor: pointer;
+    cursor: pointer; pointer-events: auto;
 }
 .hamburger span {
-    display: block; height: 2px; background: var(--white); transition: all 0.35s var(--ease);
-    transform-origin: center;
+    display: block; height: 2px; background: var(--white);
+    transition: all 0.35s var(--ease); transform-origin: center;
 }
 .hamburger span:nth-child(1) { width: 100%; }
 .hamburger span:nth-child(2) { width: 70%; }
 .hamburger span:nth-child(3) { width: 50%; }
 .hamburger:hover span { width: 100%; background: var(--red); }
-
 /* Hamburger → X when active */
-.hamburger.active span:nth-child(1) { transform: translateY(10px) rotate(45deg); width: 100%; background: var(--red); }
+.hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); width: 100%; background: var(--red); }
 .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger.active span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); width: 100%; background: var(--red); }
+.hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); width: 100%; background: var(--red); }
 
-/* Nav links — hidden by default, slide in on .open */
-.side-nav-links {
-    display: flex; flex-direction: column; gap: 8px; padding-left: 24px; padding-top: 20px;
+/* ── Side nav: zero width, no visual presence ── */
+.side-nav {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 0; z-index: 200;
     pointer-events: none;
-    opacity: 0; transform: translateX(-16px);
-    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+    background: transparent;
+}
+
+/* ── Nav links panel: dark sliding overlay ── */
+.side-nav-links {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: 200px; z-index: 300;
+    background: rgba(8, 8, 18, 0.93);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(91,140,255,0.12);
+    display: flex; flex-direction: column;
+    padding: 72px 0 40px 28px; gap: 4px;
+    transform: translateX(-100%);
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
 }
 .side-nav-links.open {
+    transform: translateX(0);
     pointer-events: auto;
-    opacity: 1; transform: translateX(0);
 }
-/* When nav is open: slightly stronger gradient behind links */
-.side-nav.nav-open::before {
-    background: linear-gradient(to right, rgba(10,10,20,0.55) 0%, rgba(10,10,20,0.1) 80%, transparent 100%);
+
+/* Dim scrim behind open panel */
+.side-nav.nav-open::after {
+    content: '';
+    position: fixed; inset: 0; left: 200px;
+    background: rgba(0,0,0,0.3);
+    z-index: 290;
+    pointer-events: auto;
 }
 
 .side-link {
