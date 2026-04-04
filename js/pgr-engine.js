@@ -211,10 +211,12 @@
     function initHamburger() {
         var btn = document.getElementById('hamburger');
         var nav = document.querySelector('.side-nav-links');
+        var sideNav = document.querySelector('.side-nav');
         if (!btn || !nav) return;
         btn.addEventListener('click', function() {
             nav.classList.toggle('open');
             btn.classList.toggle('active');
+            if (sideNav) sideNav.classList.toggle('nav-open');
         });
     }
 
