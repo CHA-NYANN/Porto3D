@@ -675,7 +675,8 @@ ul { list-style: none; }
    SECTION 5: ARTWORK
    ===================================================== */
 .artwork-content {
-    display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 50px; align-items: center;
+    display: grid; grid-template-columns: 0.55fr 1.45fr; gap: 36px; align-items: center;
+    height: 100%;
 }
 .artwork-label {
     display: flex; align-items: center; gap: 8px;
@@ -689,31 +690,54 @@ ul { list-style: none; }
 .artwork-desc {
     font-size: 15px; color: var(--text-mid); line-height: 1.7; margin-bottom: 28px; max-width: 400px;
 }
-.artwork-more {
-    margin-top: 24px; font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
-    letter-spacing: 0.15em;
+
+/* PGR Wallpaper Grid */
+.artwork-right { height: 100%; display: flex; align-items: center; }
+.pgr-wall-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1.4fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 8px;
+    width: 100%; height: 72vh; max-height: 560px;
 }
 
-.artwork-mosaic {
-    display: grid; grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 1fr 1fr;
-    gap: 10px; height: 70vh; max-height: 550px;
+/* Explicit placement */
+.pw-item:nth-child(1) { grid-column: 1; grid-row: 1; }
+.pw-item:nth-child(2) { grid-column: 1; grid-row: 2; }
+.pw-item:nth-child(3) { grid-column: 2; grid-row: 1 / 3; }
+.pw-item:nth-child(4) { grid-column: 3; grid-row: 1 / 3; }
+.pw-item:nth-child(5) { grid-column: 4; grid-row: 1; }
+.pw-item:nth-child(6) { grid-column: 4; grid-row: 2; }
+
+.pw-item {
+    position: relative; overflow: hidden;
+    border: 1px solid var(--border);
+    transition: border-color 0.3s ease;
 }
-.mosaic-item {
-    position: relative; overflow: hidden; border: 1px solid var(--border);
-    transition: border-color 0.3s;
-}
-.mosaic-item:hover { border-color: var(--red-dim); }
-.mosaic-item.large { grid-row: 1 / 3; }
-.mosaic-item.tall { grid-row: 1 / 3; }
-.mosaic-item img {
+.pw-item:hover { border-color: var(--red); }
+.pw-item img {
     width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.6s var(--ease); filter: brightness(0.7);
+    transition: transform 0.6s var(--ease); filter: brightness(0.72);
 }
-.mosaic-item:hover img { transform: scale(1.06); filter: brightness(0.85); }
-.mosaic-ov {
+.pw-item:hover img { transform: scale(1.07); filter: brightness(0.9); }
+.pw-ov {
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 60%, rgba(10,10,15,0.7) 100%);
+    background: linear-gradient(180deg, transparent 50%, rgba(10,10,15,0.75) 100%);
+    pointer-events: none;
 }
+
+/* MORE button on last tile */
+.pw-more-btn {
+    position: absolute; bottom: 14px; right: 14px;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+    color: var(--white); letter-spacing: 0.2em;
+    background: rgba(10,10,15,0.7); border: 1px solid var(--red);
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+    z-index: 2;
+}
+.pw-more-btn:hover { background: var(--red); color: var(--white); }
 
 /* =====================================================
    SECTION 6: CONTACT
@@ -976,6 +1000,7 @@ ul { list-style: none; }
     .giant-name { font-size: clamp(50px, 12vw, 100px); }
     .giant-footer { justify-content: flex-start; }
     .artwork-mosaic { height: 50vh; }
+    .pgr-wall-grid { height: 50vh; }
 }
 
 @media (max-width: 768px) {
@@ -993,6 +1018,14 @@ ul { list-style: none; }
     }
     .mosaic-item.large, .mosaic-item.tall { grid-row: auto; }
     .mosaic-item { height: 180px; }
+    /* PGR grid mobile: 2 columns, reset explicit placement */
+    .pgr-wall-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        height: auto; max-height: none;
+    }
+    .pw-item:nth-child(n) { grid-column: auto; grid-row: auto; }
+    .pw-item { height: 160px; }
     .scroll-hint { display: none; }
     .artwork-content { gap: 30px; }
     .contact-title { font-size: 32px; }
