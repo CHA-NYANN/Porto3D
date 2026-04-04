@@ -128,10 +128,49 @@
             }
 
             if (idx === 0) animateCounters();
+            if (s.id === 'data') animateRadar();
         }
 
         function pad2(n) {
             return n < 10 ? '0' + n : '' + n;
+        }
+
+        function animateRadar() {
+            var poly = document.getElementById('radarData');
+            if (!poly) return;
+
+            // Stats: 0-1 scale per axis (WEB, GAME, ART, AI/ML, UI/UX, WRITING, 3D/VFX, RESEARCH)
+            var stats = [0.97, 0.88, 0.92, 0.84, 0.75, 0.72, 0.60, 0.82];
+
+            // Outer octagon vertices (full = 1.0)
+            var cx = 130, cy = 110;
+            var full = [
+                [130,30],[185,55],[210,110],[185,165],
+                [130,190],[75,165],[50,110],[75,55]
+            ];
+
+            // Compute scaled points
+            function calcPoints(t) {
+                return full.map(function(p, i) {
+                    var s = stats[i] * t;
+                    var x = cx + (p[0] - cx) * s;
+                    var y = cy + (p[1] - cy) * s;
+                    return x.toFixed(1) + ',' + y.toFixed(1);
+                }).join(' ');
+            }
+
+            // Animate from 0 → 1 over 1000ms
+            var start = null;
+            var dur = 1000;
+            function step(ts) {
+                if (!start) start = ts;
+                var t = Math.min((ts - start) / dur, 1);
+                var ease = 1 - Math.pow(1 - t, 3);
+                poly.setAttribute('points', calcPoints(ease));
+                if (t < 1) requestAnimationFrame(step);
+                else poly.classList.add('animate');
+            }
+            requestAnimationFrame(step);
         }
 
         function updateUI(idx) {

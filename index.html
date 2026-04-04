@@ -276,30 +276,62 @@
                         </div>
                     </div>
 
-                    <p class="data-desc anim-in">A fresh Computer Science graduate from Universitas Dian Nuswantoro. Specializing in game design, AI research, and creative development. Building immersive digital experiences since 2018.</p>
-
                     <div class="data-tags anim-in">
                         <span class="data-tag"><span class="data-tag-icon">▶</span> FIELD: Game Design & AI</span>
                         <span class="data-tag"><span class="data-tag-icon">▶</span> TYPE: Creative Technologist</span>
                     </div>
 
-                    <!-- Stat bars like game stats -->
-                    <div class="data-stats anim-in">
-                        <div class="data-stat-row">
-                            <span class="data-stat-label">GAME DEV</span>
-                            <div class="data-stat-bar"><div class="data-stat-fill" data-w="90"></div></div>
-                        </div>
-                        <div class="data-stat-row">
-                            <span class="data-stat-label">WEB DEV</span>
-                            <div class="data-stat-bar"><div class="data-stat-fill" data-w="95"></div></div>
-                        </div>
-                        <div class="data-stat-row">
-                            <span class="data-stat-label">ART</span>
-                            <div class="data-stat-bar"><div class="data-stat-fill" data-w="92"></div></div>
-                        </div>
-                        <div class="data-stat-row">
-                            <span class="data-stat-label">AI/ML</span>
-                            <div class="data-stat-bar"><div class="data-stat-fill" data-w="85"></div></div>
+                    <!-- Radar Chart -->
+                    <div class="radar-wrap anim-in">
+                        <svg class="radar-svg" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background octagon rings -->
+                            <g class="radar-grid">
+                                <polygon class="radar-ring" points="130,30 185,55 210,110 185,165 130,190 75,165 50,110 75,55"/>
+                                <polygon class="radar-ring" points="130,52 174,72 194,110 174,148 130,168 86,148 66,110 86,72"/>
+                                <polygon class="radar-ring" points="130,74 163,89 178,110 163,131 130,146 97,131 82,110 97,89"/>
+                                <polygon class="radar-ring" points="130,96 152,106 162,110 152,114 130,124 108,114 98,110 108,106"/>
+                            </g>
+                            <!-- Axis lines -->
+                            <g class="radar-axes">
+                                <line x1="130" y1="110" x2="130" y2="30"/>
+                                <line x1="130" y1="110" x2="185" y2="55"/>
+                                <line x1="130" y1="110" x2="210" y2="110"/>
+                                <line x1="130" y1="110" x2="185" y2="165"/>
+                                <line x1="130" y1="110" x2="130" y2="190"/>
+                                <line x1="130" y1="110" x2="75" y2="165"/>
+                                <line x1="130" y1="110" x2="50" y2="110"/>
+                                <line x1="130" y1="110" x2="75" y2="55"/>
+                            </g>
+                            <!-- Data polygon (will be animated by JS) -->
+                            <polygon class="radar-data" id="radarData" points="130,30 185,55 210,110 185,165 130,190 75,165 50,110 75,55"/>
+                            <!-- Axis labels -->
+                            <text class="radar-label" x="130" y="22" text-anchor="middle">WEB</text>
+                            <text class="radar-label" x="195" y="52" text-anchor="start">GAME</text>
+                            <text class="radar-label" x="218" y="114" text-anchor="start">ART</text>
+                            <text class="radar-label" x="194" y="174" text-anchor="start">AI/ML</text>
+                            <text class="radar-label" x="130" y="202" text-anchor="middle">UI/UX</text>
+                            <text class="radar-label" x="66" y="174" text-anchor="end">WRITING</text>
+                            <text class="radar-label" x="38" y="114" text-anchor="end">3D/VFX</text>
+                            <text class="radar-label" x="66" y="52" text-anchor="end">RESEARCH</text>
+                            <!-- Rank badges on each axis tip -->
+                            <g class="radar-ranks">
+                                <text class="radar-rank" x="130" y="48" text-anchor="middle">S</text>
+                                <text class="radar-rank" x="181" y="70" text-anchor="middle">A</text>
+                                <text class="radar-rank" x="200" y="113" text-anchor="middle">S</text>
+                                <text class="radar-rank" x="181" y="157" text-anchor="middle">A</text>
+                                <text class="radar-rank" x="130" y="183" text-anchor="middle">B</text>
+                                <text class="radar-rank" x="79" y="157" text-anchor="middle">A</text>
+                                <text class="radar-rank" x="60" y="113" text-anchor="middle">B</text>
+                                <text class="radar-rank" x="79" y="70" text-anchor="middle">A</text>
+                            </g>
+                        </svg>
+                        <!-- Rank legend -->
+                        <div class="radar-legend">
+                            <span class="rl-item s">S</span>
+                            <span class="rl-item a">A</span>
+                            <span class="rl-item b">B</span>
+                            <span class="rl-item c">C</span>
+                            <span class="rl-item f">F</span>
                         </div>
                     </div>
 
