@@ -20,9 +20,9 @@
     --text-dim: rgba(200, 210, 240, 0.45);
     --text-mid: rgba(200, 210, 240, 0.7);
     --white: #ffffff;
-    --font-display: 'Orbitron', sans-serif;
-    --font-body: 'Rajdhani', sans-serif;
-    --font-mono: 'Share Tech Mono', monospace;
+    --font-display: 'Orbitron', 'Segoe UI', sans-serif;
+    --font-body: 'Rajdhani', 'Segoe UI', sans-serif;
+    --font-mono: 'Share Tech Mono', 'Courier New', monospace;
     --nav-width: 160px;
     --hud-h: 65px;
     --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -887,6 +887,10 @@ ul { list-style: none; }
 .data-corner-tag {
     position: absolute; top: -20px; right: -10px;
     transform: rotate(25deg); transform-origin: right center;
+}
+/* Fix: anim-in.visible overrides rotate(25deg), restore it explicitly */
+.data-corner-tag.anim-in.visible {
+    transform: rotate(25deg);
 }
 .dct-text {
     font-family: var(--font-display); font-size: 16px; font-weight: 800;
