@@ -609,66 +609,109 @@ ul { list-style: none; }
 /* =====================================================
    SECTION 4: PROJECTS
    ===================================================== */
-.projects-content { padding-left: 20px; }
-.projects-header {
-    position: relative; margin-bottom: 36px;
-}
-.projects-header .red-bar { left: 0; min-height: 50px; }
-.projects-header h2 {
-    font-family: var(--font-display); font-size: 24px; font-weight: 700;
-    letter-spacing: 0.15em; color: var(--white); margin-left: 20px;
-}
-.projects-header p {
-    font-family: var(--font-mono); font-size: 12px; color: var(--red);
-    letter-spacing: 0.2em; margin-left: 20px; margin-top: 4px;
+.projects-content {
+    display: flex; width: 100%; height: 100%;
 }
 
-.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.project-card {
-    background: var(--bg-card); border: 1px solid var(--border);
-    overflow: hidden; transition: all 0.4s var(--ease);
+/* ── 3-panel PGR category layout ── */
+.cat-panels {
+    display: flex; width: 100%;
+    height: 78vh; max-height: 600px;
+    gap: 6px;
 }
-.project-card:hover { border-color: var(--red-dim); transform: translateY(-4px); }
 
-.project-img-wrap {
-    position: relative; height: 180px; overflow: hidden;
+.cat-panel {
+    position: relative; overflow: hidden;
+    flex: 1;
+    background-size: cover; background-position: center;
+    transition: flex 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+                filter 0.4s ease;
+    cursor: pointer;
+    filter: brightness(0.75) saturate(0.7);
 }
-.project-img-wrap img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.6s var(--ease); filter: brightness(0.7) saturate(0.8);
+.cat-panel:hover {
+    flex: 1.7;
+    filter: brightness(1) saturate(1);
 }
-.project-card:hover .project-img-wrap img {
-    transform: scale(1.08); filter: brightness(0.9) saturate(1);
-}
-.project-overlay {
+
+.cat-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 40%, rgba(10,10,15,0.9) 100%);
+    background: linear-gradient(
+        180deg,
+        rgba(10,10,20,0.15) 0%,
+        rgba(10,10,20,0.25) 50%,
+        rgba(10,10,20,0.82) 100%
+    );
+    transition: background 0.4s ease;
 }
-.project-num {
-    position: absolute; top: 12px; right: 14px;
-    font-family: var(--font-display); font-size: 32px; font-weight: 900;
-    color: rgba(255,255,255,0.08);
+.cat-panel:hover .cat-overlay {
+    background: linear-gradient(
+        180deg,
+        rgba(10,10,20,0.05) 0%,
+        rgba(10,10,20,0.15) 50%,
+        rgba(10,10,20,0.75) 100%
+    );
 }
 
-.project-info { padding: 16px 18px 20px; }
-.project-tags { display: flex; gap: 6px; margin-bottom: 8px; }
-.project-tags span {
-    font-family: var(--font-mono); font-size: 9px; color: var(--red);
-    padding: 2px 6px; border: 1px solid var(--red-dim); letter-spacing: 0.05em;
+/* Left accent line on hover */
+.cat-panel::after {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 2px; height: 0;
+    background: var(--red);
+    transition: height 0.5s ease;
 }
-.project-info h3 {
-    font-family: var(--font-display); font-size: 16px; font-weight: 700;
-    color: var(--white); letter-spacing: 0.1em; margin-bottom: 6px;
-}
-.project-info p { font-size: 12px; color: var(--text-dim); line-height: 1.5; margin-bottom: 12px; }
-.project-link {
-    font-family: var(--font-mono); font-size: 11px; color: var(--red);
-    letter-spacing: 0.12em; transition: color 0.3s;
-}
-.project-link:hover { color: var(--white); }
+.cat-panel:hover::after { height: 100%; }
 
-.projects-more {
-    display: flex; gap: 14px; margin-top: 28px; justify-content: center;
+.cat-inner {
+    position: absolute; bottom: 56px; left: 0; right: 0;
+    text-align: center; padding: 0 20px;
+    transform: translateY(8px);
+    transition: transform 0.4s ease;
+}
+.cat-panel:hover .cat-inner { transform: translateY(0); }
+
+.cat-title {
+    font-family: var(--font-display); font-size: 56px; font-weight: 900;
+    color: var(--white); letter-spacing: 0.12em;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+}
+
+.cat-sub {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--red); letter-spacing: 0.25em; text-transform: uppercase;
+}
+.cat-line {
+    flex: 1; max-width: 50px; height: 1px; background: var(--red);
+}
+
+.cat-link {
+    display: inline-block; margin-top: 22px;
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--white); letter-spacing: 0.15em;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 8px 20px;
+    opacity: 0; transform: translateY(6px);
+    transition: opacity 0.35s 0.1s ease, transform 0.35s 0.1s ease,
+                background 0.3s, border-color 0.3s;
+}
+.cat-panel:hover .cat-link {
+    opacity: 1; transform: translateY(0);
+}
+.cat-link:hover {
+    background: var(--red); border-color: var(--red);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .cat-panels { flex-direction: column; height: auto; }
+    .cat-panel { flex: none; height: 220px; }
+    .cat-panel:hover { flex: none; }
+    .cat-title { font-size: 36px; }
+    .cat-link { opacity: 1; transform: none; }
 }
 
 /* =====================================================
@@ -981,7 +1024,6 @@ ul { list-style: none; }
         grid-template-columns: 1fr;
     }
     .skills-grid, .exp-timeline { grid-template-columns: 1fr 1fr; }
-    .projects-grid { grid-template-columns: 1fr 1fr; }
     .home-right { text-align: left; }
     .giant-name { font-size: clamp(50px, 12vw, 100px); }
     .giant-footer { justify-content: flex-start; }
@@ -995,7 +1037,7 @@ ul { list-style: none; }
     .hud-top-content { padding-left: 20px; padding-top: 0; }
     .hud-bottom-content { padding-left: 20px; }
     .section { padding: 80px 20px 60px; }
-    .skills-grid, .exp-timeline, .projects-grid, .contact-grid { grid-template-columns: 1fr; }
+    .skills-grid, .exp-timeline, .contact-grid { grid-template-columns: 1fr; }
     .hud-title { font-size: 18px; }
     .giant-name { font-size: 48px; }
     .artwork-mosaic {
