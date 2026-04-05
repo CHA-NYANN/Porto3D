@@ -342,10 +342,19 @@ ul { list-style: none; }
     .home-bg-mobile { display: block; }
 }
 
-/* Social icons row — top right */
+/* Social icons row — top right desktop */
 .home-socials {
     position: absolute; top: 52px; right: 36px; z-index: 10;
     display: flex; gap: 12px; align-items: center;
+    flex-direction: row;
+}
+
+@media (max-width: 768px) {
+    .home-socials {
+        top: 80px; left: 16px; right: auto;
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 .home-social-btn {
     width: 40px; height: 40px;
@@ -899,15 +908,15 @@ ul { list-style: none; }
    SECTION 2: DATA — PGR Character Profile Style
    ===================================================== */
 .data-content {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
     height: 100vh; min-height: 100vh; position: relative;
-    align-items: stretch;
+    align-items: center; z-index: 2;
 }
 
-/* Photo: full viewport height, absolute overlay */
+/* Photo: direct child of section, absolute to section's 100vh */
 .data-center {
-    position: absolute; left: 28%; right: 0; top: 0;
-    height: 100vh;
+    position: absolute; left: 25%; right: 0; top: 0;
+    height: 100%;
     z-index: 1;
     pointer-events: none;
 }
