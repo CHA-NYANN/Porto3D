@@ -140,7 +140,8 @@
             if (!poly) return;
 
             // Stats: 0-1 scale per axis (WEB, GAME, ART, AI/ML, UI/UX, WRITING, 3D/VFX, RESEARCH)
-            var stats = [0.97, 0.88, 0.92, 0.84, 0.75, 0.72, 0.60, 0.82];
+            // WEB=A, GAME=B, ART=S, AI/ML=A, UI/UX=B, WRITING=S, 3D=B, RESEARCH=A
+            var stats = [0.80, 0.60, 1.00, 0.80, 0.60, 1.00, 0.60, 0.80];
 
             // Outer octagon vertices (full = 1.0)
             var cx = 130, cy = 110;
