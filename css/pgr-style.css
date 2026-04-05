@@ -908,30 +908,33 @@ ul { list-style: none; }
    SECTION 2: DATA — PGR Character Profile Style
    ===================================================== */
 .data-content {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-    height: 100vh; min-height: 100vh; position: static;
+    display: grid;
+    grid-template-columns: 30% 1fr 1fr;
+    height: 100vh; min-height: 100vh;
+    position: static;
     align-items: center;
 }
 
-/* Photo: covers ONLY the right half (col 2), full height */
+/* Photo: covers col 2+3 (right 70%), full section height */
 .data-center {
-    position: absolute; left: 50%; right: 0; top: 0; bottom: 0;
+    position: absolute;
+    left: 30%; right: 0; top: 0; bottom: 0;
     z-index: 1;
     pointer-events: none;
 }
 .data-img-wrap {
-    position: relative; width: 100%; height: 100%;
+    width: 100%; height: 100%;
+    position: relative;
 }
 .data-img {
     width: 100%; height: 100%;
     object-fit: cover; object-position: top center;
-    filter: drop-shadow(0 0 40px rgba(91,140,255,0.2));
-    mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.7) 20%, black 50%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.7) 20%, black 50%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 100%);
 }
 .data-img-glow {
-    position: absolute; bottom: 0; left: 0; right: 0; height: 25%;
-    background: linear-gradient(to top, rgba(8,8,18,0.9) 0%, transparent 100%);
+    position: absolute; bottom: 0; left: 0; right: 0; height: 20%;
+    background: linear-gradient(to top, rgba(8,8,18,0.85) 0%, transparent 100%);
     z-index: 2;
 }
 .data-img-line-bottom {
@@ -940,45 +943,52 @@ ul { list-style: none; }
     z-index: 3;
 }
 
-/* LEFT col: radar chart — clean background, no photo */
+/* Col 1 (30%) — Radar, clean dark background */
 .data-left {
+    grid-column: 1; grid-row: 1;
     position: relative; z-index: 3;
     display: flex; flex-direction: column; justify-content: center;
-    padding: 80px 20px 40px 40px;
-    grid-column: 1; grid-row: 1;
+    padding: 80px 10px 40px 40px;
 }
 
-/* RIGHT col: CLEOPATRA text — overlays on top of photo */
+/* Col 3 — Text, overlays photo */
 .data-right {
+    grid-column: 3; grid-row: 1;
     position: relative; z-index: 3;
     display: flex; flex-direction: column; align-items: flex-end; justify-content: center;
-    padding: 80px 40px 40px 20px;
-    grid-column: 2; grid-row: 1;
+    padding: 80px 40px 40px 10px;
 }
 
-/* Mobile: stack top → bottom: text, photo, radar */
+/* Mobile: text → photo → radar */
 @media (max-width: 768px) {
     .data-content {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
-        height: auto; min-height: auto;
+        height: auto; min-height: 100vh;
         align-items: start;
-    }
-    .data-center {
-        position: relative; left: auto; right: auto; top: auto; bottom: auto;
-        height: 50vh;
-        grid-row: 2; grid-column: 1;
-        display: block;
     }
     .data-right {
         grid-column: 1; grid-row: 1;
         align-items: center; text-align: center;
         padding: 80px 20px 20px;
     }
+    .data-center {
+        position: relative;
+        left: auto; right: auto; top: auto; bottom: auto;
+        grid-column: 1; grid-row: 2;
+        height: 55vh;
+    }
+    .data-img {
+        mask-image: none; -webkit-mask-image: none;
+    }
     .data-left {
         grid-column: 1; grid-row: 3;
-        align-items: center; padding: 20px 20px 60px;
+        align-items: center;
+        padding: 20px 20px 60px;
     }
+    .data-corner-tag { display: none; }
+    .data-giant-name { font-size: 48px; }
+    .data-giant-footer { justify-content: center; }
 }
 .data-rays {
     position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
