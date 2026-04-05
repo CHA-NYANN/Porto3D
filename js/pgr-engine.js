@@ -128,10 +128,50 @@
             }
 
             if (idx === 0) animateCounters();
+            if (s.id === 'data') animateRadar();
         }
 
         function pad2(n) {
             return n < 10 ? '0' + n : '' + n;
+        }
+
+        function animateRadar() {
+            var poly = document.getElementById('radarData');
+            if (!poly) return;
+
+            // Stats: 0-1 scale per axis (WEB, GAME, ART, AI/ML, UI/UX, WRITING, 3D/VFX, RESEARCH)
+            // WEB=A, GAME=B, ART=S, AI/ML=A, UI/UX=B, WRITING=S, 3D=B, RESEARCH=A
+            var stats = [0.80, 0.60, 1.00, 0.80, 0.60, 1.00, 0.60, 0.80];
+
+            // Outer octagon vertices (full = 1.0)
+            var cx = 130, cy = 110;
+            var full = [
+                [130,30],[185,55],[210,110],[185,165],
+                [130,190],[75,165],[50,110],[75,55]
+            ];
+
+            // Compute scaled points
+            function calcPoints(t) {
+                return full.map(function(p, i) {
+                    var s = stats[i] * t;
+                    var x = cx + (p[0] - cx) * s;
+                    var y = cy + (p[1] - cy) * s;
+                    return x.toFixed(1) + ',' + y.toFixed(1);
+                }).join(' ');
+            }
+
+            // Animate from 0 → 1 over 1000ms
+            var start = null;
+            var dur = 1000;
+            function step(ts) {
+                if (!start) start = ts;
+                var t = Math.min((ts - start) / dur, 1);
+                var ease = 1 - Math.pow(1 - t, 3);
+                poly.setAttribute('points', calcPoints(ease));
+                if (t < 1) requestAnimationFrame(step);
+                else poly.classList.add('animate');
+            }
+            requestAnimationFrame(step);
         }
 
         function updateUI(idx) {
@@ -211,10 +251,29 @@
     function initHamburger() {
         var btn = document.getElementById('hamburger');
         var nav = document.querySelector('.side-nav-links');
+        var sideNav = document.querySelector('.side-nav');
         if (!btn || !nav) return;
+
+        function closeNav() {
+            nav.classList.remove('open');
+            btn.classList.remove('active');
+            if (sideNav) sideNav.classList.remove('nav-open');
+        }
+
         btn.addEventListener('click', function() {
-            nav.classList.toggle('open');
+            var isOpen = nav.classList.toggle('open');
             btn.classList.toggle('active');
+            if (sideNav) sideNav.classList.toggle('nav-open');
+        });
+
+        // Close nav when clicking the scrim (outside panel)
+        document.addEventListener('click', function(e) {
+            if (nav.classList.contains('open') &&
+                !nav.contains(e.target) &&
+                e.target !== btn &&
+                !btn.contains(e.target)) {
+                closeNav();
+            }
         });
     }
 
