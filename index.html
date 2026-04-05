@@ -6,7 +6,7 @@
     <title>CLEOPATRA HAPSARI // PORTFOLIO SYSTEM</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/pgr-style.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5' fill='none' stroke='%235b8cff' stroke-width='4'/%3E%3Ctext x='50' y='62' font-family='monospace' font-size='40' fill='%235b8cff' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
 </head>
@@ -158,22 +158,49 @@
     <main class="sections-wrapper" id="sectionsWrapper">
 
         <!-- SECTION 0: HOME -->
-        <section class="section" id="home" data-index="0" style="padding:0; overflow:hidden;">
-            <img src="assets/home.png" class="home-bg-img home-bg-desktop" alt="Home">
-            <img src="assets/homemobile.png" class="home-bg-img home-bg-mobile" alt="Home">
-            <div class="home-socials">
-                <a href="mailto:patrahapsari@gmail.com" class="home-social-btn" title="Email">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                </a>
-                <a href="https://linkedin.com/in/cleopatraha" target="_blank" class="home-social-btn" title="LinkedIn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-                </a>
-                <a href="https://github.com/CHA-NYANN" target="_blank" class="home-social-btn" title="GitHub">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                </a>
-                <a href="https://www.instagram.com/cleo_cpha" target="_blank" class="home-social-btn" title="Instagram">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                </a>
+        <section class="section" id="home" data-index="0" class="hero-ultra">
+            <div class="section-bg-text">CLEOPATRA</div>
+            <div class="section-content home-content">
+                <div class="home-left">
+                    <div class="home-status anim-in">
+                        <span class="status-dot"></span>
+                        <span>AVAILABLE FOR WORK</span>
+                    </div>
+                    <div class="home-intro anim-in">
+                        <div class="red-bar"></div>
+                        <div>
+                            <h2 class="home-name-sub">CLEOPATRA HAPSARI</h2>
+                            <p class="home-role-label">— CREATIVE TECHNOLOGIST —</p>
+                        </div>
+                    </div>
+                    <p class="home-desc anim-in">Crafting immersive digital experiences through <span class="hl">game design</span>, <span class="hl">AI research</span>, and <span class="hl">creative development</span>. Based in Indonesia.</p>
+                    <div class="home-tags anim-in">
+                        <span><span class="tag-arrow">▶</span> FIELD: Game Design</span>
+                        <span><span class="tag-arrow">▶</span> TYPE: Full-Stack</span>
+                    </div>
+                    <div class="home-stats anim-in">
+                        <div class="home-stat"><span class="stat-num" data-count="7">0</span><span class="stat-label">YEARS</span></div>
+                        <div class="stat-sep"></div>
+                        <div class="home-stat"><span class="stat-num" data-count="25">0</span><span class="stat-label">PROJECTS</span></div>
+                        <div class="stat-sep"></div>
+                        <div class="home-stat"><span class="stat-num" data-count="5">0</span><span class="stat-label">AWARDS</span></div>
+                    </div>
+                    <div class="home-cta anim-in">
+                        <a href="#projects" class="btn-pgr primary" data-goto="5"><span class="btn-fill"></span><span class="btn-label">VIEW PROJECTS</span><span class="btn-arrow">→</span></a>
+                        <a href="#contact" class="btn-pgr outline" data-goto="7"><span class="btn-label">CONTACT ME</span></a>
+                    </div>
+                </div>
+                <div class="home-right">
+                    <div class="cv-intro anim-in"><span class="cv-label">CV. INTRO.</span><div class="cv-sub-line"><span>GAME DESIGNER / WEB DEV / AI RESEARCHER</span></div></div>
+                    <h1 class="giant-name anim-in">CLEO<br>PATRA</h1>
+                    <div class="giant-footer anim-in">
+                        <span class="gf-arrows">▶▶▶</span>
+                        <span class="gf-file">FILES\\CHA-01</span>
+                        <svg class="gf-icon" viewBox="0 0 30 30" width="18" height="18"><polygon points="15,3 27,15 15,27 3,15" fill="none" stroke="#5b8cff" stroke-width="1.5"/></svg>
+                        <span class="gf-brand">CREATIVE FORCE</span>
+                    </div>
+                    <div class="corner-label"><span>PORTFOLIO</span><div class="corner-line"></div></div>
+                </div>
             </div>
         </section>
 
@@ -217,7 +244,7 @@
         </section>
 
         <!-- SECTION 2: DATA (PGR Character Profile Style) -->
-        <section class="section" id="data" data-index="2" style="padding: 0; overflow: hidden;">
+        <section class="section" id="data" data-index="2">
             <div class="section-bg-text">DATA</div>
 
             <!-- Light ray effects -->
@@ -227,68 +254,70 @@
                 <div class="ray ray-3"></div>
             </div>
 
-            <!-- Photo: direct child of section for true full-height -->
-            <div class="data-center">
-                <div class="data-img-wrap anim-in">
-                    <img src="assets/profile.png" alt="Cleopatra Hapsari" class="data-img">
-                    <div class="data-img-glow"></div>
-                    <div class="data-img-line-bottom"></div>
-                </div>
-            </div>
-
-            <div class="section-content data-content" style="max-width: none; height: 100vh; padding: 0;">
+            <div class="section-content data-content">
                 <!-- LEFT: Profile Info -->
                 <div class="data-left">
-                    <!-- Radar Chart -->
-                    <div class="radar-wrap anim-in">
-                        <svg class="radar-svg" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Background octagon rings -->
-                            <g class="radar-grid">
-                                <polygon class="radar-ring" points="130,30 185,55 210,110 185,165 130,190 75,165 50,110 75,55"/>
-                                <polygon class="radar-ring" points="130,52 174,72 194,110 174,148 130,168 86,148 66,110 86,72"/>
-                                <polygon class="radar-ring" points="130,74 163,89 178,110 163,131 130,146 97,131 82,110 97,89"/>
-                                <polygon class="radar-ring" points="130,96 152,106 162,110 152,114 130,124 108,114 98,110 108,106"/>
-                            </g>
-                            <!-- Axis lines -->
-                            <g class="radar-axes">
-                                <line x1="130" y1="110" x2="130" y2="30"/>
-                                <line x1="130" y1="110" x2="185" y2="55"/>
-                                <line x1="130" y1="110" x2="210" y2="110"/>
-                                <line x1="130" y1="110" x2="185" y2="165"/>
-                                <line x1="130" y1="110" x2="130" y2="190"/>
-                                <line x1="130" y1="110" x2="75" y2="165"/>
-                                <line x1="130" y1="110" x2="50" y2="110"/>
-                                <line x1="130" y1="110" x2="75" y2="55"/>
-                            </g>
-                            <!-- Data polygon (will be animated by JS) -->
-                            <polygon class="radar-data" id="radarData" points="130,30 185,55 210,110 185,165 130,190 75,165 50,110 75,55"/>
-                            <!-- Axis labels -->
-                            <text class="radar-label" x="130" y="22" text-anchor="middle">WEB</text>
-                            <text class="radar-label" x="195" y="52" text-anchor="start">GAME</text>
-                            <text class="radar-label" x="218" y="114" text-anchor="start">ART</text>
-                            <text class="radar-label" x="194" y="174" text-anchor="start">AI/ML</text>
-                            <text class="radar-label" x="130" y="202" text-anchor="middle">UI/UX</text>
-                            <text class="radar-label" x="66" y="174" text-anchor="end">WRITING</text>
-                            <text class="radar-label" x="38" y="114" text-anchor="end">3D/VFX</text>
-                            <text class="radar-label" x="66" y="52" text-anchor="end">RESEARCH</text>
-                            <!-- Rank badges on each axis tip: WEB=A,GAME=B,ART=S,AI/ML=A,UI/UX=B,WRITING=S,3D=B,RESEARCH=A -->
-                            <g class="radar-ranks">
-                                <text class="radar-rank" x="130" y="48" text-anchor="middle">A</text>
-                                <text class="radar-rank" x="181" y="70" text-anchor="middle">B</text>
-                                <text class="radar-rank" x="200" y="113" text-anchor="middle">S</text>
-                                <text class="radar-rank" x="181" y="157" text-anchor="middle">A</text>
-                                <text class="radar-rank" x="130" y="183" text-anchor="middle">B</text>
-                                <text class="radar-rank" x="79" y="157" text-anchor="middle">S</text>
-                                <text class="radar-rank" x="60" y="113" text-anchor="middle">B</text>
-                                <text class="radar-rank" x="79" y="70" text-anchor="middle">A</text>
-                            </g>
-                        </svg>
+                    <div class="data-name-block anim-in">
+                        <div class="data-bar"></div>
+                        <div class="data-name-info">
+                            <h2 class="data-name">CLEOPATRA HAPSARI</h2>
+                            <div class="data-class-line">
+                                <span class="data-class-dash">——</span>
+                                <span class="data-class">CREATIVE TECHNOLOGIST</span>
+                                <span class="data-class-dash">——</span>
+                            </div>
+                            <div class="data-emblem">
+                                <svg viewBox="0 0 40 40" width="32" height="32">
+                                    <polygon points="20,2 38,11 38,29 20,38 2,29 2,11" fill="none" stroke="#5b8cff" stroke-width="1.2"/>
+                                    <polygon points="20,8 32,14.5 32,25.5 20,32 8,25.5 8,14.5" fill="none" stroke="#a78bfa" stroke-width="0.8" opacity="0.5"/>
+                                    <text x="20" y="23" text-anchor="middle" fill="#5b8cff" font-family="Orbitron" font-size="8" font-weight="700">CHA</text>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
 
+                    <p class="data-desc anim-in">A fresh Computer Science graduate from Universitas Dian Nuswantoro. Specializing in game design, AI research, and creative development. Building immersive digital experiences since 2018.</p>
 
+                    <div class="data-tags anim-in">
+                        <span class="data-tag"><span class="data-tag-icon">▶</span> FIELD: Game Design & AI</span>
+                        <span class="data-tag"><span class="data-tag-icon">▶</span> TYPE: Creative Technologist</span>
+                    </div>
+
+                    <!-- Stat bars like game stats -->
+                    <div class="data-stats anim-in">
+                        <div class="data-stat-row">
+                            <span class="data-stat-label">GAME DEV</span>
+                            <div class="data-stat-bar"><div class="data-stat-fill" data-w="90"></div></div>
+                        </div>
+                        <div class="data-stat-row">
+                            <span class="data-stat-label">WEB DEV</span>
+                            <div class="data-stat-bar"><div class="data-stat-fill" data-w="95"></div></div>
+                        </div>
+                        <div class="data-stat-row">
+                            <span class="data-stat-label">ART</span>
+                            <div class="data-stat-bar"><div class="data-stat-fill" data-w="92"></div></div>
+                        </div>
+                        <div class="data-stat-row">
+                            <span class="data-stat-label">AI/ML</span>
+                            <div class="data-stat-bar"><div class="data-stat-fill" data-w="85"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="data-counter anim-in">
+                        <span class="dc-box">■</span> 0 3 / 0 8 <span class="dc-box">■</span>
+                    </div>
                 </div>
 
                 <!-- CENTER: Character Image -->
+                <div class="data-center">
+                    <div class="data-img-wrap anim-in">
+                        <!-- Replace this src with your own transparent PNG photo -->
+                        <img class="hero-character" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=750&fit=crop&crop=face" alt="Cleopatra Hapsari" class="data-img">
+                        <div class="data-img-glow"></div>
+                        <div class="data-img-line-bottom"></div>
+                    </div>
+                </div>
+
                 <!-- RIGHT: CV Intro & Big Name -->
                 <div class="data-right">
                     <div class="data-corner-tag anim-in">
@@ -387,33 +416,30 @@
 
         <!-- SECTION 4: PROJECTS -->
         <section class="section" id="projects" data-index="5">
+            <div class="section-bg-text">WORKS</div>
             <div class="section-content projects-content">
-                <div class="cat-panels">
-
-                    <a href="pages/projects-web.html" class="cat-panel anim-in" style="background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=900&fit=crop')">
-                        <div class="cat-overlay"></div>
-                        <div class="cat-inner">
-                            <div class="cat-title">WEB</div>
-                            <div class="cat-sub"><span class="cat-line"></span><span>DEVELOPMENT</span><span class="cat-line"></span></div>
-                        </div>
-                    </a>
-
-                    <a href="pages/projects-game.html" class="cat-panel anim-in" style="background-image: url('https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=800&h=900&fit=crop')">
-                        <div class="cat-overlay"></div>
-                        <div class="cat-inner">
-                            <div class="cat-title">GAME</div>
-                            <div class="cat-sub"><span class="cat-line"></span><span>DESIGN & AI</span><span class="cat-line"></span></div>
-                        </div>
-                    </a>
-
-                    <a href="pages/projects-novel.html" class="cat-panel anim-in" style="background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=900&fit=crop')">
-                        <div class="cat-overlay"></div>
-                        <div class="cat-inner">
-                            <div class="cat-title">NOVEL</div>
-                            <div class="cat-sub"><span class="cat-line"></span><span>CREATIVE WRITING</span><span class="cat-line"></span></div>
-                        </div>
-                    </a>
-
+                <div class="projects-header anim-in">
+                    <div class="red-bar"></div>
+                    <h2>FEATURED WORK</h2>
+                    <p>— MISSION RECORDS —</p>
+                </div>
+                <div class="projects-grid">
+                    <div class="project-card anim-in">
+                        <div class="project-img-wrap"><img src="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?w=600&h=400&fit=crop" alt="Inkura"><div class="project-overlay"></div><span class="project-num">01</span></div>
+                        <div class="project-info"><div class="project-tags"><span>Next.js</span><span>TypeScript</span><span>Prisma</span></div><h3>INKURA</h3><p>Full-stack platform for reading and uploading comics, novels, and films.</p><a href="https://www.inkura.id/" target="_blank" class="project-link">VISIT SITE →</a></div>
+                    </div>
+                    <div class="project-card anim-in">
+                        <div class="project-img-wrap"><img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=600&h=400&fit=crop" alt="Ophius"><div class="project-overlay"></div><span class="project-num">02</span></div>
+                        <div class="project-info"><div class="project-tags"><span>Three.js</span><span>React</span><span>WebGL</span></div><h3>OPHIUS STUDIO</h3><p>Game studio website with 3D galaxy interactive experience.</p><a href="https://ophius-studio.vercel.app/" target="_blank" class="project-link">VISIT SITE →</a></div>
+                    </div>
+                    <div class="project-card anim-in">
+                        <div class="project-img-wrap"><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop" alt="Sumobot"><div class="project-overlay"></div><span class="project-num">03</span></div>
+                        <div class="project-info"><div class="project-tags"><span>AI/ML</span><span>Python</span><span>IEEE</span></div><h3>SUMOBOT AI</h3><p>AI research game with paper published at IEEE ICIMCIS 2025.</p><a href="https://ieeexplore.ieee.org/document/11327013" target="_blank" class="project-link">READ PAPER →</a></div>
+                    </div>
+                </div>
+                <div class="projects-more anim-in">
+                    <a href="pages/projects.html" class="btn-pgr outline small">ALL PROJECTS →</a>
+                    <a href="pages/artwork.html" class="btn-pgr outline small">ARTWORK GALLERY →</a>
                 </div>
             </div>
         </section>
@@ -422,31 +448,19 @@
         <section class="section" id="artwork" data-index="6">
             <div class="section-bg-text">ART</div>
             <div class="section-content artwork-content">
-                <div class="pgr-wall-grid">
-                    <div class="pw-item anim-in">
-                        <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&h=320&fit=crop" alt="Art">
-                        <div class="pw-ov"></div>
-                    </div>
-                    <div class="pw-item anim-in">
-                        <img src="https://images.unsplash.com/photo-1611457194403-d3f8c5354ddc?w=400&h=320&fit=crop" alt="Art">
-                        <div class="pw-ov"></div>
-                    </div>
-                    <div class="pw-item pw-tall anim-in">
-                        <img src="https://images.unsplash.com/photo-1604076913837-52ab5629fde4?w=500&h=700&fit=crop" alt="Art">
-                        <div class="pw-ov"></div>
-                    </div>
-                    <div class="pw-item pw-tall anim-in">
-                        <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&h=700&fit=crop&fp-y=0.3" alt="Art">
-                        <div class="pw-ov"></div>
-                    </div>
-                    <div class="pw-item anim-in">
-                        <img src="https://images.unsplash.com/photo-1560807707-8cc77767d783?w=400&h=320&fit=crop" alt="Art">
-                        <div class="pw-ov"></div>
-                    </div>
-                    <div class="pw-item pw-more anim-in">
-                        <img src="https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=400&h=320&fit=crop" alt="Art">
-                        <div class="pw-ov"></div>
-                        <a href="pages/artwork.html" class="pw-more-btn">MORE ▶</a>
+                <div class="artwork-left anim-in">
+                    <div class="artwork-label"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#5b8cff" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="#5b8cff"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>CLEOPATRA</span></div>
+                    <h2 class="artwork-title">GALLERY</h2>
+                    <p class="artwork-desc">Anime-style character illustrations, concept art, and digital paintings. Explore the full collection of creative works.</p>
+                    <a href="pages/artwork.html" class="btn-pgr primary"><span class="btn-fill"></span><span class="btn-label">VIEW GALLERY</span><span class="btn-arrow">→</span></a>
+                    <div class="artwork-more">MORE ▶</div>
+                </div>
+                <div class="artwork-right">
+                    <div class="artwork-mosaic">
+                        <div class="mosaic-item large anim-in"><img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&h=800&fit=crop" alt="Art"><div class="mosaic-ov"></div></div>
+                        <div class="mosaic-item anim-in"><img src="https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=400&h=300&fit=crop" alt="Art"><div class="mosaic-ov"></div></div>
+                        <div class="mosaic-item anim-in"><img src="https://images.unsplash.com/photo-1560807707-8cc77767d783?w=400&h=300&fit=crop" alt="Art"><div class="mosaic-ov"></div></div>
+                        <div class="mosaic-item tall anim-in"><img src="https://images.unsplash.com/photo-1611457194403-d3f8c5354ddc?w=400&h=600&fit=crop" alt="Art"><div class="mosaic-ov"></div></div>
                     </div>
                 </div>
             </div>
@@ -477,19 +491,5 @@
     
 
     <script src="js/pgr-engine.js"></script>
-
-<section class="hero-ultra">
-  <div class="hero-left">
-  </div>
-  <div class="hero-right">
-    <div class="hero-image">
-      <img src="assets/cleo.png" alt="cleo">
-    </div>
-    <div class="hero-text">
-      <h1>CLEO<br>PATRA</h1>
-    </div>
-  </div>
-</section>
-
 </body>
 </html>
