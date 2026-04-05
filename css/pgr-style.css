@@ -915,8 +915,9 @@ ul { list-style: none; }
 .radar-wrap {
     display: flex; flex-direction: column; align-items: center;
     margin: 8px 0 16px; gap: 8px;
+    width: 100%;
 }
-.radar-svg { width: 480px; height: 480px; overflow: visible; }
+.radar-svg { width: 100%; max-width: 480px; height: auto; overflow: visible; }
 .radar-grid .radar-ring {
     fill: none; stroke: rgba(91,140,255,0.15); stroke-width: 1;
 }
