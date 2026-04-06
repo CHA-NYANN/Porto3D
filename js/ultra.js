@@ -1,8 +1,61 @@
 /**
  * ULTRA PREMIUM PORTFOLIO - JavaScript Engine
- * Version: 1000% ULTRA
+ * Version: 1000% ULTRA (OPTIMIZED)
  * Author: Cleopatra Hapsari Admajindra
+ * 
+ * OPTIMIZATIONS:
+ * - Throttled scroll/mousemove events
+ * - Reduced particle count & connection checks
+ * - Passive event listeners
+ * - RAF-based animations consolidated
+ * - will-change hints for animated elements
  */
+
+// ============================================
+// UTILITY FUNCTIONS (moved to top)
+// ============================================
+const Utils = {
+    lerp: (a, b, n) => (1 - n) * a + n * b,
+    clamp: (num, min, max) => Math.min(Math.max(num, min), max),
+    randomRange: (min, max) => Math.random() * (max - min) + min,
+
+    // Debounce: delays execution until pause in calls
+    debounce: (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    },
+
+    // Throttle: limits execution to once per interval
+    throttle: (func, limit) => {
+        let inThrottle;
+        return function (...args) {
+            if (!inThrottle) {
+                func.apply(this, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    },
+
+    // RAF-based throttle for smoother animations
+    rafThrottle: (func) => {
+        let rafId = null;
+        return function (...args) {
+            if (rafId) return;
+            rafId = requestAnimationFrame(() => {
+                func.apply(this, args);
+                rafId = null;
+            });
+        };
+    }
+};
 
 // ============================================
 // PRELOADER WITH ANIMATED PROGRESS
@@ -27,19 +80,19 @@ class Preloader {
     init() {
         let progress = 0;
         let msgIndex = 0;
-        
+
         const interval = setInterval(() => {
             progress += Math.random() * 15 + 5;
             if (progress > 100) progress = 100;
-            
+
             this.progress.style.width = `${progress}%`;
             this.percentage.textContent = `${Math.floor(progress)}%`;
-            
+
             if (progress > msgIndex * 20 && msgIndex < this.messages.length) {
                 this.status.textContent = this.messages[msgIndex];
                 msgIndex++;
             }
-            
+
             if (progress >= 100) {
                 clearInterval(interval);
                 setTimeout(() => this.hide(), 500);
@@ -57,7 +110,7 @@ class Preloader {
 }
 
 // ============================================
-// CUSTOM CURSOR WITH PARTICLE TRAIL
+// CUSTOM CURSOR (OPTIMIZED - reduced particles)
 // ============================================
 class CustomCursor {
     constructor() {
@@ -69,31 +122,37 @@ class CustomCursor {
         this.particles = [];
         this.mouse = { x: 0, y: 0 };
         this.cursorPos = { x: 0, y: 0 };
+        this.isRunning = false;
+        this.frameCount = 0;
         this.init();
     }
 
     init() {
         if (!this.cursor) return;
-        
+
         this.resize();
-        window.addEventListener('resize', () => this.resize());
-        
-        document.addEventListener('mousemove', (e) => {
+        window.addEventListener('resize', Utils.debounce(() => this.resize(), 200), { passive: true });
+
+        // Throttled mousemove - only update every 16ms (60fps)
+        const throttledMove = Utils.rafThrottle((e) => {
             this.mouse.x = e.clientX;
             this.mouse.y = e.clientY;
-            this.addParticle(e.clientX, e.clientY);
         });
 
-        // Hover effects
-        const interactiveElements = document.querySelectorAll('a, button, .card, .nav-link, .cta-button, .magnetic-btn');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
+        document.addEventListener('mousemove', throttledMove, { passive: true });
+
+        // Hover effects - use event delegation
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('a, button, .card, .nav-link, .cta-button, .magnetic-btn')) {
                 document.body.classList.add('cursor-hover');
-            });
-            el.addEventListener('mouseleave', () => {
+            }
+        }, { passive: true });
+
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest('a, button, .card, .nav-link, .cta-button, .magnetic-btn')) {
                 document.body.classList.remove('cursor-hover');
-            });
-        });
+            }
+        }, { passive: true });
 
         this.animate();
     }
@@ -105,6 +164,9 @@ class CustomCursor {
     }
 
     addParticle(x, y) {
+        // Reduced particle generation - only every 3rd frame
+        if (this.frameCount % 3 !== 0) return;
+        
         const colors = ['#00ffcc', '#ff00aa', '#7b2dff', '#ffcc00'];
         this.particles.push({
             x, y,
@@ -114,44 +176,57 @@ class CustomCursor {
             color: colors[Math.floor(Math.random() * colors.length)],
             size: Math.random() * 3 + 1
         });
-        
-        if (this.particles.length > 50) {
+
+        // Reduced max particles from 50 to 20
+        if (this.particles.length > 20) {
             this.particles.shift();
         }
     }
 
     animate() {
+        this.frameCount++;
+        
         // Smooth cursor follow
         this.cursorPos.x += (this.mouse.x - this.cursorPos.x) * 0.15;
         this.cursorPos.y += (this.mouse.y - this.cursorPos.y) * 0.15;
-        
-        this.cursor.style.left = `${this.cursorPos.x}px`;
-        this.cursor.style.top = `${this.cursorPos.y}px`;
-        this.cursorDot.style.left = `${this.mouse.x}px`;
-        this.cursorDot.style.top = `${this.mouse.y}px`;
+
+        // Use transform instead of left/top for better performance
+        if (this.cursor) {
+            this.cursor.style.transform = `translate(${this.cursorPos.x}px, ${this.cursorPos.y}px)`;
+        }
+        if (this.cursorDot) {
+            this.cursorDot.style.transform = `translate(${this.mouse.x}px, ${this.mouse.y}px)`;
+        }
         if (this.cursorGlow) {
-            this.cursorGlow.style.left = `${this.cursorPos.x}px`;
-            this.cursorGlow.style.top = `${this.cursorPos.y}px`;
+            this.cursorGlow.style.transform = `translate(${this.cursorPos.x}px, ${this.cursorPos.y}px)`;
         }
 
-        // Particle trail
-        if (this.ctx) {
+        // Add particle only when mouse is moving significantly
+        const dx = this.mouse.x - this.cursorPos.x;
+        const dy = this.mouse.y - this.cursorPos.y;
+        if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
+            this.addParticle(this.mouse.x, this.mouse.y);
+        }
+
+        // Particle trail - skip every other frame for performance
+        if (this.ctx && this.frameCount % 2 === 0) {
             this.ctx.clearRect(0, 0, this.trailCanvas.width, this.trailCanvas.height);
-            
-            this.particles.forEach((p, i) => {
+
+            for (let i = this.particles.length - 1; i >= 0; i--) {
+                const p = this.particles[i];
                 p.x += p.vx;
                 p.y += p.vy;
-                p.life -= 0.02;
-                
+                p.life -= 0.03; // Faster decay
+
                 if (p.life > 0) {
                     this.ctx.beginPath();
                     this.ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
                     this.ctx.fillStyle = p.color + Math.floor(p.life * 255).toString(16).padStart(2, '0');
                     this.ctx.fill();
+                } else {
+                    this.particles.splice(i, 1);
                 }
-            });
-            
-            this.particles = this.particles.filter(p => p.life > 0);
+            }
         }
 
         requestAnimationFrame(() => this.animate());
@@ -159,27 +234,30 @@ class CustomCursor {
 }
 
 // ============================================
-// PARTICLE CONSTELLATION BACKGROUND
+// PARTICLE CONSTELLATION BACKGROUND (OPTIMIZED)
 // ============================================
 class ParticleBackground {
     constructor() {
         this.canvas = document.getElementById('particles-canvas');
         if (!this.canvas) return;
-        
+
         this.ctx = this.canvas.getContext('2d');
         this.particles = [];
         this.mouse = { x: null, y: null, radius: 150 };
+        this.frameCount = 0;
         this.init();
     }
 
     init() {
         this.resize();
-        window.addEventListener('resize', () => this.resize());
-        
-        document.addEventListener('mousemove', (e) => {
+        window.addEventListener('resize', Utils.debounce(() => this.resize(), 200), { passive: true });
+
+        // Throttled mousemove
+        const throttledMove = Utils.rafThrottle((e) => {
             this.mouse.x = e.clientX;
             this.mouse.y = e.clientY;
         });
+        document.addEventListener('mousemove', throttledMove, { passive: true });
 
         this.createParticles();
         this.animate();
@@ -193,14 +271,15 @@ class ParticleBackground {
 
     createParticles() {
         this.particles = [];
-        const numberOfParticles = Math.min((this.canvas.width * this.canvas.height) / 12000, 150);
-        
+        // REDUCED from 150 to 60 max particles
+        const numberOfParticles = Math.min((this.canvas.width * this.canvas.height) / 25000, 60);
+
         for (let i = 0; i < numberOfParticles; i++) {
             this.particles.push({
                 x: Math.random() * this.canvas.width,
                 y: Math.random() * this.canvas.height,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
+                vx: (Math.random() - 0.5) * 0.3, // Slower movement
+                vy: (Math.random() - 0.5) * 0.3,
                 size: Math.random() * 2 + 0.5,
                 color: ['#00ffcc', '#ff00aa', '#7b2dff'][Math.floor(Math.random() * 3)],
                 pulse: Math.random() * Math.PI * 2
@@ -209,63 +288,81 @@ class ParticleBackground {
     }
 
     animate() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.frameCount++;
         
-        this.particles.forEach((p, i) => {
-            // Mouse interaction
-            if (this.mouse.x && this.mouse.y) {
+        // Clear canvas
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        const particleCount = this.particles.length;
+
+        for (let i = 0; i < particleCount; i++) {
+            const p = this.particles[i];
+
+            // Mouse interaction - only check every 2nd frame
+            if (this.frameCount % 2 === 0 && this.mouse.x && this.mouse.y) {
                 const dx = this.mouse.x - p.x;
                 const dy = this.mouse.y - p.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                
-                if (dist < this.mouse.radius) {
+                const distSq = dx * dx + dy * dy; // Use squared distance (avoid sqrt)
+                const radiusSq = this.mouse.radius * this.mouse.radius;
+
+                if (distSq < radiusSq) {
+                    const dist = Math.sqrt(distSq);
                     const force = (this.mouse.radius - dist) / this.mouse.radius;
                     p.x -= dx * force * 0.02;
                     p.y -= dy * force * 0.02;
                 }
             }
-            
+
             // Movement
             p.x += p.vx;
             p.y += p.vy;
-            p.pulse += 0.02;
-            
+            p.pulse += 0.015; // Slower pulse
+
             // Wrap around
             if (p.x < 0) p.x = this.canvas.width;
             if (p.x > this.canvas.width) p.x = 0;
             if (p.y < 0) p.y = this.canvas.height;
             if (p.y > this.canvas.height) p.y = 0;
-            
+
             // Draw particle with pulse
-            const pulseSize = p.size + Math.sin(p.pulse) * 0.5;
+            const pulseSize = p.size + Math.sin(p.pulse) * 0.3;
             this.ctx.beginPath();
             this.ctx.arc(p.x, p.y, pulseSize, 0, Math.PI * 2);
             this.ctx.fillStyle = p.color;
             this.ctx.fill();
-            
-            // Connect nearby particles
-            this.particles.slice(i + 1).forEach(p2 => {
-                const dx = p.x - p2.x;
-                const dy = p.y - p2.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                
-                if (dist < 120) {
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(p.x, p.y);
-                    this.ctx.lineTo(p2.x, p2.y);
-                    this.ctx.strokeStyle = `rgba(0, 255, 204, ${0.15 * (1 - dist / 120)})`;
-                    this.ctx.lineWidth = 0.5;
-                    this.ctx.stroke();
+
+            // Connect nearby particles - OPTIMIZED
+            // Only check particles ahead (avoid double connections)
+            // Only check every 3rd frame and limit connection distance
+            if (this.frameCount % 3 === 0 && i < particleCount - 1) {
+                // Only check next 10 particles instead of all
+                const checkLimit = Math.min(i + 10, particleCount);
+                for (let j = i + 1; j < checkLimit; j++) {
+                    const p2 = this.particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const distSq = dx * dx + dy * dy;
+
+                    // Reduced connection distance from 120 to 80
+                    if (distSq < 6400) { // 80^2 = 6400
+                        const dist = Math.sqrt(distSq);
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(p.x, p.y);
+                        this.ctx.lineTo(p2.x, p2.y);
+                        this.ctx.strokeStyle = `rgba(0, 255, 204, ${0.1 * (1 - dist / 80)})`;
+                        this.ctx.lineWidth = 0.5;
+                        this.ctx.stroke();
+                    }
                 }
-            });
-        });
+            }
+        }
 
         requestAnimationFrame(() => this.animate());
     }
 }
 
 // ============================================
-// NAVIGATION
+// NAVIGATION (OPTIMIZED with throttle)
 // ============================================
 class Navigation {
     constructor() {
@@ -278,18 +375,20 @@ class Navigation {
     }
 
     init() {
-        // Scroll behavior
-        window.addEventListener('scroll', () => {
+        // Throttled scroll - 100ms interval
+        const throttledScroll = Utils.throttle(() => {
             const currentScroll = window.pageYOffset;
-            
+
             if (currentScroll > 100) {
                 this.nav.classList.add('scrolled');
             } else {
                 this.nav.classList.remove('scrolled');
             }
-            
+
             this.lastScroll = currentScroll;
-        });
+        }, 100);
+
+        window.addEventListener('scroll', throttledScroll, { passive: true });
 
         // Mobile menu
         const mobileMenu = document.getElementById('mobileMenu');
@@ -319,7 +418,7 @@ class Navigation {
             });
         });
 
-        // Smooth scroll
+        // Smooth scroll - use native behavior
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -347,7 +446,7 @@ class RoleCarousel {
 
     init() {
         if (this.roles.length === 0) return;
-        
+
         setInterval(() => {
             this.roles[this.currentIndex].classList.remove('active');
             this.currentIndex = (this.currentIndex + 1) % this.roles.length;
@@ -388,13 +487,13 @@ class CountUp {
         const update = (currentTime) => {
             const elapsed = currentTime - start;
             const progress = Math.min(elapsed / duration, 1);
-            
+
             // Easing function
             const easeOut = 1 - Math.pow(1 - progress, 3);
             const current = Math.floor(target * easeOut);
-            
+
             element.textContent = current + suffix;
-            
+
             if (progress < 1) {
                 requestAnimationFrame(update);
             }
@@ -405,7 +504,7 @@ class CountUp {
 }
 
 // ============================================
-// SCROLL ANIMATIONS
+// SCROLL ANIMATIONS (uses IntersectionObserver - already efficient)
 // ============================================
 class ScrollAnimations {
     constructor() {
@@ -418,6 +517,7 @@ class ScrollAnimations {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Stop observing once visible
                 }
             });
         }, {
@@ -444,6 +544,7 @@ class SkillBars {
                 if (entry.isIntersecting) {
                     const width = entry.target.dataset.progress;
                     entry.target.style.width = width + '%';
+                    observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
@@ -453,7 +554,7 @@ class SkillBars {
 }
 
 // ============================================
-// TIMELINE PROGRESS
+// TIMELINE PROGRESS (OPTIMIZED with throttle)
 // ============================================
 class TimelineProgress {
     constructor() {
@@ -465,23 +566,26 @@ class TimelineProgress {
     init() {
         if (!this.progress || !this.timeline) return;
 
-        window.addEventListener('scroll', () => {
+        // Throttled scroll - 50ms interval
+        const throttledScroll = Utils.throttle(() => {
             const rect = this.timeline.getBoundingClientRect();
             const timelineHeight = this.timeline.offsetHeight;
             const windowHeight = window.innerHeight;
-            
+
             let progress = 0;
             if (rect.top < windowHeight && rect.bottom > 0) {
                 progress = Math.min(Math.max((windowHeight - rect.top) / (timelineHeight + windowHeight) * 100, 0), 100);
             }
-            
+
             this.progress.style.height = `${progress}%`;
-        });
+        }, 50);
+
+        window.addEventListener('scroll', throttledScroll, { passive: true });
     }
 }
 
 // ============================================
-// MAGNETIC BUTTONS
+// MAGNETIC BUTTONS (OPTIMIZED)
 // ============================================
 class MagneticButtons {
     constructor() {
@@ -491,23 +595,26 @@ class MagneticButtons {
 
     init() {
         this.buttons.forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
+            // Use RAF throttle for smoother animation
+            const handleMove = Utils.rafThrottle((e) => {
                 const rect = btn.getBoundingClientRect();
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
-                
+
                 btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
             });
 
+            btn.addEventListener('mousemove', handleMove, { passive: true });
+
             btn.addEventListener('mouseleave', () => {
                 btn.style.transform = 'translate(0, 0)';
-            });
+            }, { passive: true });
         });
     }
 }
 
 // ============================================
-// 3D TILT EFFECT
+// 3D TILT EFFECT (OPTIMIZED)
 // ============================================
 class TiltEffect {
     constructor() {
@@ -525,9 +632,9 @@ class TiltEffect {
                 scale: 1.02
             });
         } else {
-            // Fallback tilt effect
+            // Fallback tilt effect with RAF throttle
             this.cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
+                const handleMove = Utils.rafThrottle((e) => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
@@ -535,20 +642,22 @@ class TiltEffect {
                     const centerY = rect.height / 2;
                     const rotateX = (y - centerY) / 10;
                     const rotateY = (centerX - x) / 10;
-                    
+
                     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
                 });
 
+                card.addEventListener('mousemove', handleMove, { passive: true });
+
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-                });
+                }, { passive: true });
             });
         }
     }
 }
 
 // ============================================
-// CARD GLOW EFFECT
+// CARD GLOW EFFECT (already efficient - uses CSS variables)
 // ============================================
 class CardGlow {
     constructor() {
@@ -558,14 +667,16 @@ class CardGlow {
 
     init() {
         this.cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
+            const handleMove = Utils.rafThrottle((e) => {
                 const rect = card.getBoundingClientRect();
                 const x = ((e.clientX - rect.left) / rect.width) * 100;
                 const y = ((e.clientY - rect.top) / rect.height) * 100;
-                
+
                 card.style.setProperty('--mouse-x', `${x}%`);
                 card.style.setProperty('--mouse-y', `${y}%`);
             });
+
+            card.addEventListener('mousemove', handleMove, { passive: true });
         });
     }
 }
@@ -585,7 +696,7 @@ class TextScramble {
         const length = Math.max(oldText.length, newText.length);
         const promise = new Promise(resolve => this.resolve = resolve);
         this.queue = [];
-        
+
         for (let i = 0; i < length; i++) {
             const from = oldText[i] || '';
             const to = newText[i] || '';
@@ -593,7 +704,7 @@ class TextScramble {
             const end = start + Math.floor(Math.random() * 40);
             this.queue.push({ from, to, start, end });
         }
-        
+
         cancelAnimationFrame(this.frameRequest);
         this.frame = 0;
         this.update();
@@ -603,10 +714,10 @@ class TextScramble {
     update() {
         let output = '';
         let complete = 0;
-        
+
         for (let i = 0, n = this.queue.length; i < n; i++) {
             let { from, to, start, end, char } = this.queue[i];
-            
+
             if (this.frame >= end) {
                 complete++;
                 output += to;
@@ -620,9 +731,9 @@ class TextScramble {
                 output += from;
             }
         }
-        
+
         this.el.innerHTML = output;
-        
+
         if (complete === this.queue.length) {
             this.resolve();
         } else {
@@ -633,19 +744,20 @@ class TextScramble {
 }
 
 // ============================================
-// DATA STREAM EFFECT
+// DATA STREAM EFFECT (OPTIMIZED - fewer columns)
 // ============================================
 class DataStream {
     constructor() {
         this.container = document.querySelector('.data-stream');
         if (!this.container) return;
-        
+
         this.chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
         this.init();
     }
 
     init() {
-        for (let i = 0; i < 20; i++) {
+        // Reduced from 20 to 10 columns
+        for (let i = 0; i < 10; i++) {
             this.createColumn();
         }
     }
@@ -656,15 +768,15 @@ class DataStream {
         column.style.left = Math.random() * 100 + '%';
         column.style.animationDuration = (Math.random() * 3 + 2) + 's';
         column.style.animationDelay = Math.random() * 2 + 's';
-        
+
         let text = '';
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 15; i++) { // Reduced from 20 to 15
             text += this.chars[Math.floor(Math.random() * this.chars.length)] + '<br>';
         }
         column.innerHTML = text;
-        
+
         this.container.appendChild(column);
-        
+
         // Remove and recreate
         setTimeout(() => {
             column.remove();
@@ -674,7 +786,7 @@ class DataStream {
 }
 
 // ============================================
-// PARALLAX FLOATING ELEMENTS
+// PARALLAX FLOATING ELEMENTS (OPTIMIZED)
 // ============================================
 class ParallaxFloat {
     constructor() {
@@ -683,10 +795,11 @@ class ParallaxFloat {
     }
 
     init() {
-        window.addEventListener('mousemove', (e) => {
+        // Throttled mousemove
+        const handleMove = Utils.rafThrottle((e) => {
             const mouseX = e.clientX / window.innerWidth - 0.5;
             const mouseY = e.clientY / window.innerHeight - 0.5;
-            
+
             this.elements.forEach(el => {
                 const speed = el.dataset.speed || 20;
                 const x = mouseX * speed;
@@ -694,6 +807,8 @@ class ParallaxFloat {
                 el.style.transform = `translate(${x}px, ${y}px)`;
             });
         });
+
+        window.addEventListener('mousemove', handleMove, { passive: true });
     }
 }
 
@@ -711,13 +826,15 @@ class SmoothReveal {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('section-visible');
-                    
+
                     // Stagger children animations
                     const children = entry.target.querySelectorAll('.stagger-item');
                     children.forEach((child, i) => {
                         child.style.animationDelay = `${i * 0.1}s`;
                         child.classList.add('stagger-visible');
                     });
+
+                    observer.unobserve(entry.target); // Stop observing once visible
                 }
             });
         }, { threshold: 0.1 });
@@ -746,7 +863,7 @@ class TypingEffect {
 
     type() {
         const currentText = this.texts[this.textIndex];
-        
+
         if (this.isDeleting) {
             this.element.textContent = currentText.substring(0, this.charIndex - 1);
             this.charIndex--;
@@ -803,7 +920,7 @@ class AudioVisualizer {
 // INITIALIZE EVERYTHING
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
-    const safe = (fn) => { try { fn(); } catch(e) { console.warn('Init error:', e); } };
+    const safe = (fn) => { try { fn(); } catch (e) { console.warn('Init error:', e); } };
 
     // Core systems
     safe(() => new Preloader());
@@ -851,7 +968,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Audio visualizer
     safe(() => new AudioVisualizer());
 
-    // Reveal animations for .anim-reveal elements — threshold 0 agar langsung trigger
+    // Reveal animations for .anim-reveal elements
     const animRevealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -862,43 +979,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0 });
     document.querySelectorAll('.anim-reveal').forEach(el => animRevealObserver.observe(el));
 
-    console.log('%c⬡ ULTRA PORTFOLIO LOADED ⬡', 'color: #00ffcc; font-size: 20px; font-weight: bold;');
+    console.log('%c⬡ ULTRA PORTFOLIO LOADED (OPTIMIZED) ⬡', 'color: #00ffcc; font-size: 20px; font-weight: bold;');
     console.log('%cDesigned by Cleopatra Hapsari Admajindra', 'color: #ff00aa; font-size: 12px;');
 });
-
-// ============================================
-// UTILITY FUNCTIONS
-// ============================================
-const Utils = {
-    lerp: (a, b, n) => (1 - n) * a + n * b,
-    
-    clamp: (num, min, max) => Math.min(Math.max(num, min), max),
-    
-    randomRange: (min, max) => Math.random() * (max - min) + min,
-    
-    debounce: (func, wait) => {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    },
-    
-    throttle: (func, limit) => {
-        let inThrottle;
-        return function(...args) {
-            if (!inThrottle) {
-                func.apply(this, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    }
-};
 
 // Export for module usage
 if (typeof module !== 'undefined' && module.exports) {

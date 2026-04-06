@@ -35,6 +35,27 @@ body {
     cursor: none;
 }
 
+/* Performance optimizations */
+.cursor, .cursor-outline, .cursor-dot, .cursor-glow {
+    will-change: transform;
+    pointer-events: none;
+    /* Use transform positioning instead of left/top */
+    left: 0 !important;
+    top: 0 !important;
+}
+
+#particles-canvas, #cursor-trail {
+    will-change: contents;
+}
+
+.nav {
+    will-change: transform, background-color;
+}
+
+section {
+    will-change: opacity, transform;
+}
+
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-dark); }
 ::-webkit-scrollbar-thumb {
