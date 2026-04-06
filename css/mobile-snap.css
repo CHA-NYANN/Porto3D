@@ -135,88 +135,133 @@
     }
 
     /* ---- DATA SECTION (Character Profile) ---- */
+    /* Mobile layout: FOTO → NAMA → RADAR (vertical scroll) */
     #data {
         display: flex;
         flex-direction: column;
+        padding: 0 !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
     }
+    #data::-webkit-scrollbar {
+        display: none;
+    }
+    
+    /* Hide desktop-only elements */
+    #data .data-rays {
+        display: none;
+    }
+    #data .section-bg-text {
+        display: none;
+    }
+    
+    /* Reset section-content to not interfere */
     #data .section-content.data-content {
-        height: 100%;
-        max-height: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 60px 0 20px;
-        overflow: hidden;
+        position: static !important;
+        display: contents; /* Anak-anaknya langsung jadi child dari section */
     }
     
-    /* Data section layout for mobile - stack vertically */
-    .data-left {
-        position: absolute;
-        top: 60px;
-        left: 10px;
-        width: 120px;
-        z-index: 10;
-    }
-    .radar-wrap {
+    /* ====== FOTO - paling atas ====== */
+    #data .data-center {
+        position: relative !important;
+        order: 1;
         width: 100%;
-    }
-    .radar-svg {
-        width: 100%;
-        height: auto;
-    }
-    
-    .data-center {
-        position: relative;
-        flex: 1;
+        min-height: 50vh;
         display: flex;
-        align-items: flex-end;
         justify-content: center;
-        overflow: hidden;
+        align-items: center;
+        padding: 70px 20px 20px;
+        flex-shrink: 0;
     }
     .data-img-wrap {
-        height: 70%;
-        max-height: 400px;
+        width: 100%;
+        max-width: 260px;
+        height: auto;
     }
     .data-img {
-        height: 100%;
-        width: auto;
+        width: 100%;
+        height: auto;
         object-fit: contain;
+        max-height: 45vh;
+    }
+    .data-img-glow,
+    .data-img-line-bottom {
+        display: none;
     }
     
-    .data-right {
-        position: absolute;
-        bottom: 20px;
-        left: 0;
-        right: 0;
-        padding: 0 16px;
-        z-index: 10;
+    /* ====== NAMA BESAR + CV INTRO ====== */
+    #data .data-right {
+        position: relative !important;
+        order: 2;
+        width: 100%;
+        padding: 0 20px;
+        margin-bottom: 24px;
+        flex-shrink: 0;
+        text-align: center;
     }
     .data-corner-tag {
         display: none;
     }
     .data-cv-block {
-        background: rgba(0,0,0,0.7);
-        padding: 12px;
-        border-radius: 4px;
+        background: rgba(8, 8, 22, 0.8);
+        border: 1px solid rgba(91, 140, 255, 0.3);
+        padding: 12px 16px;
+        margin-bottom: 16px;
     }
-    .giant-name {
-        font-size: 28px !important;
-        line-height: 1.1;
+    .data-cv-top {
+        margin-bottom: 4px;
     }
-    .data-tagline {
+    .data-cv-label {
+        font-size: 16px !important;
+        letter-spacing: 0.2em;
+    }
+    .data-cv-sub {
         font-size: 11px;
     }
-    .cv-intro-block {
-        margin-top: 8px;
-    }
-    .cv-label {
+    .data-cv-sub span {
         font-size: 10px;
     }
-    .data-intro-text {
-        font-size: 12px;
-        line-height: 1.4;
+    #data .data-giant-name {
+        font-size: 56px !important;
+        line-height: 0.95;
+        text-align: center;
+        margin: 0;
+        letter-spacing: 0.05em;
     }
-    .data-file-marker {
-        display: none;
+    .data-giant-footer {
+        margin-top: 16px;
+        font-size: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    
+    /* ====== RADAR CHART - paling bawah ====== */
+    #data .data-left {
+        position: relative !important;
+        order: 3;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-shrink: 0;
+        padding: 10px 20px 100px; /* Extra padding bottom for HUD */
+    }
+    .radar-wrap {
+        width: 220px;
+        max-width: 220px;
+    }
+    .radar-svg {
+        width: 100%;
+        height: auto;
+    }
+    .radar-label {
+        font-size: 9px !important;
+    }
+    .radar-rank {
+        font-size: 11px !important;
     }
 
     /* ---- SKILLS SECTION ---- */
