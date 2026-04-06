@@ -1,0 +1,532 @@
+/* =====================================================
+   MOBILE FULLSCREEN SECTIONS - PGR Style
+   Setiap section = 1 layar penuh
+   Konten panjang = inner scroll di dalam section
+   ===================================================== */
+
+/* Hanya berlaku untuk mobile */
+@media (max-width: 768px) {
+    
+    /* ---- ROOT SETUP ---- */
+    html, body {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    /* ---- SECTIONS WRAPPER ---- */
+    .sections-wrapper {
+        position: fixed;
+        inset: 0;
+        overflow-y: auto;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* ---- SECTION BASE ---- */
+    .section {
+        width: 100%;
+        height: 100vh;
+        height: 100dvh; /* Dynamic viewport height for mobile browsers */
+        min-height: 100vh;
+        min-height: 100dvh;
+        max-height: 100vh;
+        max-height: 100dvh;
+        
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        
+        padding: 0 !important;
+        overflow: hidden;
+    }
+
+    /* ---- SECTION CONTENT (inner scrollable area) ---- */
+    .section-content {
+        flex: 1;
+        width: 100%;
+        max-width: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        
+        /* Padding inside the scrollable area */
+        padding: 70px 16px 80px;
+        
+        /* Hide scrollbar but keep functionality */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .section-content::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* ---- HOME SECTION (special - no inner scroll needed) ---- */
+    #home {
+        padding: 0 !important;
+    }
+    #home .home-bg-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    #home .home-socials {
+        position: absolute;
+        top: auto;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    /* ---- ABOUT SECTION ---- */
+    #about .section-content.about-content {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .about-left, .about-right {
+        width: 100%;
+    }
+    .about-left {
+        padding-left: 16px;
+    }
+    .about-title {
+        font-size: 24px !important;
+        line-height: 1.2;
+    }
+    .about-desc {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+    .about-meta {
+        font-size: 12px;
+    }
+    .about-meta span {
+        display: block;
+        margin-bottom: 6px;
+    }
+    .about-counter {
+        margin-top: 16px;
+    }
+    .about-achievements {
+        margin-bottom: 16px;
+    }
+    .ach-title {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+    .ach-item {
+        padding: 10px;
+        margin-bottom: 8px;
+    }
+    .ach-name {
+        font-size: 13px;
+    }
+    .ach-sub {
+        font-size: 11px;
+    }
+    .about-terminal {
+        font-size: 12px;
+    }
+
+    /* ---- DATA SECTION (Character Profile) ---- */
+    #data {
+        display: flex;
+        flex-direction: column;
+    }
+    #data .section-content.data-content {
+        height: 100%;
+        max-height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 60px 0 20px;
+        overflow: hidden;
+    }
+    
+    /* Data section layout for mobile - stack vertically */
+    .data-left {
+        position: absolute;
+        top: 60px;
+        left: 10px;
+        width: 120px;
+        z-index: 10;
+    }
+    .radar-wrap {
+        width: 100%;
+    }
+    .radar-svg {
+        width: 100%;
+        height: auto;
+    }
+    
+    .data-center {
+        position: relative;
+        flex: 1;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .data-img-wrap {
+        height: 70%;
+        max-height: 400px;
+    }
+    .data-img {
+        height: 100%;
+        width: auto;
+        object-fit: contain;
+    }
+    
+    .data-right {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        padding: 0 16px;
+        z-index: 10;
+    }
+    .data-corner-tag {
+        display: none;
+    }
+    .data-cv-block {
+        background: rgba(0,0,0,0.7);
+        padding: 12px;
+        border-radius: 4px;
+    }
+    .giant-name {
+        font-size: 28px !important;
+        line-height: 1.1;
+    }
+    .data-tagline {
+        font-size: 11px;
+    }
+    .cv-intro-block {
+        margin-top: 8px;
+    }
+    .cv-label {
+        font-size: 10px;
+    }
+    .data-intro-text {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+    .data-file-marker {
+        display: none;
+    }
+
+    /* ---- SKILLS SECTION ---- */
+    #skills .section-content {
+        padding-top: 70px;
+    }
+    .skills-header {
+        margin-bottom: 20px;
+    }
+    .skills-title {
+        font-size: 20px;
+    }
+    .skills-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .skill-card {
+        padding: 16px;
+    }
+    .skill-name {
+        font-size: 14px;
+    }
+    .skill-bar-fill {
+        height: 4px;
+    }
+
+    /* ---- EXPERIENCE SECTION ---- */
+    #experience .section-content {
+        padding-top: 70px;
+    }
+    .exp-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    .exp-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .exp-card {
+        padding: 16px;
+    }
+    .exp-year {
+        font-size: 12px;
+    }
+    .exp-role {
+        font-size: 15px;
+    }
+    .exp-company {
+        font-size: 13px;
+    }
+    .exp-desc {
+        font-size: 12px;
+    }
+
+    /* ---- PROJECTS SECTION ---- */
+    #projects .section-content {
+        padding-top: 70px;
+    }
+    .projects-header {
+        margin-bottom: 20px;
+    }
+    .projects-title {
+        font-size: 20px;
+    }
+    .projects-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .project-card {
+        padding: 16px;
+    }
+    .project-title {
+        font-size: 15px;
+    }
+    .project-desc {
+        font-size: 12px;
+    }
+
+    /* ---- ARTWORK SECTION ---- */
+    #artwork .section-content {
+        padding-top: 70px;
+    }
+    .artwork-header {
+        margin-bottom: 16px;
+    }
+    .artwork-title {
+        font-size: 20px;
+    }
+    /* Gallery grid - 2 columns compact */
+    .artwork-mosaic,
+    .pgr-wall-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        height: auto;
+    }
+    .mosaic-item,
+    .pw-item {
+        height: 120px;
+        grid-column: auto !important;
+        grid-row: auto !important;
+    }
+    .mosaic-item.large,
+    .mosaic-item.tall {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    /* ---- CONTACT SECTION ---- */
+    #contact .section-content {
+        padding-top: 70px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .contact-title {
+        font-size: 24px;
+        text-align: center;
+    }
+    .contact-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .contact-card {
+        padding: 16px;
+    }
+    .contact-form {
+        margin-top: 16px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+        font-size: 14px;
+        padding: 12px;
+    }
+    .contact-form textarea {
+        min-height: 100px;
+    }
+
+    /* ---- HUD ADJUSTMENTS ---- */
+    .hud-top {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: linear-gradient(to bottom, rgba(8,8,22,0.95) 0%, rgba(8,8,22,0.8) 70%, transparent 100%);
+        padding-bottom: 20px;
+    }
+    .hud-top-content {
+        padding: 12px 16px 0;
+    }
+    .hud-title {
+        font-size: 14px;
+    }
+    .hud-top-left,
+    .hud-top-right {
+        display: none;
+    }
+
+    .hud-bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: linear-gradient(to top, rgba(8,8,22,0.95) 0%, rgba(8,8,22,0.8) 70%, transparent 100%);
+        padding-top: 20px;
+    }
+    .hud-bottom-content {
+        padding: 0 16px 12px;
+        font-size: 10px;
+    }
+
+    /* ---- HIDE DESKTOP ELEMENTS ---- */
+    .scroll-hint,
+    .side-nav {
+        display: none !important;
+    }
+
+    /* ---- HAMBURGER MENU ---- */
+    .hamburger {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 200;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        background: rgba(0,0,0,0.5);
+        border: 1px solid rgba(91,140,255,0.3);
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .hamburger span {
+        width: 18px;
+        height: 2px;
+        background: var(--red);
+        transition: all 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ---- MOBILE MENU OVERLAY ---- */
+    .mobile-menu {
+        position: fixed;
+        inset: 0;
+        z-index: 150;
+        background: rgba(8,8,22,0.98);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+    .mobile-menu.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    .mobile-menu a {
+        font-family: var(--font-display);
+        font-size: 20px;
+        color: var(--text);
+        padding: 12px 24px;
+        border: 1px solid transparent;
+        transition: all 0.3s ease;
+    }
+    .mobile-menu a:hover,
+    .mobile-menu a.active {
+        color: var(--red);
+        border-color: var(--red);
+    }
+
+    /* ---- SECTION INDICATORS (like PGR dots on right side) ---- */
+    .section-indicator {
+        position: fixed;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .section-indicator-dot {
+        width: 10px;
+        height: 10px;
+        border: 1px solid rgba(91, 140, 255, 0.4);
+        border-radius: 50%;
+        background: transparent;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .section-indicator-dot.active {
+        background: var(--red);
+        border-color: var(--red);
+        box-shadow: 0 0 10px rgba(91, 140, 255, 0.6);
+        transform: scale(1.2);
+    }
+
+    /* ---- BACKGROUND TEXT ---- */
+    .section-bg-text {
+        font-size: 80px !important;
+        opacity: 0.015;
+    }
+
+    /* ---- SMOOTH TRANSITIONS ---- */
+    .section,
+    .section-content {
+        transition: none; /* Prevent janky scroll */
+    }
+
+    /* ---- FIX FOR iOS SAFARI ---- */
+    @supports (-webkit-touch-callout: none) {
+        .section {
+            height: -webkit-fill-available;
+            min-height: -webkit-fill-available;
+        }
+    }
+}
+
+/* ---- EXTRA SMALL SCREENS ---- */
+@media (max-width: 380px) {
+    .giant-name {
+        font-size: 22px !important;
+    }
+    .about-title {
+        font-size: 20px !important;
+    }
+    .data-img-wrap {
+        max-height: 300px;
+    }
+    .radar-wrap {
+        width: 100px;
+    }
+}

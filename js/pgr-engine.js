@@ -246,30 +246,95 @@
     }
 
     // ============================================
-    // HAMBURGER
+    // HAMBURGER & MOBILE MENU
     // ============================================
     function initHamburger() {
         var btn = document.getElementById('hamburger');
         var nav = document.querySelector('.side-nav-links');
         var sideNav = document.querySelector('.side-nav');
-        if (!btn || !nav) return;
+        var mobileMenu = document.getElementById('mobileMenu');
+        var mobileLinks = document.querySelectorAll('.mobile-link');
+        var wrapper = document.getElementById('sectionsWrapper');
+        var sections = document.querySelectorAll('.section');
+        var indicatorDots = document.querySelectorAll('.section-indicator-dot');
+        
+        if (!btn) return;
 
         function closeNav() {
-            nav.classList.remove('open');
+            if (nav) nav.classList.remove('open');
             btn.classList.remove('active');
             if (sideNav) sideNav.classList.remove('nav-open');
+            if (mobileMenu) mobileMenu.classList.remove('active');
         }
 
+        function goToSection(idx) {
+            if (!wrapper || !sections[idx]) return;
+            wrapper.scrollTo({ top: sections[idx].offsetTop, behavior: 'smooth' });
+        }
+
+        function updateIndicator(idx) {
+            for (var i = 0; i < indicatorDots.length; i++) {
+                if (i === idx) indicatorDots[i].classList.add('active');
+                else indicatorDots[i].classList.remove('active');
+            }
+            // Update mobile menu active state
+            for (var j = 0; j < mobileLinks.length; j++) {
+                if (j === idx) mobileLinks[j].classList.add('active');
+                else mobileLinks[j].classList.remove('active');
+            }
+        }
+
+        // Hamburger click - toggle mobile menu
         btn.addEventListener('click', function() {
-            var isOpen = nav.classList.toggle('open');
-            btn.classList.toggle('active');
+            var isOpen = btn.classList.toggle('active');
+            if (nav) nav.classList.toggle('open');
             if (sideNav) sideNav.classList.toggle('nav-open');
+            if (mobileMenu) mobileMenu.classList.toggle('active');
         });
 
-        // Close nav when clicking the scrim (outside panel)
+        // Mobile menu link clicks
+        for (var i = 0; i < mobileLinks.length; i++) {
+            (function(link, idx) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    closeNav();
+                    goToSection(idx);
+                });
+            })(mobileLinks[i], i);
+        }
+
+        // Section indicator dot clicks
+        for (var i = 0; i < indicatorDots.length; i++) {
+            (function(dot, idx) {
+                dot.addEventListener('click', function() {
+                    goToSection(idx);
+                });
+            })(indicatorDots[i], i);
+        }
+
+        // Update indicator on scroll
+        if (wrapper && sections.length > 0) {
+            wrapper.addEventListener('scroll', function() {
+                var scrollTop = wrapper.scrollTop;
+                var winH = wrapper.clientHeight;
+                for (var i = 0; i < sections.length; i++) {
+                    var top = sections[i].offsetTop;
+                    var h = sections[i].offsetHeight;
+                    if (scrollTop >= top - winH * 0.45 && scrollTop < top + h - winH * 0.45) {
+                        updateIndicator(i);
+                        break;
+                    }
+                }
+            }, { passive: true });
+        }
+
+        // Close nav when clicking outside
         document.addEventListener('click', function(e) {
-            if (nav.classList.contains('open') &&
-                !nav.contains(e.target) &&
+            var menuOpen = (mobileMenu && mobileMenu.classList.contains('active')) || 
+                           (nav && nav.classList.contains('open'));
+            if (menuOpen &&
+                !e.target.closest('.mobile-menu') &&
+                !e.target.closest('.side-nav-links') &&
                 e.target !== btn &&
                 !btn.contains(e.target)) {
                 closeNav();
